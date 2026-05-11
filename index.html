@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard de Produtividade (D3.js)</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div>
+        <h1>Dashboard de Produtividade da Equipe</h1>
+        <p class="subtitle">
+          Gráficos estáticos usando <strong>D3.js</strong> para visualização
+          rápida.
+        </p>
+      </div>
+
+      <div class="meta">
+        <div class="meta-card">
+          <div class="meta-label">Período</div>
+          <div class="meta-value" id="periodo">Últimos 30 dias</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Atualização</div>
+          <div class="meta-value" id="atualizado">—</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="grid">
+      <!-- Card 1: Comits por integrante (bar chart) -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Comits por integrante</h2>
+          <span class="card-hint">Ordenado do maior para o menor</span>
+        </div>
+        <div class="chart" id="chart-comits"></div>
+        <div class="legend" id="legend-comits"></div>
+      </section>
+
+      <!-- Card 2: Produtividade semanal (line chart) -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Produtividade semanal</h2>
+          <span class="card-hint">Tendência da equipe</span>
+        </div>
+        <div class="chart" id="chart-semana"></div>
+      </section>
+
+      <!-- Card 3: Distribuição (donut chart) -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Distribuição de tarefas</h2>
+          <span class="card-hint">Ex.: commits/PRs/tickets</span>
+        </div>
+        <div class="chart donut-wrap" id="chart-distribuicao"></div>
+        <div class="legend" id="legend-distribuicao"></div>
+      </section>
+
+      <!-- Card 4: Matriz / Heatmap simples -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Heatmap de atividade</h2>
+          <span class="card-hint">Dia da semana × semanas</span>
+        </div>
+        <div class="chart" id="chart-heatmap"></div>
+        <div class="heatmap-footer">Quanto mais escuro, maior a atividade.</div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span
+        >Dados de exemplo (mock). Edite em <code>script.js</code> para usar seus
+        números reais.</span
+      >
+    </footer>
+
+    <!-- D3.js (v7) -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
