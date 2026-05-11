@@ -1,3 +1,325 @@
+# Prompt (HTML + CSS + JS) para página estática com gráficos de produtividade (D3.js)
+
+Copie/cole os arquivos abaixo (index.html, style.css, script.js) no projeto e abra o **index.html** no navegador.
+
+---
+
+## ✅ index.html
+
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard de Produtividade (D3.js)</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div>
+        <h1>Dashboard de Produtividade da Equipe</h1>
+        <p class="subtitle">
+          Gráficos estáticos usando <strong>D3.js</strong> para visualização
+          rápida.
+        </p>
+      </div>
+
+      <div class="meta">
+        <div class="meta-card">
+          <div class="meta-label">Período</div>
+          <div class="meta-value" id="periodo">Últimos 30 dias</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Atualização</div>
+          <div class="meta-value" id="atualizado">—</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="grid">
+      <!-- Card 1: Comits por integrante (bar chart) -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Comits por integrante</h2>
+          <span class="card-hint">Ordenado do maior para o menor</span>
+        </div>
+        <div class="chart" id="chart-comits"></div>
+        <div class="legend" id="legend-comits"></div>
+      </section>
+
+      <!-- Card 2: Produtividade semanal (line chart) -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Produtividade semanal</h2>
+          <span class="card-hint">Tendência da equipe</span>
+        </div>
+        <div class="chart" id="chart-semana"></div>
+      </section>
+
+      <!-- Card 3: Distribuição (donut chart) -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Distribuição de tarefas</h2>
+          <span class="card-hint">Ex.: commits/PRs/tickets</span>
+        </div>
+        <div class="chart donut-wrap" id="chart-distribuicao"></div>
+        <div class="legend" id="legend-distribuicao"></div>
+      </section>
+
+      <!-- Card 4: Matriz / Heatmap simples -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Heatmap de atividade</h2>
+          <span class="card-hint">Dia da semana × semanas</span>
+        </div>
+        <div class="chart" id="chart-heatmap"></div>
+        <div class="heatmap-footer">Quanto mais escuro, maior a atividade.</div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span
+        >Dados de exemplo (mock). Edite em <code>script.js</code> para usar seus
+        números reais.</span
+      >
+    </footer>
+
+    <!-- D3.js (v7) -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
+```
+
+---
+
+## ✅ style.css
+
+```css
+:root {
+  --bg: #0b1220;
+  --card: rgba(255, 255, 255, 0.06);
+  --card2: rgba(255, 255, 255, 0.09);
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.68);
+  --grid: rgba(255, 255, 255, 0.08);
+  --accent: #6ee7ff;
+  --accent2: #a78bfa;
+  --good: #34d399;
+  --warn: #fbbf24;
+  --bad: #fb7185;
+
+  --radius: 16px;
+  --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial;
+  background:
+    radial-gradient(
+      1200px 600px at 20% 0%,
+      rgba(110, 231, 255, 0.18),
+      transparent 55%
+    ),
+    radial-gradient(
+      1000px 520px at 90% 20%,
+      rgba(167, 139, 250, 0.16),
+      transparent 50%
+    ),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.header {
+  padding: 28px 22px 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+  letter-spacing: 0.2px;
+}
+
+.subtitle {
+  margin: 8px 0 0;
+  color: var(--muted);
+  max-width: 720px;
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  min-width: 280px;
+}
+
+.meta-card {
+  background: var(--card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.meta-label {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.meta-value {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 22px 28px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 14px;
+}
+
+.card {
+  grid-column: span 6;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.04)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px 14px 12px;
+  overflow: hidden;
+}
+
+.card:nth-child(1) {
+  grid-column: span 6;
+}
+.card:nth-child(2) {
+  grid-column: span 6;
+}
+.card:nth-child(3) {
+  grid-column: span 6;
+}
+.card:nth-child(4) {
+  grid-column: span 6;
+}
+
+.card-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.card-hint {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.chart {
+  width: 100%;
+  height: 320px;
+  background: rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  position: relative;
+}
+
+.donut-wrap {
+  height: 320px;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  padding: 10px 2px 2px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--accent);
+  display: inline-block;
+}
+
+.heatmap-footer {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px 22px 24px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+code {
+  padding: 2px 6px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 980px) {
+  .card {
+    grid-column: span 12;
+  }
+  .meta {
+    min-width: auto;
+  }
+}
+```
+
+---
+
+## ✅ script.js
+
+```js
+// ==============================
+// Mock data (edite conforme necessário)
+// ==============================
 const dadosComits = [
   { nome: "Ana", valor: 128, cor: "#6ee7ff" },
   { nome: "Bruno", valor: 96, cor: "#a78bfa" },
@@ -458,3 +780,20 @@ window.addEventListener("resize", () => {
   clearTimeout(window.__d3Timer);
   window.__d3Timer = setTimeout(renderAll, 150);
 });
+```
+
+---
+
+## Como usar
+
+1. Garanta que `index.html`, `style.css` e `script.js` estão no mesmo diretório.
+2. Abra o `index.html` no navegador.
+3. Edite os dados no início do `script.js`.
+
+---
+
+## Observação
+
+- O D3 é carregado via CDN.
+- Não depende de React/Node; é página estática.
+- Os gráficos são: **bar**, **line+area**, **donut** e **heatmap**.

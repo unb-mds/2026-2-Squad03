@@ -3,90 +3,81 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Autoavaliação da Arquitetura</title>
-
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 40px;
-        background-color: #f4f4f4;
-      }
-
-      .container {
-        background: white;
-        padding: 25px;
-        border-radius: 10px;
-        max-width: 900px;
-        margin: auto;
-      }
-
-      h1 {
-        color: #333;
-      }
-
-      h2 {
-        color: #555;
-        margin-top: 25px;
-      }
-
-      p,
-      li {
-        line-height: 1.6;
-      }
-
-      .nota {
-        font-weight: bold;
-        color: darkgreen;
-      }
-    </style>
+    <title>Dashboard de Produtividade (D3.js)</title>
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <div class="container">
-      <h1>Autoavaliação da Arquitetura do Projeto</h1>
+    <header class="header">
+      <div>
+        <h1>Dashboard de Produtividade da Equipe</h1>
+        <p class="subtitle">
+          Gráficos estáticos usando <strong>D3.js</strong> para visualização
+          rápida.
+        </p>
+      </div>
 
-      <h2>1. Organização do Projeto</h2>
-      <p>
-        O projeto possui uma estrutura organizada em componentes, facilitando
-        manutenção e escalabilidade.
-      </p>
+      <div class="meta">
+        <div class="meta-card">
+          <div class="meta-label">Período</div>
+          <div class="meta-value" id="periodo">Últimos 30 dias</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Atualização</div>
+          <div class="meta-value" id="atualizado">—</div>
+        </div>
+      </div>
+    </header>
 
-      <p class="nota">Nota: 8/10</p>
+    <main class="grid">
+      <!-- Card 1: Comits por integrante (bar chart) -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Comits por integrante</h2>
+          <span class="card-hint">Ordenado do maior para o menor</span>
+        </div>
+        <div class="chart" id="chart-comits"></div>
+        <div class="legend" id="legend-comits"></div>
+      </section>
 
-      <h2>2. Separação de Responsabilidades</h2>
-      <p>
-        Cada parte do sistema possui responsabilidades bem definidas, evitando
-        acoplamento excessivo.
-      </p>
+      <!-- Card 2: Produtividade semanal (line chart) -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Produtividade semanal</h2>
+          <span class="card-hint">Tendência da equipe</span>
+        </div>
+        <div class="chart" id="chart-semana"></div>
+      </section>
 
-      <p class="nota">Nota: 7/10</p>
+      <!-- Card 3: Distribuição (donut chart) -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Distribuição de tarefas</h2>
+          <span class="card-hint">Ex.: commits/PRs/tickets</span>
+        </div>
+        <div class="chart donut-wrap" id="chart-distribuicao"></div>
+        <div class="legend" id="legend-distribuicao"></div>
+      </section>
 
-      <h2>3. Escalabilidade</h2>
-      <p>
-        A arquitetura permite adicionar novas funcionalidades sem grandes
-        alterações no código existente.
-      </p>
+      <!-- Card 4: Matriz / Heatmap simples -->
+      <section class="card">
+        <div class="card-header">
+          <h2>Heatmap de atividade</h2>
+          <span class="card-hint">Dia da semana × semanas</span>
+        </div>
+        <div class="chart" id="chart-heatmap"></div>
+        <div class="heatmap-footer">Quanto mais escuro, maior a atividade.</div>
+      </section>
+    </main>
 
-      <p class="nota">Nota: 8/10</p>
+    <footer class="footer">
+      <span
+        >Dados de exemplo (mock). Edite em <code>script.js</code> para usar seus
+        números reais.</span
+      >
+    </footer>
 
-      <h2>4. Pontos Fortes</h2>
-      <ul>
-        <li>Boa modularização</li>
-        <li>Facilidade de manutenção</li>
-        <li>Código reutilizável</li>
-      </ul>
-
-      <h2>5. Pontos a Melhorar</h2>
-      <ul>
-        <li>Documentação do projeto</li>
-        <li>Padronização de nomes</li>
-        <li>Testes automatizados</li>
-      </ul>
-
-      <h2>6. Conclusão</h2>
-      <p>
-        A arquitetura atende bem aos requisitos atuais do projeto, mas ainda
-        pode evoluir em aspectos de documentação e testes.
-      </p>
-    </div>
+    <!-- D3.js (v7) -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+    <script src="./script.js"></script>
   </body>
 </html>
