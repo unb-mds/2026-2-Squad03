@@ -1,6 +1,4 @@
-
-
-<img style = "width: 500px;" src= "https://cdn.discordapp.com/attachments/1484698430914957624/1500985580824170568/removed_bg.png?ex=69fa6d41&is=69f91bc1&hm=bf61af3c42135bd22dcd1dc5448e168c93a163f7b62a79d3a86d681ca3f42e19&"></img>
+<img width="707" height="269" alt="Screenshot_12-5-2026_131425_prnt sc" src="https://github.com/user-attachments/assets/4e5a278f-92c5-4c52-9046-627e239f43c7" />
 
 ---
 # Sobre o Projeto
