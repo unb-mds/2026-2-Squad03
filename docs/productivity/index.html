@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Produtividade - ContraDito</title>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .chart { margin: 20px 0; }
+        .table { margin: 20px 0; width: 100%; border-collapse: collapse; }
+        .table th, .table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        .table th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body class="bg-gray-100 p-4">
+    <h1 class="text-2xl font-bold text-center mb-8" style="color: #003366;">Dashboard de Produtividade - ContraDito</h1>
+    <div id="loading" class="text-center">Carregando dados...</div>
+    <div id="content" class="hidden max-w-6xl mx-auto">
+        <div class="chart bg-white p-4 rounded shadow">
+            <h2 class="text-xl font-semibold mb-4">Issues Abertas vs Fechadas por Semana</h2>
+            <div id="issues-line"></div>
+        </div>
+        <div class="chart bg-white p-4 rounded shadow">
+            <h2 class="text-xl font-semibold mb-4">Histograma de Comprimento das Mensagens de Commit</h2>
+            <div id="histogram"></div>
+        </div>
+        <div class="chart bg-white p-4 rounded shadow">
+            <h2 class="text-xl font-semibold mb-4">Co-autores por Semana</h2>
+            <div id="coauthors-bar"></div>
+        </div>
+        <div class="chart bg-white p-4 rounded shadow">
+            <h2 class="text-xl font-semibold mb-4">Mapa de Calor de Commits por Hora e Dia</h2>
+            <div id="heatmap"></div>
+        </div>
+        <div class="chart bg-white p-4 rounded shadow">
+            <h2 class="text-xl font-semibold mb-4">Issues Abertas/Fechadas por Semana (Barras Empilhadas)</h2>
+            <div id="issues-stacked"></div>
+        </div>
+        <div class="table bg-white p-4 rounded shadow">
+            <h2 class="text-xl font-semibold mb-4">Top Committers</h2>
+            <table id="top-committers" class="table"></table>
+        </div>
+        <div class="table bg-white p-4 rounded shadow">
+            <h2 class="text-xl font-semibold mb-4">Top Autores de PRs</h2>
+            <table id="top-pr-authors" class="table"></table>
+        </div>
+        <div class="table bg-white p-4 rounded shadow">
+            <h2 class="text-xl font-semibold mb-4">Top Contribuidores de Issues</h2>
+            <table id="top-issue-contributors" class="table"></table>
+        </div>
+    </div>
+    <script>
+        fetch('metrics.json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('content').classList.remove('hidden');
+                renderIssuesLineChart(data.issues_per_week);
+                renderHistogram(data.commit_message_histogram);
+                renderCoauthorsBar(data.coauthors_per_week);
+                renderHeatmap(data.commit_heatmap);
+                renderIssuesStackedBar(data.issues_per_week);
+                renderTopCommitters(data.top_committers);
+                renderTopPRAuthors(data.top_pr_authors);
+                renderTopIssueContributors(data.top_issue_contributors);
+            })
+            .catch(error => {
+                document.getElementById('loading').innerText = 'Erro ao carregar dados: ' + error;
+            });
+
+        function renderIssuesLineChart(data) {
+            const margin = {top: 20, right: 30, bottom: 60, left: 50};
+            const width = 600 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+            const svg = d3.select('#issues-line').append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleBand().domain(data.map(d => d.week)).range([0, width]).padding(0.1);
+            const y = d3.scaleLinear().domain([0, d3.max(data, d => Math.max(d.opened, d.closed))]).range([height, 0]);
+
+            svg.append('g').attr('transform', `translate(0,${height})`).call(d3.axisBottom(x).tickAngle(-45));
+            svg.append('g').call(d3.axisLeft(y));
+
+            const lineOpened = d3.line().x(d => x(d.week) + x.bandwidth()/2).y(d => y(d.opened));
+            const lineClosed = d3.line().x(d => x(d.week) + x.bandwidth()/2).y(d => y(d.closed));
+
+            svg.append('path').datum(data).attr('fill', 'none').attr('stroke', '#003366').attr('stroke-width', 2).attr('d', lineOpened);
+            svg.append('path').datum(data).attr('fill', 'none').attr('stroke', '#005C37').attr('stroke-width', 2).attr('d', lineClosed);
+
+            // Legend
+            svg.append('circle').attr('cx', width - 100).attr('cy', 20).attr('r', 5).style('fill', '#003366');
+            svg.append('text').attr('x', width - 90).attr('y', 25).text('Abertas').style('font-size', '12px');
+            svg.append('circle').attr('cx', width - 100).attr('cy', 40).attr('r', 5).style('fill', '#005C37');
+            svg.append('text').attr('x', width - 90).attr('y', 45).text('Fechadas').style('font-size', '12px');
+        }
+
+        function renderHistogram(data) {
+            const margin = {top: 20, right: 30, bottom: 40, left: 50};
+            const width = 600 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+            const svg = d3.select('#histogram').append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleBand().domain(data.map(d => d.range)).range([0, width]).padding(0.1);
+            const y = d3.scaleLinear().domain([0, d3.max(data, d => d.count)]).range([height, 0]);
+
+            svg.append('g').attr('transform', `translate(0,${height})`).call(d3.axisBottom(x));
+            svg.append('g').call(d3.axisLeft(y));
+
+            svg.selectAll('rect').data(data).enter().append('rect')
+                .attr('x', d => x(d.range))
+                .attr('y', d => y(d.count))
+                .attr('width', x.bandwidth())
+                .attr('height', d => height - y(d.count))
+                .attr('fill', '#004A8C');
+        }
+
+        function renderCoauthorsBar(data) {
+            const margin = {top: 20, right: 30, bottom: 60, left: 50};
+            const width = 600 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+            const svg = d3.select('#coauthors-bar').append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleBand().domain(data.map(d => d.week)).range([0, width]).padding(0.1);
+            const y = d3.scaleLinear().domain([0, d3.max(data, d => d.count)]).range([height, 0]);
+
+            svg.append('g').attr('transform', `translate(0,${height})`).call(d3.axisBottom(x).tickAngle(-45));
+            svg.append('g').call(d3.axisLeft(y));
+
+            svg.selectAll('rect').data(data).enter().append('rect')
+                .attr('x', d => x(d.week))
+                .attr('y', d => y(d.count))
+                .attr('width', x.bandwidth())
+                .attr('height', d => height - y(d.count))
+                .attr('fill', '#BFA630');
+        }
+
+        function renderHeatmap(data) {
+            const margin = {top: 20, right: 30, bottom: 40, left: 50};
+            const width = 600 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+            const svg = d3.select('#heatmap').append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const days = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
+            const hours = d3.range(24);
+
+            const x = d3.scaleBand().domain(hours).range([0, width]).padding(0.05);
+            const y = d3.scaleBand().domain(days).range([0, height]).padding(0.05);
+
+            const color = d3.scaleSequential(d3.interpolateRgb('#e8f4f8', '#003366')).domain([0, d3.max(data, d => d.count)]);
+
+            svg.append('g').attr('transform', `translate(0,${height})`).call(d3.axisBottom(x).tickFormat(d => `${d}h`));
+            svg.append('g').call(d3.axisLeft(y));
+
+            svg.selectAll('rect').data(data).enter().append('rect')
+                .attr('x', d => x(d.hour))
+                .attr('y', d => y(days[d.day]))
+                .attr('width', x.bandwidth())
+                .attr('height', y.bandwidth())
+                .attr('fill', d => color(d.count))
+                .append('title').text(d => `Dia: ${days[d.day]}, Hora: ${d.hour}h, Commits: ${d.count}`);
+        }
+
+        function renderIssuesStackedBar(data) {
+            const margin = {top: 20, right: 30, bottom: 60, left: 50};
+            const width = 600 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+            const svg = d3.select('#issues-stacked').append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleBand().domain(data.map(d => d.week)).range([0, width]).padding(0.1);
+            const y = d3.scaleLinear().domain([0, d3.max(data, d => d.opened + d.closed)]).range([height, 0]);
+
+            const stack = d3.stack().keys(['opened', 'closed']);
+            const series = stack(data.map(d => ({week: d.week, opened: d.opened, closed: d.closed})));
+
+            svg.append('g').attr('transform', `translate(0,${height})`).call(d3.axisBottom(x).tickAngle(-45));
+            svg.append('g').call(d3.axisLeft(y));
+
+            const color = d3.scaleOrdinal().domain(['opened', 'closed']).range(['#003366', '#005C37']);
+
+            svg.selectAll('g.layer').data(series).enter().append('g').attr('class', 'layer').attr('fill', (d, i) => color(i))
+                .selectAll('rect').data(d => d).enter().append('rect')
+                .attr('x', d => x(d.data.week))
+                .attr('y', d => y(d[1]))
+                .attr('height', d => y(d[0]) - y(d[1]))
+                .attr('width', x.bandwidth());
+        }
+
+        function renderTopCommitters(data) {
+            const table = d3.select('#top-committers');
+            table.append('thead').append('tr')
+                .selectAll('th').data(['Posição', 'Nome/Username', 'Commits']).enter().append('th').text(d => d);
+            const tbody = table.append('tbody');
+            data.forEach((d, i) => {
+                const row = tbody.append('tr');
+                row.append('td').text(i + 1);
+                row.append('td').text(`${d.name} (${d.username})`);
+                row.append('td').text(d.commits);
+            });
+        }
+
+        function renderTopPRAuthors(data) {
+            const table = d3.select('#top-pr-authors');
+            table.append('thead').append('tr')
+                .selectAll('th').data(['Posição', 'Nome/Username', 'PRs Abertas']).enter().append('th').text(d => d);
+            const tbody = table.append('tbody');
+            data.forEach((d, i) => {
+                const row = tbody.append('tr');
+                row.append('td').text(i + 1);
+                row.append('td').text(`${d.name} (${d.username})`);
+                row.append('td').text(d.prs_opened);
+            });
+        }
+
+        function renderTopIssueContributors(data) {
+            const table = d3.select('#top-issue-contributors');
+            table.append('thead').append('tr')
+                .selectAll('th').data(['Posição', 'Nome/Username', 'Abertas', 'Fechadas', 'Total']).enter().append('th').text(d => d);
+            const tbody = table.append('tbody');
+            data.forEach((d, i) => {
+                const row = tbody.append('tr');
+                row.append('td').text(i + 1);
+                row.append('td').text(`${d.name} (${d.username})`);
+                row.append('td').text(d.opened);
+                row.append('td').text(d.closed);
+                row.append('td').text(d.total);
+            });
+        }
+    </script>
+</body>
+</html>
