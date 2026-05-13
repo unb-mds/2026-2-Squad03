@@ -1,0 +1,38 @@
+# Codigo basico de estudo de Langchain
+
+Apenas um codigo de estudo basico aonde verifica se a noticia trata-se de uma noticia sobre o feminicidio
+
+``` python
+from dotenv import load_dotenv
+import os
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+
+load_dotenv() # carregando arquivo .env aonde esta a "API_KEY"
+
+model = ChatGoogleGenerativeAI( # Configurando o modelo Do gemini
+    model="gemini-2.5-flash",
+    google_api_key=os.getenv("GOOGLE_API_KEY")
+)
+
+
+# exemplos de noticias apenas para teste
+
+news1 = """Caso Zaira: MP recomenda anulação de promoções concedidas durante prisão a policial condenado por feminicídio Pedro Inácio Araújo de Maria passou do posto de cargo para segundo sargento enquanto estava preso. Condenado em dezembro de 2025, militar passou para o regime semiaberto em março deste ano. Por g1 RN 07/04/2026 08h43 Atualizado há 22 minutos Polícia Militar Pedro Inácio Araújo de Maria, condenado pelo assassinato de Zaira Cruz — Foto: Reprodução/Inter TV Cabugi Polícia Militar Pedro Inácio Araújo de Maria, condenado pelo assassinato de Zaira Cruz — Foto: Reprodução/Inter TV Cabugi O Ministério Público do Rio Grande do Norte recomendou que o Comando-Geral da Polícia Militar anule as duas promoções concedidas ao policial militar Pedro Inácio Araújo de Maria durante a sua prisão. O militar passou de cabo a segundo sargento enquanto estava preso pelo estupro e feminicídio da estudante Zaira Cruz, crime ocorrido na cidade de Caicó durante o carnaval de 2019. O militar estava preso desde 2019 e foi condenado a 20 anos de prisão em dezembro de 2025. Mesmo sem trabalhar, ele foi promovido duas vezes, em 2020 e 2023. Durante a prisão, recebeu quase R$ 600 mil em salários. 📳 Clique aqui para seguir o canal do g1 RN no WhatsApp Em março deste ano, Pedro Inácio progrediu para o regime semiaberto e foi liberado para cumprir o restante da pena em casa com uso de tornozeleira eletrônica. O MP também recorreu na Justiça contra essa medida. Recomendação A recomendação da 19ª Promotoria de Natal, encarregada do controle externo da atividade policial, foi publicada na edição desta terça-feira (7) do Diário Oficial do Estado (DOE). Caso Zaira: PM condenado por feminicídio e estupro recebe salário como PM Caso Zaira: PM condenado por feminicídio e estupro recebe salário como PM O MPRN argumenta que o militar foi promovido mesmo estando na condição de sub judice e detido por ordem judicial. Segundo o órgão, a legislação estadual proíbe que policiais nessas situações constem em quadros de acesso ou ascendam na hierarquia da corporação. Na recomendação, o MP orienta que o policial retorne ao posto de cabo e que sua situação administrativa seja registrada como agregado, de forma retroativa a 15 de março de 2019. LEIA TAMBÉM Jovem foi encontrada morta dentro de carro Sargento da PM foi preso dias depois do crime MP denunciou sargento da PM por estupro e homicídio da jovem Justiça decidiu por júri popular de PM Processo foi transferido de Caicó para Natal a pedido da defesa Primeiro júri foi cancelado após defesa do acusado abandonar plenário Policial foi condenado por homicídio e estupro de universitária no RN Militar passou para regime semiaberto com uso de tornozeleira MP recorre de decisão que autorizou ida de condenado ao semiaberto e pede análise criminológica O Ministério Público também recomendou a abertura de um processo administrativo para apurar o prejuízo causado aos cofres públicos pelo pagamento dos salários de sargento. A recomendação prevê que o policial seja cobrado para devolver as diferenças salariais recebidas, com os valores corrigidos. Conselho aplicou 30 dias de prisão O MP também contesta a decisão de um conselho de disciplina da PM que, em 2024, aplicou 30 dias de prisão ao policial pelas transgressões graves. O documento afirma que essa punição é insuficiente e incompatível com a prática de crimes hediondos contra uma mulher. A recomendação orienta que a Polícia Militar anule o resultado desse processo disciplinar e emita uma nova decisão que reconheça a incapacidade do agente de permanecer nos quadros da força. Zaira Cruz tinha 22 anos — Foto: Arquivo Pessoal Zaira Cruz tinha 22 anos — Foto: Arquivo Pessoal Para o MPRN, a conduta de Pedro Inácio implica necessariamente em sua exclusão da corporação a bem da disciplina. O Comando-Geral da Polícia Militar tem o prazo de 20 dias para informar por escrito quais providências foram adotadas para cumprir as orientações. Militar recebeu cerca de R$ 600 mil em salários durante a prisão O militar foi promovido duas vezes e continuou recebendo salários normalmente durante os cerca de sete anos em que esteve preso sob custódia. Quando foi preso, o militar era cabo da Polícia Militar, mas foi promovido a terceiro sargento e depois a segundo sargento enquanto aguardava julgamento. Nesse período, o salário do militar mais que dobrou, saindo de pouco mais de R$ 4 mil em março de 2019 para mais de R$ 10,6 mil no último mês de fevereiro, de acordo com os dados do Portal da Transparência. Considerando-se o vencimento do mês de março de cada ano multiplicado por 13 (salários mensais de 13º), o servidor recebeu quase R$ 600 mil em salários brutos (sem desconto de previdência) ao longo desse tempo. As promoções foram confirmadas pelo comandante geral da Polícia Militar, coronel Alarico Azevedo, em entrevista à Inter TV Cabugi após a repercussão da progressão de pena do policial para o regime semiaberto com uso de tornozeleira. Pedro Inácio foi condenado em dezembro de 2025 a 20 anos de prisão em regime fechado por estuprar e matar a jovem durante o Carnaval de 2019, em Caicó, na região Seridó potiguar."""
+
+news2 = """Papa Leão XIV classifica como 'inaceitáveis' ameaças contra todo o povo do Irã Pontífice pediu pressão popular sobre líderes políticos para o fim da guerra. Declarações foram feitas após Trump afirmar que uma 'civilização inteira morrerá' nesta terça-feira. Por Redação g1 07/04/2026 15h43 Atualizado há 4 minutos O papa Leão XIV em 7 de abril de 2026 — Foto: REUTERS/Guglielmo Mangiapane O papa Leão XIV em 7 de abril de 2026 — Foto: REUTERS/Guglielmo Mangiapane O papa Leão XIV chamou de “inaceitáveis” as ameaças contra todo o povo do Irã durante uma coletiva de imprensa nesta terça-feira (7). As declarações foram feitas após o presidente dos Estados Unidos, Donald Trump, afirmar que uma “civilização inteira morrerá” na noite desta terça. Nos últimos dias, o pontífice tem intensificado críticas ao conflito no Oriente Médio. Em 29 de março, ele afirmou que Deus não escuta as orações de líderes que promovem a guerra. Agora, Leão fez um novo apelo e pediu que cidadãos de todo o mundo entrem em contato com representantes políticos e cobrem o fim da guerra. Ele disse ainda que todos precisam pensar nas vítimas do conflito, incluindo crianças. Em referência às ameaças de Trump de bombardear pontes e usinas de energia, o papa afirmou que ataques à infraestrutura civil são violações do direito internacional. "A ameaça contra o povo do Irã é inaceitável. Há questões de direito internacional, mas muito mais do que isso, é uma questão moral", afirmou."""
+
+parser = StrOutputParser() # transformando a resposda em string
+
+prompt = ChatPromptTemplate.from_messages([ # Criando um template de prompt
+    ("system", "Verifique se a noticia a seguir se trata de uma noticia sobre feminicidio. Responda apenas com sim ou não"),
+    ("user", "{news}")
+])
+
+chain = prompt | model | parser
+
+response = chain.invoke({"news": news1})
+
+print(response)
+```

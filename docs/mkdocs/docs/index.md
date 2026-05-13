@@ -1,5 +1,3 @@
-<img width="2537" height="700" alt="LogoBlack" src="https://github.com/user-attachments/assets/f248a533-c998-46bd-97e2-1c97a966a261" />
----
 # Sobre o Projeto
 <p style="text-align: justify;">
 Este projeto tem como objetivo reunir, analisar e divulgar dados e estatísticas sobre casos de feminicídio no Brasil, oferecendo uma visão clara e fundamentada sobre a realidade da violência contra a mulher no país. A partir de informações atualizadas e notícias provenientes de canais oficiais e veículos de comunicação confiáveis, buscamos transformar números em consciência, promovendo informação de qualidade e acessível à sociedade.
@@ -34,15 +32,6 @@ Banco de Dados
 - G1
 - Metropoles
 - R7
+- CNN
 
 ---
-
-# Squad 03
-
-- [Christian](https://github.com/christianrolim)
-- [Daniel](https://github.com/Daniel241025)
-- [Danilo](https://github.com/danilofns)
-- [Henrique](https://github.com/SchneiderCode1)
-- [Jadson](https://github.com/jadsonRleandro)
-- [Vitor](https://github.com/TheBagomes)
-

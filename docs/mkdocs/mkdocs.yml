@@ -1,0 +1,31 @@
+site_name: VeritasIA
+site_description: Documentação oficial do projeto veritasia
+
+theme:
+  name: material
+  logo: assets/Logo.png
+  favicon: assets/LogoBlack.png
+  custom_dir: docs/overrides
+  language: pt-BR
+
+  palette:
+      primary: custom
+      accent: custom
+
+nav:
+  - Home:
+      - Sobre o Projeto: index.md
+      - Sobre Nos: sobrenos.md
+
+  - Requisitos:
+      - Visão Geral: Requisitos.md
+  - Frontend:
+      - React: React.md
+
+  - Backend:
+      - Web Scraping: Scrapy.md
+      - LangChain: LangChain.md
+      - FastAPI: FastAPI.md
+
+extra_css:
+  - stylesheets/extra.css
