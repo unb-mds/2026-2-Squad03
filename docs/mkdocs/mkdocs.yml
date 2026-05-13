@@ -9,16 +9,26 @@ theme:
   language: pt-BR
 
   palette:
-      primary: custom
-      accent: custom
+    primary: custom
+    accent: custom
 
 nav:
   - Home:
       - Sobre o Projeto: index.md
       - Sobre Nos: sobrenos.md
 
+  - Projeto:
+      - Product Backlog: ../../projeto/product-backlog.md
+      - Sprint 1: ../../projeto/sprint1.md
+      - Sprint 2: ../../projeto/sprint2.md
+      - Sprint 3: ../../projeto/sprint3.md
+      - Retrospectiva: ../../projeto/retrospective.md
+      - Equipe: ../../projeto/team.md
+      - Roadmap: ../../projeto/roadmap.md
+
   - Requisitos:
       - Visão Geral: Requisitos.md
+
   - Frontend:
       - React: React.md
 
@@ -26,6 +36,5 @@ nav:
       - Web Scraping: Scrapy.md
       - LangChain: LangChain.md
       - FastAPI: FastAPI.md
-
 extra_css:
   - stylesheets/extra.css
