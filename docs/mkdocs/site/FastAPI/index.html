@@ -1,0 +1,1041 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentação oficial do projeto veritasia">
+      
+      
+      
+      
+        <link rel="prev" href="../LangChain/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/LogoBlack.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>FastAPI - VeritasIA</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#instalacao-do-fastapi-bash" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+  <header class="md-header">
+    <nav class="md-header__inner md-grid">
+
+      <!-- Logo padrão -->
+      <a href="None" class="md-header__button md-logo">
+        <img src="../assets/Logo.png" alt="logo">
+      </a>
+
+      <!-- Imagem com texto -->
+      <img src="../assets/texto.png" style="height: 40px; margin-left: 10px;">
+
+    </nav>
+  </header>
+
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="VeritasIA" class="md-nav__button md-logo" aria-label="VeritasIA" data-md-component="logo">
+      
+  <img src="../assets/Logo.png" alt="logo">
+
+    </a>
+    VeritasIA
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sobre o Projeto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sobrenos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sobre Nos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Requisitos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Requisitos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Requisitos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visão Geral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Frontend
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    React
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Backend
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Scrapy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Scraping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LangChain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LangChain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="instalacao-do-fastapi-bash">Instalação do FastAPI (bash)</h1>
+<h1 id="criacao-do-ambiente-virtual">Criação do ambiente virtual</h1>
+<h2 id="criar-um-diretorio-para-o-codigo">Criar um diretório para o código</h2>
+<h3 id="bash">bash</h3>
+<pre><code class="language-bash">mkdir projeto
+# cria um diretório para o projeto
+cd projeto
+# acessa o diretório criado
+</code></pre>
+<h2 id="criar-o-ambiente-virtual-usando-o-modulo-venv-do-python">Criar o ambiente virtual usando o módulo venv do Python</h2>
+<h3 id="bash_1">bash</h3>
+<pre><code class="language-bash">python -m venv .venv
+# cria o ambiente virtual no diretório oculto .venv
+</code></pre>
+<h2 id="ativar-o-ambiente-virtual">Ativar o ambiente virtual</h2>
+<h3 id="bash_2">bash</h3>
+<pre><code class="language-bash">source .venv/bin/activate
+</code></pre>
+<h1 id="instalacao-do-pacote-fastapi">Instalação do pacote FastAPI</h1>
+<h2 id="no-ambiente-virtual-ativo">No ambiente virtual ativo:</h2>
+<h3 id="bash_3">bash</h3>
+<pre><code class="language-bash">pip install &quot;fastapi[standard]&quot;
+</code></pre>
+<h1 id="estrutura-exemplar-em-fastapi">Estrutura exemplar em FastAPI</h1>
+<h2 id="criar-um-arquivo-mainpy">Criar um arquivo main.py</h2>
+<h3 id="python">python</h3>
+<pre><code class="language-python">from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get(&quot;/&quot;)
+async def root():
+    return {&quot;message&quot;: &quot;Hello World&quot;}
+</code></pre>
+<h2 id="execute-o-servidor">Execute o servidor</h2>
+<h3 id="bash_4">bash</h3>
+<pre><code class="language-bash">fastapi dev
+</code></pre>
+<h2 id="conferir">Conferir</h2>
+<ul>
+<li>Abra o navegador em http://127.0.0.1:8000/</li>
+<li>A resposta em JSON deverá ser <code>{"message": "Hello World"}</code></li>
+</ul>
+<h2 id="implementar-endpoints-basicos-crud">Implementar endpoints básicos (CRUD)</h2>
+<h3 id="routerslocaispy">routers/locais.py</h3>
+<pre><code class="language-python">from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
+from app.database import SessionLocal
+from app.schemas.local import LocalCreate
+from app.services import locais_service
+
+router = APIRouter(prefix=&quot;/locais&quot;, tags=[&quot;Locais&quot;])
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+@router.post(&quot;/&quot;)
+def criar(local: LocalCreate, db: Session = Depends(get_db)):
+    return locais_service.criar_local(
+        db,
+        local.nome,
+        local.latitude,
+        local.longitude
+    )
+
+@router.get(&quot;/&quot;)
+def listar(db: Session = Depends(get_db)):
+    return locais_service.listar_locais(db)
+
+@router.get(&quot;/{id}&quot;)
+def buscar(id: int, db: Session = Depends(get_db)):
+    local = locais_service.buscar_local(db, id)
+    if not local:
+        raise HTTPException(status_code=404, detail=&quot;Local não encontrado&quot;)
+    return local
+
+@router.put(&quot;/{id}&quot;)
+def atualizar(id: int, local: LocalCreate, db: Session = Depends(get_db)):
+    atualizado = locais_service.atualizar_local(
+        db,
+        id,
+        local.nome,
+        local.latitude,
+        local.longitude
+    )
+    if not atualizado:
+        raise HTTPException(status_code=404, detail=&quot;Local não encontrado&quot;)
+    return atualizado
+
+@router.delete(&quot;/{id}&quot;)
+def deletar(id: int, db: Session = Depends(get_db)):
+    removido = locais_service.deletar_local(db, id)
+    if not removido:
+        raise HTTPException(status_code=404, detail=&quot;Local não encontrado&quot;)
+    return {&quot;message&quot;: &quot;Local removido com sucesso&quot;}
+</code></pre>
+<h3 id="serviceslocais_servicepy">services/locais_service.py</h3>
+<pre><code class="language-python">from sqlalchemy.orm import Session
+from app.models.local import Local
+from geoalchemy2.shape import from_shape
+from shapely.geometry import Point
+
+def criar_local(db: Session, nome: str, lat: float, lon: float):
+    ponto = from_shape(Point(lon, lat), srid=4326)
+    local = Local(nome=nome, geom=ponto)
+    db.add(local)
+    db.commit()
+    db.refresh(local)
+    return local
+
+def listar_locais(db: Session):
+    return db.query(Local).all()
+
+def buscar_local(db: Session, id: int):
+    return db.query(Local).filter(Local.id == id).first()
+
+def atualizar_local(db: Session, id: int, nome: str, lat: float, lon: float):
+    local = db.query(Local).filter(Local.id == id).first()
+    if not local:
+        return None
+
+    local.nome = nome
+    local.geom = from_shape(Point(lon, lat), srid=4326)
+
+    db.commit()
+    db.refresh(local)
+    return local
+
+def deletar_local(db: Session, id: int):
+    local = db.query(Local).filter(Local.id == id).first()
+    if not local:
+        return None
+
+    db.delete(local)
+    db.commit()
+    return True
+</code></pre>
+<h2 id="integrar-com-banco-de-dados-postgresql">Integrar com banco de dados PostgreSQL</h2>
+<h3 id="instalar-dependencias">Instalar dependências</h3>
+<pre><code class="language-bash">pip install sqlalchemy psycopg2-binary geoalchemy2
+````
+
+### database.py
+
+```python
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+DATABASE_URL = &quot;postgresql://postgres:senha@localhost:5432/gis&quot;
+
+engine = create_engine(DATABASE_URL)
+
+SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine
+)
+</code></pre>
+<h3 id="modelsbasepy">models/base.py</h3>
+<pre><code class="language-python">from sqlalchemy.orm import declarative_base
+
+Base = declarative_base()
+</code></pre>
+<h3 id="modelslocalpy">models/local.py</h3>
+<pre><code class="language-python">from sqlalchemy import Column, Integer, String
+from geoalchemy2 import Geometry
+from app.models.base import Base
+
+class Local(Base):
+    __tablename__ = &quot;locais&quot;
+
+    id = Column(Integer, primary_key=True, index=True)
+    nome = Column(String, nullable=False)
+    geom = Column(Geometry(&quot;POINT&quot;, srid=4326))
+</code></pre>
+<h3 id="criar-tabelas-no-banco">Criar tabelas no banco</h3>
+<pre><code class="language-python">from app.database import engine
+from app.models.base import Base
+from app.models import local
+
+Base.metadata.create_all(bind=engine)
+</code></pre>
+<h3 id="usar-sessao-no-fastapi">Usar sessão no FastAPI</h3>
+<pre><code class="language-python">from app.database import SessionLocal
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+</code></pre>
+<h3 id="testar-conexao">Testar conexão</h3>
+<pre><code class="language-python">from app.database import engine
+
+with engine.connect() as conn:
+    print(&quot;Conectado com sucesso&quot;)
+</code></pre>
+<h2 id="validar-dados-de-entrada-com-pydantic">Validar dados de entrada com Pydantic</h2>
+<h3 id="schemaslocalpy">schemas/local.py</h3>
+<pre><code class="language-python">from pydantic import BaseModel, Field
+
+class LocalBase(BaseModel):
+    nome: str = Field(..., min_length=2, max_length=100)
+
+class LocalCreate(LocalBase):
+    latitude: float = Field(..., ge=-90, le=90)
+    longitude: float = Field(..., ge=-180, le=180)
+
+class LocalUpdate(BaseModel):
+    nome: str | None = Field(None, min_length=2, max_length=100)
+    latitude: float | None = Field(None, ge=-90, le=90)
+    longitude: float | None = Field(None, ge=-180, le=180)
+
+class LocalResponse(LocalBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+````
+
+### Uso nos endpoints
+
+```python id=&quot;xq4x7s&quot;
+from app.schemas.local import LocalCreate, LocalUpdate
+
+@router.post(&quot;/&quot;)
+def criar(local: LocalCreate, db: Session = Depends(get_db)):
+    return locais_service.criar_local(
+        db,
+        local.nome,
+        local.latitude,
+        local.longitude
+    )
+
+@router.put(&quot;/{id}&quot;)
+def atualizar(id: int, local: LocalUpdate, db: Session = Depends(get_db)):
+    return locais_service.atualizar_local(
+        db,
+        id,
+        local.nome,
+        local.latitude,
+        local.longitude
+    )
+</code></pre>
+<h3 id="exemplo-de-requisicao-valida">Exemplo de requisição válida</h3>
+<p>```json id="uk1gqk"
+{
+  "nome": "Brasília",
+  "latitude": -15.7942,
+  "longitude": -47.8825
+}</p>
+<pre><code>
+## Testar endpoints via Swagger UI
+
+### Executar a aplicação
+
+```bash
+uvicorn app.main:app --reload
+````
+
+### Acessar Swagger UI
+
+Abra no navegador:
+
+</code></pre>
+<p>http://localhost:8000/docs</p>
+<pre><code>
+### Acessar documentação alternativa
+
+</code></pre>
+<p>http://localhost:8000/redoc</p>
+<pre><code>
+### Testar endpoints
+
+Na interface do Swagger:
+
+* Clique em um endpoint (ex: POST /locais)
+* Clique em &quot;Try it out&quot;
+* Preencha o corpo da requisição
+* Clique em &quot;Execute&quot;
+
+### Exemplo de teste (POST /locais)
+
+```json
+{
+  &quot;nome&quot;: &quot;Brasília&quot;,
+  &quot;latitude&quot;: -15.7942,
+  &quot;longitude&quot;: -47.8825
+}
+</code></pre>
+<h3 id="ver-resposta">Ver resposta</h3>
+<ul>
+<li>Código HTTP (200, 201, 404, etc.)</li>
+<li>Corpo da resposta</li>
+<li>Tempo de execução</li>
+</ul>
+<h3 id="testar-outros-endpoints">Testar outros endpoints</h3>
+<ul>
+<li>GET /locais → lista todos</li>
+<li>GET /locais/{id} → busca por id</li>
+<li>PUT /locais/{id} → atualiza</li>
+<li>DELETE /locais/{id} → remove</li>
+</ul>
+<h2 id="documentar-uso-da-api">Documentar uso da API</h2>
+<h2 id="base-url">Base URL</h2>
+<pre><code class="language-text">http://localhost:8000
+````
+
+## Endpoints
+
+### Criar local
+
+```http
+POST /locais
+</code></pre>
+<p>Corpo da requisição:</p>
+<pre><code class="language-json">{
+  &quot;nome&quot;: &quot;Brasília&quot;,
+  &quot;latitude&quot;: -15.7942,
+  &quot;longitude&quot;: -47.8825
+}
+</code></pre>
+<p>Resposta:</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: 1,
+  &quot;nome&quot;: &quot;Brasília&quot;
+}
+</code></pre>
+<h3 id="listar-locais">Listar locais</h3>
+<pre><code class="language-http">GET /locais
+</code></pre>
+<p>Resposta:</p>
+<pre><code class="language-json">[
+  {
+    &quot;id&quot;: 1,
+    &quot;nome&quot;: &quot;Brasília&quot;
+  }
+]
+</code></pre>
+<h3 id="buscar-local-por-id">Buscar local por ID</h3>
+<pre><code class="language-http">GET /locais/{id}
+</code></pre>
+<p>Exemplo:</p>
+<pre><code class="language-http">GET /locais/1
+</code></pre>
+<p>Resposta:</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: 1,
+  &quot;nome&quot;: &quot;Brasília&quot;
+}
+</code></pre>
+<h3 id="atualizar-local">Atualizar local</h3>
+<pre><code class="language-http">PUT /locais/{id}
+</code></pre>
+<p>Exemplo:</p>
+<pre><code class="language-http">PUT /locais/1
+</code></pre>
+<p>Corpo da requisição:</p>
+<pre><code class="language-json">{
+  &quot;nome&quot;: &quot;Brasília Atualizada&quot;,
+  &quot;latitude&quot;: -15.80,
+  &quot;longitude&quot;: -47.90
+}
+</code></pre>
+<p>Resposta:</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: 1,
+  &quot;nome&quot;: &quot;Brasília Atualizada&quot;
+}
+</code></pre>
+<h3 id="remover-local">Remover local</h3>
+<pre><code class="language-http">DELETE /locais/{id}
+</code></pre>
+<p>Exemplo:</p>
+<pre><code class="language-http">DELETE /locais/1
+</code></pre>
+<p>Resposta:</p>
+<pre><code class="language-json">{
+  &quot;message&quot;: &quot;Local removido com sucesso&quot;
+}
+</code></pre>
+<h2 id="codigos-de-resposta">Códigos de resposta</h2>
+<ul>
+<li>200 OK: requisição bem-sucedida</li>
+<li>201 Created: recurso criado</li>
+<li>404 Not Found: recurso não encontrado</li>
+<li>422 Unprocessable Entity: erro de validação</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

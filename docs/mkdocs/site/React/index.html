@@ -1,0 +1,981 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentação oficial do projeto veritasia">
+      
+      
+      
+      
+        <link rel="prev" href="../Requisitos/">
+      
+      
+        <link rel="next" href="../Scrapy/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/LogoBlack.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>React - VeritasIA</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#react" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+  <header class="md-header">
+    <nav class="md-header__inner md-grid">
+
+      <!-- Logo padrão -->
+      <a href="None" class="md-header__button md-logo">
+        <img src="../assets/Logo.png" alt="logo">
+      </a>
+
+      <!-- Imagem com texto -->
+      <img src="../assets/texto.png" style="height: 40px; margin-left: 10px;">
+
+    </nav>
+  </header>
+
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="VeritasIA" class="md-nav__button md-logo" aria-label="VeritasIA" data-md-component="logo">
+      
+  <img src="../assets/Logo.png" alt="logo">
+
+    </a>
+    VeritasIA
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sobre o Projeto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sobrenos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sobre Nos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Requisitos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Requisitos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Requisitos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visão Geral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Frontend
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    React
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    React
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#componetizacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Componetização
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o-que-e-virtual-dom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O que é Virtual DOM?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nextjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next.js
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principais-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principais Features
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arquitetura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitetura
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#casos-de-sucesso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Casos de Sucesso
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desvantagens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desvantagens
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conclusão
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Backend
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Scrapy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Scraping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LangChain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LangChain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FastAPI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#componetizacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Componetização
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o-que-e-virtual-dom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O que é Virtual DOM?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nextjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next.js
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principais-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principais Features
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arquitetura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitetura
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#casos-de-sucesso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Casos de Sucesso
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desvantagens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desvantagens
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conclusão
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="react">React</h1>
+<p>é uma biblioteca mas na prática atua como framework quando utilizado com outras ferramentas, é uma biblioteca JavaScript criada pelo Meta (antigo Facebook) e também utilizado no Instagram, e em aplicativos como a Netflix para construir interfaces de usuário, principalmente para aplicações web. (É importante entender que o react é uma biblioteca pois assim temos em mente que podemos e em determinados momentos vamos precisar de outras bibliotecas que possam nos ajudar ao utilizar o react) </p>
+<p>O React serve para criar telas interativas e tem a praticidade de mudar e fazer atualizações de forma mais prática pois utiliza do conceito de "Componentes": 
+Um componente é como um “bloco” da interface.
+Exemplo:
+-botão
+-menu
+-card de produto
+-barra de navegação
+Você monta a aplicação juntando esses blocos.</p>
+<p>Podemos utilizar quando utilizamos os componentes por classes ou por função, a partir da versão 16.8 quando usamos com classes podemos ter acesso a  funcionalidades como hooks e estados. (as duas vão funcionar de forma igual para o usuário, então varia mais do gosto de cada desenvolvedor)</p>
+<h3 id="componetizacao">Componetização</h3>
+<ol>
+<li>Componetização</li>
+</ol>
+<p>Você divide a interface em partes reutilizáveis.</p>
+<ol>
+<li>Virtual DOM</li>
+</ol>
+<p>React cria uma versão “virtual” da tela para atualizar só o que mudou → deixa tudo mais rápido.</p>
+<ol>
+<li>JSX</li>
+</ol>
+<p>É uma forma de escrever HTML dentro do JavaScript: </p>
+<h3 id="o-que-e-virtual-dom">O que é Virtual DOM?</h3>
+<p>O Virtual DOM é uma cópia virtual da tela (DOM real).</p>
+<p>Como funciona:
+DOM real (normal)</p>
+<p>Sem React:</p>
+<p>Qualquer mudança → atualiza a página inteira ou partes pesadas
+Isso é lento
+Com Virtual DOM (React)</p>
+<p>React faz assim:</p>
+<ul>
+<li>Cria uma cópia da interface na memória (Virtual DOM)</li>
+<li>Quando algo muda:</li>
+<li>compara o antes vs depois (diff)</li>
+<li>Atualiza só o que mudou de verdade</li>
+</ul>
+<p>Exemplo simples:</p>
+<p>Imagina uma lista com 100 itens.</p>
+<p>Você muda só 1 item</p>
+<p>Sem React: pode reprocessar tudo 
+Com React: atualiza só aquele item 
+Dentro do React usamos <strong>O Babel</strong> que é um compilador de JavaScript.</p>
+<p>Pra que ele serve?</p>
+<p>Ele “traduz” código moderno para código que o navegador entende.</p>
+<p>Exemplo:</p>
+<p>Você escreve isso (JSX do React):</p>
+<p><code>const elemento = &lt;h1&gt;Olá&lt;/h1&gt;;</code></p>
+<p>O Babel transforma em algo assim:</p>
+<p><code>const elemento = React.createElement("h1", null, "Olá");</code></p>
+<p>Ou seja:</p>
+<p>Navegador não entende JSX
+Babel converte JSX em JavaScript puro</p>
+<p>Fluxo simplificado:</p>
+<ul>
+<li>Você escreve código React (JSX)</li>
+<li>Babel traduz esse código</li>
+<li>React usa o Virtual DOM</li>
+<li>Só atualiza o necessário na tela_ </li>
+</ul>
+<h3 id="nextjs">Next.js</h3>
+<p>_Framework moderno baseado em React, focado em performance, escalabilidade e melhor experiência de desenvolvimento.</p>
+<hr />
+<p>Sobre
+O Next.js é um framework desenvolvido pela Vercel, criado para suprir limitações do React puro, principalmente em SEO, renderização e estrutura de aplicações.</p>
+<hr />
+<h3 id="principais-features">Principais Features</h3>
+<ul>
+<li>Framework baseado em React</li>
+<li>Alta escalabilidade</li>
+<li>Sistema de roteamento automático</li>
+<li>Server-Side Rendering (SSR) com Node.js</li>
+<li>Renderização híbrida (cliente + servidor)</li>
+<li>Pré-renderização para melhor performance</li>
+<li>Code Splitting automático</li>
+<li>Roteamento do lado do cliente</li>
+<li>Suporte a CSS, Sass e CSS-in-JS</li>
+<li>Fast Refresh no desenvolvimento</li>
+<li>API Routes (backend integrado)</li>
+<li>Totalmente extensível</li>
+</ul>
+<hr />
+<h3 id="arquitetura">Arquitetura</h3>
+<p>Construção isomórfica: combina renderização no cliente e no servidor ao mesmo tempo.</p>
+<hr />
+<h3 id="casos-de-sucesso">Casos de Sucesso</h3>
+<p>Empresas que utilizam Next.js:</p>
+<ul>
+<li>Docker</li>
+<li>Twitch</li>
+<li>Nubank</li>
+<li>Uber</li>
+<li>Netflix</li>
+<li>GitHub</li>
+<li></li>
+</ul>
+<hr />
+<h3 id="desvantagens">Desvantagens</h3>
+<ul>
+<li>Algumas bibliotecas exigem configuração extra (ex: Redux, Styled Components)</li>
+<li>Dependência do ambiente Node.js</li>
+<li>Alto tráfego pode exigir mais carga de servidor</li>
+<li>Necessita mais atenção na arquitetura</li>
+</ul>
+<hr />
+<h3 id="conclusao">Conclusão</h3>
+<p>O Next.js é uma evolução do React que resolve problemas reais de desenvolvimento moderno, oferecendo melhor performance, SEO e organização. Apesar de exigir mais cuidado técnico, é uma das melhores opções para aplicações web escaláveis.</p>
+<hr />
+<p>Pesquisa feita por Daniel Rodrigues e Vitor Barreto Gomes_</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
