@@ -3,15 +3,17 @@ from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from playwright.sync_api import sync_playwright
 import time
+from datetime import datetime
 
-class g1_spider(scrapy.Spider):
-    name = 'g1'
+class r7_spider(scrapy.Spider):
+    name = 'r7'
 
     def __init__(self, urls = None, **kwargs):
         self.start_urls = urls or []
 
     def parse(self, response, **kwargs):
-        alltext = response.css('.content-text__container::text').getall()
+        alltext = response.css('article span::text').getall()
+        
 
 
         # colocanto toda a noticia em uma unica string
@@ -22,63 +24,65 @@ class g1_spider(scrapy.Spider):
 
         yield { 
                 'portal': 'G1',
-                'title': response.css('.content-head__title::text').get(),
-                'data': response.css('time::text').get(),
-                'link': response.css('main > link').attrib['href'],
+                'title': response.css('article h1::text').get(),
+                'data': response.css('article time::text').get(),
+                'link': response.url,
                 'news': news
             }
-        
 
-def play_writght():
+
+def play_wright():
+    # Inicia o Playwright
+    data = str(datetime.now().strftime("%Y-%m-%d"))
     urls = []
+    with sync_playwright() as p:
 
-    with sync_playwright() as pw:
-        browser = pw.firefox.launch(headless = False)
+        browser = p.chromium.launch(headless=False)
 
-        page1 = browser.new_page()
-        page1.goto("https://www.r7.com/tudo-sobre/feminicidio/", wait_until='load')
-        page1.locator('[class = b-ultimas-list__items] > li')
-        time.sleep(10)
+
+        page = browser.new_page()
+        page.goto("https://www.r7.com/tudo-sobre/feminicidio/", wait_until='load')
+        teste = page.locator('[class = b-ultimas-list__items] > li').all()  
+        
         while True:
+            for dates_in in teste:
+                    pegar_data = dates_in.locator('time').first.get_attribute(name="datetime")
+                    ultima = pegar_data
             try:
                 # Tenta localizar o botão "ver mais"
-                botao = page1.get_by_text("Veja mais Notícias")
-
-                # Verifica se ele ainda está visível
-                if botao.is_visible():
+                botao = page.get_by_text("Veja mais Notícias")
+                
+                if botao.is_visible() and data in ultima:
                     botao.click()
-                    time.sleep(2)  # espera carregar 
-                else:
-                    break
-
+                    time.sleep(2)  # espera carregar
+                else: break
             except Exception:
                 # Se não encontrar mais o botão, sai do loop
                 break
-        
+
         time.sleep(2)
         
-        newsContent = page1.locator('[class = b-ultimas-list__items] > a').all()
-
-    
-        for news in newsContent:
-            urls.append(news.get_attribute(name="href"))
+        for test in teste:
+            pegar_data = test.locator('time').first.get_attribute(name="datetime")
+            pegar_link = test.locator('a').first.get_attribute(name="href")
+            if data in pegar_data:
+                urls.append(pegar_link)
         
+        print(urls)
         browser.close()
-    print(urls)
-
     return urls
 
-def g1_run_spider():
+def r7_run_spider():
     
     # pegando os urls com o playwritght
 
-    urls = play_writght() 
+    urls = play_wright() 
 
     settings = get_project_settings()
     settings.set(
         'FEEDS',
         {
-            './resultados/g1.json': {
+            './resultados/r7.json': {
                 'format': 'json',
                 'encoding': 'utf-8',
                 'overwrite': True
@@ -86,5 +90,5 @@ def g1_run_spider():
         }
     )
     process = CrawlerProcess(settings)
-    process.crawl(g1_spider, urls)
+    process.crawl(r7_spider, urls)
     process.start()
