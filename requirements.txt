@@ -1,0 +1,6 @@
+fastapi
+sqlalchemy
+geoalchemy2
+psycopg2-binary
+jinja2
+shapely

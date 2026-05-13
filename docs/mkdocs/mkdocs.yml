@@ -15,7 +15,7 @@ theme:
 nav:
   - Home:
       - Sobre o Projeto: index.md
-      - Sobre Nos: sobrenos.md
+      - Sobre Nós: sobrenos.md
 
   - Projeto:
       - Product Backlog: ../../projeto/product-backlog.md
@@ -36,5 +36,10 @@ nav:
       - Web Scraping: Scrapy.md
       - LangChain: LangChain.md
       - FastAPI: FastAPI.md
+      - Contrato da API: api.md 
+
 extra_css:
   - stylesheets/extra.css
+
+plugins:
+  - search
