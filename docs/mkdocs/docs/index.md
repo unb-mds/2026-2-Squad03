@@ -22,6 +22,7 @@ Backend
 - LangChain
 - Playwright
 - FastAPI
+- Contrato API 
 
 Banco de Dados
 

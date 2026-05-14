@@ -39,7 +39,7 @@ nav:
       - Contrato da API: api.md 
 
 extra_css:
-  - stylesheets/extra.css
+  - ../stylesheets/extra.css
 
 plugins:
   - search
