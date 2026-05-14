@@ -13,8 +13,6 @@ class r7_spider(scrapy.Spider):
 
     def parse(self, response, **kwargs):
         alltext = response.css('article span::text').getall()
-        
-
 
         # colocanto toda a noticia em uma unica string
 
@@ -23,7 +21,7 @@ class r7_spider(scrapy.Spider):
             news += text
 
         yield { 
-                'portal': 'G1',
+                'portal': 'R7',
                 'title': response.css('article h1::text').get(),
                 'data': response.css('article time::text').get(),
                 'link': response.url,
@@ -41,7 +39,7 @@ def play_wright():
 
 
         page = browser.new_page()
-        page.goto("https://www.r7.com/tudo-sobre/feminicidio/", wait_until='load')
+        page.goto("https://www.r7.com/tudo-sobre/feminicidio/", wait_until='domcontentloaded')
         teste = page.locator('[class = b-ultimas-list__items] > li').all()  
         
         while True:
@@ -54,13 +52,12 @@ def play_wright():
                 
                 if botao.is_visible() and data in ultima:
                     botao.click()
-                    time.sleep(2)  # espera carregar
+                    page.wait_for_timeout(10000)  # espera carregar
                 else: break
             except Exception:
                 # Se não encontrar mais o botão, sai do loop
                 break
 
-        time.sleep(2)
         
         for test in teste:
             pegar_data = test.locator('time').first.get_attribute(name="datetime")
@@ -68,7 +65,7 @@ def play_wright():
             if data in pegar_data:
                 urls.append(pegar_link)
         
-        print(urls)
+        # print(urls)
         browser.close()
     return urls
 
