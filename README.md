@@ -46,3 +46,17 @@ Banco de Dados
 - [Jadson](https://github.com/jadsonRleandro)
 - [Vitor](https://github.com/TheBagomes)
 
+---
+
+# Como Executar o Backend (Ambiente de Desenvolvimento/Testes)
+
+> ⚠️ **ATENÇÃO CRUCIAL PARA A EQUIPE:** Devido ao mapeamento estático e fixo dos caminhos do Frontend (`../../FrontEnd/app/static`), o servidor do Uvicorn **DEVE** ser executado obrigatoriamente de dentro do diretório interno `BackEnd/app`. 
+>
+> Se você tentar rodar o comando a partir da raiz do repositório ou de outra pasta, o FastAPI não localizará os arquivos de estilo (CSS) e scripts (JS), renderizando uma página em HTML puro ou disparando um erro de inicialização (`RuntimeError`).
+
+# Passo a Passo para Execução:
+
+1. Abra o seu terminal na raiz do repositório principal (`2026-2-VeritasIA`).
+2. Navegue diretamente para a pasta interna onde está localizado o arquivo `main.py`:
+   ```bash
+   cd BackEnd/app

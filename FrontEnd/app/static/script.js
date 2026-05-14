@@ -1,7 +1,7 @@
 const dadosComits = [
   { nome: "Ana", valor: 128, cor: "#6ee7ff" },
   { nome: "Bruno", valor: 96, cor: "#a78bfa" },
-  { nome: "Carla", valor: 142, cor: "#34d399" },
+  { nome: "Carla", valor: 555, cor: "#34d399" },
   { nome: "Diego", valor: 74, cor: "#fbbf24" },
   { nome: "Edu", valor: 110, cor: "#fb7185" },
 ];

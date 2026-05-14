@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.backend.FastAPI.models.local import Local
+from FastAPI.models.local import Local
 from geoalchemy2.shape import from_shape
 from shapely.geometry import Point
 

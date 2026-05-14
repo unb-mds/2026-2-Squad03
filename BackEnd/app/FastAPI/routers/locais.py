@@ -1,9 +1,9 @@
 # app/routers/locais.py
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.backend.FastAPI.database import SessionLocal
-from app.backend.FastAPI.schemas.local import LocalCreate, LocalUpdate
-from app.backend.FastAPI.services import locais_service
+from database import SessionLocal
+from FastAPI.schemas.local import LocalCreate, LocalUpdate
+from FastAPI.services import locais_service
 
 router = APIRouter(prefix="/locais", tags=["Locais"])
 
