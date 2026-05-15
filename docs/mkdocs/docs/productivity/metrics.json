@@ -1,23 +1,44 @@
 {
-  "generated_at": "2026-05-15T14:29:04Z",
-  "repository": "danilofns/teste",
-  "issues_per_week": [],
+  "generated_at": "2026-05-15T16:37:04Z",
+  "repository": "unb-mds/2026-2-VeritasIA",
+  "issues_per_week": [
+    {
+      "week": "2026-W14",
+      "opened": 0,
+      "closed": 8
+    },
+    {
+      "week": "2026-W15",
+      "opened": 0,
+      "closed": 5
+    },
+    {
+      "week": "2026-W18",
+      "opened": 0,
+      "closed": 2
+    },
+    {
+      "week": "2026-W20",
+      "opened": 7,
+      "closed": 7
+    }
+  ],
   "commit_message_histogram": [
     {
       "range": "0-20",
-      "count": 18
+      "count": 7
     },
     {
       "range": "21-50",
-      "count": 0
+      "count": 8
     },
     {
       "range": "51-100",
-      "count": 0
+      "count": 6
     },
     {
       "range": "101-200",
-      "count": 0
+      "count": 3
     },
     {
       "range": "200+",
@@ -27,37 +48,108 @@
   "coauthors_per_week": [],
   "commit_heatmap": [
     {
-      "day": 3,
+      "day": 0,
+      "hour": 16,
+      "count": 3
+    },
+    {
+      "day": 0,
+      "hour": 19,
+      "count": 4
+    },
+    {
+      "day": 0,
       "hour": 22,
       "count": 1
     },
     {
-      "day": 3,
-      "hour": 23,
-      "count": 6
-    },
-    {
-      "day": 4,
-      "hour": 0,
+      "day": 1,
+      "hour": 16,
       "count": 1
     },
     {
-      "day": 4,
+      "day": 1,
+      "hour": 20,
+      "count": 2
+    },
+    {
+      "day": 1,
+      "hour": 23,
+      "count": 3
+    },
+    {
+      "day": 2,
       "hour": 13,
-      "count": 4
+      "count": 2
+    },
+    {
+      "day": 2,
+      "hour": 15,
+      "count": 2
+    },
+    {
+      "day": 2,
+      "hour": 18,
+      "count": 1
+    },
+    {
+      "day": 2,
+      "hour": 20,
+      "count": 1
+    },
+    {
+      "day": 3,
+      "hour": 20,
+      "count": 2
     },
     {
       "day": 4,
-      "hour": 14,
-      "count": 6
+      "hour": 16,
+      "count": 2
     }
   ],
   "top_committers": [
     {
       "username": "danilofns",
       "name": "Danilo Fernandes",
-      "commits": 18,
+      "commits": 8,
       "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
+    },
+    {
+      "username": "Daniel241025",
+      "name": "Daniel Rodrigues Freitas",
+      "commits": 7,
+      "avatar_url": "https://avatars.githubusercontent.com/u/215087737?v=4"
+    },
+    {
+      "username": "TheBagomes",
+      "name": "Vitor Barreto Gomes",
+      "commits": 5,
+      "avatar_url": "https://avatars.githubusercontent.com/u/154992563?v=4"
+    },
+    {
+      "username": "jadsonRleandro",
+      "name": "Jadson Ricardo",
+      "commits": 3,
+      "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
+    },
+    {
+      "username": "RochaCarla",
+      "name": "Carla Rocha",
+      "commits": 1,
+      "avatar_url": "https://avatars.githubusercontent.com/u/5897389?v=4"
+    },
+    {
+      "username": "SchneiderCode1",
+      "name": "SchneiderCode1",
+      "commits": 0,
+      "avatar_url": "https://avatars.githubusercontent.com/u/165057013?v=4"
+    },
+    {
+      "username": "christianrolim",
+      "name": "Christian Silva Rolim",
+      "commits": 0,
+      "avatar_url": "https://avatars.githubusercontent.com/u/206796132?v=4"
     }
   ],
   "top_pr_authors": [
@@ -66,16 +158,100 @@
       "name": "Danilo Fernandes",
       "prs_opened": 0,
       "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
+    },
+    {
+      "username": "TheBagomes",
+      "name": "Vitor Barreto Gomes",
+      "prs_opened": 0,
+      "avatar_url": "https://avatars.githubusercontent.com/u/154992563?v=4"
+    },
+    {
+      "username": "jadsonRleandro",
+      "name": "Jadson Ricardo",
+      "prs_opened": 0,
+      "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
+    },
+    {
+      "username": "Daniel241025",
+      "name": "Daniel Rodrigues Freitas",
+      "prs_opened": 0,
+      "avatar_url": "https://avatars.githubusercontent.com/u/215087737?v=4"
+    },
+    {
+      "username": "RochaCarla",
+      "name": "Carla Rocha",
+      "prs_opened": 0,
+      "avatar_url": "https://avatars.githubusercontent.com/u/5897389?v=4"
+    },
+    {
+      "username": "SchneiderCode1",
+      "name": "SchneiderCode1",
+      "prs_opened": 0,
+      "avatar_url": "https://avatars.githubusercontent.com/u/165057013?v=4"
+    },
+    {
+      "username": "christianrolim",
+      "name": "Christian Silva Rolim",
+      "prs_opened": 0,
+      "avatar_url": "https://avatars.githubusercontent.com/u/206796132?v=4"
     }
   ],
   "top_issue_contributors": [
     {
+      "username": "SchneiderCode1",
+      "name": "SchneiderCode1",
+      "opened": 6,
+      "closed": 4,
+      "total": 10,
+      "avatar_url": "https://avatars.githubusercontent.com/u/165057013?v=4"
+    },
+    {
       "username": "danilofns",
       "name": "Danilo Fernandes",
+      "opened": 1,
+      "closed": 4,
+      "total": 5,
+      "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
+    },
+    {
+      "username": "TheBagomes",
+      "name": "Vitor Barreto Gomes",
+      "opened": 0,
+      "closed": 5,
+      "total": 5,
+      "avatar_url": "https://avatars.githubusercontent.com/u/154992563?v=4"
+    },
+    {
+      "username": "christianrolim",
+      "name": "Christian Silva Rolim",
+      "opened": 0,
+      "closed": 4,
+      "total": 4,
+      "avatar_url": "https://avatars.githubusercontent.com/u/206796132?v=4"
+    },
+    {
+      "username": "jadsonRleandro",
+      "name": "Jadson Ricardo",
+      "opened": 0,
+      "closed": 3,
+      "total": 3,
+      "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
+    },
+    {
+      "username": "Daniel241025",
+      "name": "Daniel Rodrigues Freitas",
+      "opened": 0,
+      "closed": 2,
+      "total": 2,
+      "avatar_url": "https://avatars.githubusercontent.com/u/215087737?v=4"
+    },
+    {
+      "username": "RochaCarla",
+      "name": "Carla Rocha",
       "opened": 0,
       "closed": 0,
       "total": 0,
-      "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
+      "avatar_url": "https://avatars.githubusercontent.com/u/5897389?v=4"
     }
   ]
 }
