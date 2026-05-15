@@ -15,6 +15,9 @@ jobs:
 
     steps:
 
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
@@ -27,7 +30,7 @@ jobs:
           playwright install
 
       - name: Executar script
-        run: python ../../scrapers/executarSpdiers.py
+        run: python scrapers/executarSpiders.py
 
       - name: Scraper executado, atualizando o repositório
         run: |
