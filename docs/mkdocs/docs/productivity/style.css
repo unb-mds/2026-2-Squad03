@@ -1,0 +1,171 @@
+    .unb-header {
+        background: #000c1f;
+        color: white;
+    }
+
+    .unb-open {
+        color: #011d3a;
+    }
+
+    .unb-closed {
+        color: #550e01;
+    }
+
+    .unb-bar-open {
+        fill: #011d3a;
+    }
+
+    .unb-bar-closed {
+        fill: #550e01;
+    }
+
+    .unb-commit-hist {
+        fill: #242424;
+    }
+
+    .unb-coauthors-bar {
+        fill: #f3eabb;
+        stroke: #011d3a;
+        stroke-width: 1px;
+    }
+
+    .unb-grid {
+        stroke: rgba(0, 0, 0, 0.08);
+        stroke-width: 1;
+    }
+
+    .card {
+        background: rgb(238, 200, 200);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 12px;
+    }
+
+
+    .card {
+        background: rgb(238, 200, 200);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 12px;
+    }
+
+    /* TOPO */
+    .topo {
+        padding: 1.8rem;
+        min-height: 180px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        gap: 1.2rem;
+    }
+
+    /* TÍTULO DAS SEÇÕES */
+    .topo h2 {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    /* TABELAS DO TOPO */
+    .topo table {
+        margin-top: 1rem;
+    }
+
+    /* CONTAINER DOS COMMITTERS */
+    .commiters {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .topo-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .topo-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .topo-full {
+        width: 100%;
+    }
+
+    /* remove scroll horizontal */
+    .topo table {
+        table-layout: fixed;
+    }
+
+    .topo td,
+    .topo th {
+        word-break: break-word;
+        padding: 0.75rem;
+    }
+
+
+ #commitHeatmap {
+    margin-top: 10%;
+}
+
+.md-header__button.md-logo img {
+    height: 50px; /* aumenta aqui */
+}
+
+.md-header__inner {
+    display: flex;
+    align-items: center;
+}
+
+.md-header__inner img {
+    display: block;
+}
+
+.md-header {
+    color: #E6E9EE;
+} 
+
+/* Container para alinhar logo e texto */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Ajusta o logo para ficar maior */
+.md-header__button.md-logo img {
+    height: 80px; /* Aumenta de 50px para 80px */
+    width: auto;
+}
+
+/* Ajusta o texto para mesma altura do logo */
+.header-texto {
+    height: 60px; /* Mesma altura do logo */
+    width: auto;
+    display: block;
+    padding-left: 20px;
+}
+
+/* Remove bordas extras se houver */
+.md-header__button.md-logo {
+    padding: 0;
+    margin: 0;
+}
+
+/* Responsivo para telas menores */
+@media (max-width: 640px) {
+    .md-header__button.md-logo img {
+        height: 50px;
+    }
+    
+    .header-texto {
+        height: 50px;
+    }
+    
+    .logo-container {
+        gap: 0.5rem;
+    }
+}

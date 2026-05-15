@@ -1,0 +1,81 @@
+{
+  "generated_at": "2026-05-15T14:29:04Z",
+  "repository": "danilofns/teste",
+  "issues_per_week": [],
+  "commit_message_histogram": [
+    {
+      "range": "0-20",
+      "count": 18
+    },
+    {
+      "range": "21-50",
+      "count": 0
+    },
+    {
+      "range": "51-100",
+      "count": 0
+    },
+    {
+      "range": "101-200",
+      "count": 0
+    },
+    {
+      "range": "200+",
+      "count": 0
+    }
+  ],
+  "coauthors_per_week": [],
+  "commit_heatmap": [
+    {
+      "day": 3,
+      "hour": 22,
+      "count": 1
+    },
+    {
+      "day": 3,
+      "hour": 23,
+      "count": 6
+    },
+    {
+      "day": 4,
+      "hour": 0,
+      "count": 1
+    },
+    {
+      "day": 4,
+      "hour": 13,
+      "count": 4
+    },
+    {
+      "day": 4,
+      "hour": 14,
+      "count": 6
+    }
+  ],
+  "top_committers": [
+    {
+      "username": "danilofns",
+      "name": "Danilo Fernandes",
+      "commits": 18,
+      "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
+    }
+  ],
+  "top_pr_authors": [
+    {
+      "username": "danilofns",
+      "name": "Danilo Fernandes",
+      "prs_opened": 0,
+      "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
+    }
+  ],
+  "top_issue_contributors": [
+    {
+      "username": "danilofns",
+      "name": "Danilo Fernandes",
+      "opened": 0,
+      "closed": 0,
+      "total": 0,
+      "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
+    }
+  ]
+}

@@ -1,11 +1,11 @@
-site_name: VeritasIA
-site_description: Documentação oficial do projeto veritasia
+site_name: VeritasIA 
+site_description: "Documentação oficial do VeritasIA"
 
-theme:
+theme: 
   name: material
-  logo: assets/Logo.png
-  favicon: assets/LogoBlack.png
-  custom_dir: docs/overrides
+  logo: assets/logo.png
+  favicon: assets/favicon.ico
+  custom_dir: overrides
   language: pt-BR
 
   palette:
@@ -13,28 +13,35 @@ theme:
     accent: custom
 
 nav:
-  - Home:
+  - Home: 
       - Sobre o Projeto: index.md
-      - Sobre Nos: sobrenos.md
+      - Sobre Nós: sobrenos.md
 
   - Projeto:
-      - Product Backlog: ../../projeto/product-backlog.md
-      - Sprint 1: ../../projeto/sprint1.md
-      - Sprint 2: ../../projeto/sprint2.md
-      - Sprint 3: ../../projeto/sprint3.md
-      - Retrospectiva: ../../projeto/retrospective.md
-      - Equipe: ../../projeto/team.md
-      - Roadmap: ../../projeto/roadmap.md
-
-  - Requisitos:
-      - Visão Geral: Requisitos.md
-
+      - Product Backlog: projeto/product_backlog.md
+      - Requisitos: projeto/Requisitos.md
+      - Sprint 1: projeto/sprint1.md
+      - Sprint 2: projeto/sprint2.md
+      - Sprint 3: projeto/sprint3.md
+      - Equipe: sobrenos.md
+    
   - Frontend:
-      - React: React.md
+      - React: frontend/React.md
+      - Prototipagem: frontend/Prototipagem.md
 
   - Backend:
-      - Web Scraping: Scrapy.md
-      - LangChain: LangChain.md
-      - FastAPI: FastAPI.md
+      - FastAPI: backend/FastAPI.md
+      - Web Scraping: backend/Scrapy.md
+      - LangChain: backend/LangChain.md
+
+  - DashBoard:
+      - Produtividade: dashboard/index.html
+
+docs_dir: docs
+site_dir: site
+
 extra_css:
   - stylesheets/extra.css
+
+plugins:
+  - search

@@ -10,11 +10,16 @@ Mais do que apresentar dados, o projeto se propõe a dar visibilidade a uma prob
 
 # Tecnologias Utilizadas
 
+Documentação
+
+- MkDocs
 [Figma](https://www.figma.com/board/TERK5u1cdCHQBJgRb3m2x5/Squad-03?node-id=0-1&p=f&t=VAcCgipTLYa9FQ6e-0)
 
 Frontend
 
 - React
+- Vite
+- Tailwind CSS
 
 Backend
 
@@ -24,6 +29,11 @@ Backend
 - FastAPI
 
 Banco de Dados
+
+Outros
+
+- GitHub Actions
+
 
 ---
 
