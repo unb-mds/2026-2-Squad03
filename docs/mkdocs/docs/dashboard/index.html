@@ -15,7 +15,7 @@
 
 </head>
 
-<body class="bg-gray-50">
+<body >
   <header class="unb-header">
     <div class="max-w-6xl mx-auto px-4 py-5">
       <div class="flex flex-col gap-1">
@@ -31,19 +31,6 @@
   </header>
   <main class="max-w-7xl mx-auto px-4 py-6"> <!-- TOPO -->
     <div class="topo-container"> <!-- 8 -->
-      <section class="card p-4 topo topo-full">
-        <div class="flex items-baseline justify-between gap-3">
-          <h2 class="text-lg font-semibold"> Ranking - Top Issues (Abertas/Fechadas) </h2>
-        </div>
-        <div class="mt-3" id="topIssueContributors"></div>
-      </section> <!-- LINHA INFERIOR -->
-      <div class="topo-grid"> <!-- 7 -->
-        <section class="card p-4 topo">
-          <div class="flex items-baseline justify-between gap-3">
-            <h2 class="text-lg font-semibold"> Ranking — Top autores de PRs </h2>
-          </div>
-          <div class="mt-3" id="topPrAuthors"></div>
-        </section> <!-- 6 -->
         <section class="card p-4 topo">
           <div class="flex items-baseline justify-between gap-3">
             <h2 class="text-lg font-semibold"> Ranking — Top committers </h2>
@@ -53,19 +40,23 @@
       </div>
     </div> <!-- RESTANTE -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 auto-rows-auto"> <!-- 4 -->
-      <section class="card p-4">
-        <div class="flex items-baseline justify-between gap-3">
-          <h2 class="text-lg font-semibold"> Mapa de calor — Horário dos commits (Seg–Dom) </h2>
-        </div>
-        <div class="mt-3 overflow-x-auto" id="commitHeatmap"></div>
-        <p class="text-xs text-gray-600 mt-2"> Quantidade de commits. </p>
-      </section> <!-- 5 -->
+    <section class="card p-4">
+      <div class="flex items-baseline justify-between gap-3">
+        <h2 class="text-lg font-semibold">
+          Fluxo de issues
+        </h2>
+      </div>
+
+      <div class="mt-3" id="issuesLineChart"></div>
+    </section>
+
       <section class="card p-4">
         <div class="flex items-baseline justify-between gap-3">
           <h2 class="text-lg font-semibold"> Issues abertas/fechadas (barras empilhadas) </h2>
         </div>
         <div class="mt-3" id="issuesStackedBars"></div>
       </section> <!-- 3 -->
+      
       <section class="card p-4">
         <div class="flex items-baseline justify-between gap-3">
           <h2 class="text-lg font-semibold"> Co-autores por semana </h2>
@@ -80,9 +71,10 @@
       </section> <!-- 1 -->
       <section class="card p-4 lg:col-span-2">
         <div class="flex items-baseline justify-between gap-3">
-          <h2 class="text-lg font-semibold"> Issues abertas vs. fechadas (linhas) </h2>
+          <h2 class="text-lg font-semibold"> Mapa de calor — Horário dos commits (Seg–Dom) </h2>
         </div>
-        <div class="mt-3" id="issuesLineChart"></div>
+        <div class="mt-3 overflow-hidden" id="commitHeatmap"></div>
+        <p class="text-xs text-gray-600 mt-2"> Quantidade de commits. </p>
       </section>
     </div>
     <div class="text-xs text-gray-600 mt-6">
@@ -126,14 +118,13 @@
 
   <script>
     const colors = {
-
-      header: '#011d3a',
-      open: '#011d3a',
-      closed: '#550e01',
-      hist: '#242424',
-      gold: '#f3eabb',
-      heat0: '#74a5b6',
-      heatMax: '#003366',
+      header: '#000c1f',
+      open: '#502f7d',
+      closed: '#d1c3e3',
+      hist: '#000c1f',
+      gold: '#502f7d',
+      heat0: '#ffffff00',
+      heatMax: '#502f7d',
       grid: 'rgba(0,0,0,0.08)'
     };
 
@@ -167,67 +158,250 @@
     }
 
     function renderIssuesLineChart(containerId, data) {
+
       clear(containerId);
+
       const container = document.getElementById(containerId);
-      const w = Math.min(860, container.clientWidth || 860);
-      const h = 320;
-      const margin = { top: 20, right: 24, bottom: 46, left: 54 };
+
+      if (!container) return;
+
+      const w = Math.min(920, container.clientWidth || 920);
+      const h = 420;
+
+      const margin = {
+        top: 50,
+        right: 30,
+        bottom: 70,
+        left: 60
+      };
+
       const innerW = w - margin.left - margin.right;
       const innerH = h - margin.top - margin.bottom;
 
-      const svg = d3.select(container).append('svg')
+      const svg = d3.select(container)
+        .append('svg')
         .attr('width', w)
-        .attr('height', h);
+        .attr('height', h)
+        .attr('viewBox', `0 0 ${w} ${h}`)
+        .style('width', '100%')
+        .style('height', 'auto');
 
-      const x = d3.scalePoint().range([0, innerW]).padding(0.5)
-        .domain(data.map(d => d.week));
 
-      const yMax = d3.max(data, d => Math.max(d.opened, d.closed)) || 0;
-      const y = d3.scaleLinear().range([innerH, 0]).domain([0, yMax]);
+      /* GRADIENTES */
 
-      svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`)
-        .call(d3.axisLeft(y).ticks(5))
-        .call(g => g.selectAll('path').attr('stroke', colors.grid));
+      const defs = svg.append('defs');
 
-      const xAxis = svg.append('g')
-        .attr('transform', `translate(${margin.left},${margin.top + innerH})`)
-        .call(d3.axisBottom(x).tickSize(0));
+      const gradientOpen = defs.append('linearGradient')
+        .attr('id', 'gradientOpen')
+        .attr('x1', '0')
+        .attr('y1', '0')
+        .attr('x2', '0')
+        .attr('y2', '1');
+
+      gradientOpen.append('stop')
+        .attr('offset', '0%')
+        .attr('stop-color', '#502f7d')
+        .attr('stop-opacity', 0.35);
+
+      gradientOpen.append('stop')
+        .attr('offset', '100%')
+        .attr('stop-color', '#502f7d')
+        .attr('stop-opacity', 0);
+
+      const gradientClosed = defs.append('linearGradient')
+        .attr('id', 'gradientClosed')
+        .attr('x1', '0')
+        .attr('y1', '0')
+        .attr('x2', '0')
+        .attr('y2', '1');
+
+      gradientClosed.append('stop')
+        .attr('offset', '0%')
+        .attr('stop-color', '#d1c3e3')
+        .attr('stop-opacity', 0.35);
+
+      gradientClosed.append('stop')
+        .attr('offset', '100%')
+        .attr('stop-color', '#4ade80')
+        .attr('stop-opacity', 0);
+
+      /* ESCALAS */
+
+      const x = d3.scalePoint()
+        .domain(data.map(d => d.week))
+        .range([0, innerW]);
+
+      const yMax = d3.max(data, d =>
+        Math.max(d.opened, d.closed)
+      ) || 1;
+
+      const y = d3.scaleLinear()
+        .domain([0, yMax])
+        .range([innerH, 0]);
+
+      const g = svg.append('g')
+        .attr(
+          'transform',
+          `translate(${margin.left},${margin.top})`
+        );
+
+      /* GRID */
+
+      g.append('g')
+        .call(
+          d3.axisLeft(y)
+          .ticks(6)
+          .tickSize(-innerW)
+        )
+        .call(g => g.select('.domain').remove())
+        .call(g => g.selectAll('line')
+          .attr('stroke', 'rgba(255,255,255,.08)')
+        )
+        .call(g => g.selectAll('text')
+          .attr('fill', '#94a3b8')
+        );
+
+      /* X AXIS */
+
+      const xAxis = g.append('g')
+        .attr(
+          'transform',
+          `translate(0,${innerH})`
+        )
+        .call(d3.axisBottom(x));
+
+      xAxis.select('.domain').remove();
+
+      xAxis.selectAll('line')
+        .remove();
+
       xAxis.selectAll('text')
+        .attr('fill', '#94a3b8')
         .style('font-size', '11px')
-        .attr('transform', 'rotate(-25)')
+        .attr('transform', 'rotate(-35)')
         .style('text-anchor', 'end');
 
-      const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+      /* ÁREA */
 
-      const lineOpen = d3.line().x(d => x(d.week)).y(d => y(d.opened));
-      const lineClosed = d3.line().x(d => x(d.week)).y(d => y(d.closed));
+      const areaOpen = d3.area()
+        .x(d => x(d.week))
+        .y0(innerH)
+        .y1(d => y(d.opened))
+        .curve(d3.curveCatmullRom.alpha(0.5));
+
+      const areaClosed = d3.area()
+        .x(d => x(d.week))
+        .y0(innerH)
+        .y1(d => y(d.closed))
+        .curve(d3.curveCatmullRom.alpha(0.5));
+
+      g.append('path')
+        .datum(data)
+        .attr('fill', 'url(#gradientOpen)')
+        .attr('d', areaOpen);
+
+      g.append('path')
+        .datum(data)
+        .attr('fill', 'url(#gradientClosed)')
+        .attr('d', areaClosed);
+
+      /* LINHAS */
+
+      const lineOpen = d3.line()
+        .x(d => x(d.week))
+        .y(d => y(d.opened))
+        .curve(d3.curveCatmullRom.alpha(0.5));
+
+      const lineClosed = d3.line()
+        .x(d => x(d.week))
+        .y(d => y(d.closed))
+        .curve(d3.curveCatmullRom.alpha(0.5));
+
+      g.append('path')
+        .datum(data)
+        .attr('fill', 'none')
+        .attr('stroke', '#502f7d')
+        .attr('stroke-width', 4)
+        .attr('stroke-linecap', 'round')
+        .attr('stroke-linejoin', 'round')
+        .attr('filter', 'drop-shadow(0 0 6px #52357a')
+        .attr('d', lineOpen);
+
+      g.append('path')
+        .datum(data)
+        .attr('fill', 'none')
+        .attr('stroke', '#d1c3e3')
+        .attr('stroke-width', 4)
+        .attr('stroke-linecap', 'round')
+        .attr('stroke-linejoin', 'round')
+        .attr('filter', 'drop-shadow(0 0 6px #5b437e)')
+        .attr('d', lineClosed);
+
+      /* PONTOS */
+
+      g.selectAll('.dot-open')
+        .data(data)
+        .enter()
+        .append('circle')
+        .attr('cx', d => x(d.week))
+        .attr('cy', d => y(d.opened))
+        .attr('r', 4)
+        .attr('fill', '#0712F26')
+        .attr('stroke', '#502f7d')
+        .attr('stroke-width', 2);
+
+      g.selectAll('.dot-closed')
+        .data(data)
+        .enter()
+        .append('circle')
+        .attr('cx', d => x(d.week))
+        .attr('cy', d => y(d.closed))
+        .attr('r', 4)
+        .attr('fill', '#071226')
+        .attr('stroke', '#d1c3e3')
+        .attr('stroke-width', 2);
+
+      /* TÍTULO */
 
       svg.append('text')
         .attr('x', margin.left)
-        .attr('y', 14)
-        .style('fill', '#111')
-        .style('font-size', '12px')
-        .text('Abertas vs. Fechadas por semana');
+        .attr('y', 28)
+        .attr('fill', '#dbe4ff')
+        .style('font-size', '18px')
+        .style('font-weight', '700');
 
-      g.append('path').datum(data)
-        .attr('fill', 'none')
-        .attr('stroke', colors.open)
-        .attr('stroke-width', 2)
-        .attr('d', lineOpen);
+      /* LEGENDA */
 
-      g.append('path').datum(data)
-        .attr('fill', 'none')
-        .attr('stroke', colors.closed)
-        .attr('stroke-width', 2)
-        .attr('d', lineClosed);
-
-      // legend
       const legend = svg.append('g')
-        .attr('transform', `translate(${margin.left + 10},${margin.top + 10})`);
-      legend.append('circle').attr('cx', 0).attr('cy', 0).attr('r', 5).attr('fill', colors.open);
-      legend.append('text').attr('x', 12).attr('y', 4).style('font-size', '12px').text('Abertas');
-      legend.append('circle').attr('cx', 95).attr('cy', 0).attr('r', 5).attr('fill', colors.closed);
-      legend.append('text').attr('x', 107).attr('y', 4).style('font-size', '12px').text('Fechadas');
+        .attr(
+          'transform',
+          `translate(${w / 2 - 90},${h - 20})`
+        );
+
+      legend.append('rect')
+        .attr('width', 14)
+        .attr('height', 14)
+        .attr('rx', 4)
+        .attr('fill', '#d1c3e3');
+
+      legend.append('text')
+        .attr('x', 22)
+        .attr('y', 11)
+        .attr('fill', '#502f7d')
+        .text('Abertas');
+
+      legend.append('rect')
+        .attr('x', 120)
+        .attr('width', 14)
+        .attr('height', 14)
+        .attr('rx', 4)
+        .attr('fill', '#502f7d');
+
+      legend.append('text')
+        .attr('x', 142)
+        .attr('y', 11)
+        .attr('fill', '#d1c3e3')
+        .text('Fechadas');
     }
 
     function renderIssuesStackedBars(containerId, data) {
@@ -255,6 +429,11 @@
         .style('font-size', '11px')
         .attr('transform', 'rotate(-25)')
         .style('text-anchor', 'end');
+        g.selectAll('.domain, .tick line')
+          .attr('stroke', '#FFFFFF');
+
+        g.selectAll('.tick text')
+          .attr('fill', '#FFFFFF');
 
       const bars = g.selectAll('g.bar').data(data).enter().append('g').attr('class', 'bar')
         .attr('transform', d => `translate(${x(d.week)},0)`);
@@ -274,7 +453,7 @@
       svg.append('text')
         .attr('x', margin.left)
         .attr('y', 14)
-        .style('fill', '#111')
+        .style('fill', '#FFFFFF')
         .style('font-size', '12px')
         .text('Abertas (base) + Fechadas (topo)');
     }
@@ -308,14 +487,20 @@
         .attr('width', x.bandwidth())
         .attr('y', d => y(d.count))
         .attr('height', d => innerH - y(d.count))
-        .attr('fill', colors.hist);
+        .attr('fill', "#502f7d")
+        .attr('rx', 6)
+        .attr('ry', 6);
 
       svg.append('text')
         .attr('x', margin.left)
         .attr('y', 14)
-        .style('fill', '#111')
+        .style('fill', '#FFFFFF')
         .style('font-size', '12px')
-        .text('Distribuição de caracteres na mensagem de commit');
+        g.selectAll('.domain, .tick line')
+          .attr('stroke', '#FFFFFF');
+
+        g.selectAll('.tick text')
+          .attr('fill', '#FFFFFF');
     }
 
     function renderCoauthorsBars(containerId, data) {
@@ -354,61 +539,77 @@
         .attr('height', d => innerH - y(d.count))
         .attr('fill', colors.gold)
         .attr('stroke', colors.open)
-        .attr('stroke-width', 1);
+        .attr('stroke-width', 1)
+        .attr('rx', 6)
+        .attr('ry', 6);
 
       svg.append('text')
         .attr('x', margin.left)
         .attr('y', 14)
-        .style('fill', '#111')
+        .style('fill', '#FFFFFF')
         .style('font-size', '12px')
         .text('Linhas "Co-authored-by" por semana');
+        g.selectAll('.domain, .tick line')
+          .attr('stroke', '#FFFFFF');
+        g.selectAll('.tick text')
+          .attr('fill', '#FFFFFF');
     }
 
     function renderCommitHeatmap(containerId, data) {
       clear(containerId);
       const container = document.getElementById(containerId);
 
-      const cellSize = 18;
+      const containerWidth = container.clientWidth || 1000;
+
+      const cols = 24;
+      const rows = 7;
+
+      const gap = 4;
+
+      const margin = { top: 0, right: 20, bottom: 30, left: 50 };
+
+      const usableWidth =
+        containerWidth - margin.left - margin.right;
+
+      const cellSize =
+        (usableWidth - (gap * (cols - 1))) / cols;
+
+      const step = cellSize + gap;
+      
       const hours = d3.range(0, 24);
       const days = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"];
 
-      const margin = { top: 30, right: 20, bottom: 30, left: 50 };
-      const w = margin.left + (hours.length * cellSize) + margin.right;
-      const h = margin.top + (days.length * cellSize) + margin.bottom;
+      const w = margin.left + (hours.length * step) + margin.right;
+      const h = margin.top + (days.length * step) + margin.bottom;
 
       const svg = d3.select(container).append('svg')
         .attr('width', w)
-        .attr('height', h);
+        .attr('height', h)
+        .style('display', 'block')
+        .style('margin', '0 auto');
 
       const maxCount = d3.max(data, d => d.count) || 0;
       const color = d3.scaleLinear().domain([0, maxCount || 1]).range([colors.heat0, colors.heatMax]);
 
       const tip = makeTooltip();
 
-      svg.append('text')
-        .attr('x', margin.left)
-        .attr('y', 16)
-        .style('fill', '#111')
-        .style('font-size', '12px')
-        .text('Intensidade por horário (UTC)');
-
       // axes labels
-      svg.append('g').attr('transform', `translate(${margin.left - 10},${margin.top})`)
+      svg.append('g').attr('transform', `translate(${margin.left - 30},${margin.top - 10})`)
         .selectAll('text')
         .data(days)
         .enter()
         .append('text')
         .attr('x', 0)
-        .attr('y', (d, i) => i * cellSize + cellSize - 4)
+        .attr('y', (d, i) => i * step + cellSize - 4)
         .style('font-size', '11px')
         .text(d => d);
 
-      svg.append('g').attr('transform', `translate(${margin.left},${margin.top + days.length * cellSize})`)
+      svg.append('g').attr('transform', `translate(${margin.left},${margin.top + days.length * step})`)
         .selectAll('text')
         .data(hours)
         .enter()
         .append('text')
-        .attr('x', (d, i) => i * cellSize + cellSize / 2)
+        .attr('x', (d, i) => i * step + step / 2)
         .attr('y', 20)
         .style('font-size', '10px')
         .style('text-anchor', 'middle')
@@ -422,11 +623,13 @@
         for (let hour = 0; hour < 24; hour++) {
           const cnt = byKey.get(`${day}-${hour}`) || 0;
           g.append('rect')
-            .attr('x', hour * cellSize)
-            .attr('y', day * cellSize)
+            .attr('x', hour * step)
+            .attr('y', day * step)
             .attr('width', cellSize)
             .attr('height', cellSize)
-            .attr('fill', color(cnt));
+            .attr('fill', color(cnt))
+            .attr('rx', 6)
+            .attr('ry', 6);
 
           // Tooltip apenas se cnt>0? Spec diz que tooltip mostra quantidade.
           g.selectAll('rect')
@@ -439,8 +642,8 @@
         .on('mousemove', function (event) {
           const rectX = +this.getAttribute('x');
           const rectY = +this.getAttribute('y');
-          const hour = rectX / cellSize;
-          const day = rectY / cellSize;
+          const hour = rectX / step;
+          const day = rectY / step;
           const key = `${day}-${hour}`;
           const cnt = byKey.get(key) || 0;
 
@@ -461,10 +664,10 @@
         .data(hours)
         .enter()
         .append('line')
-        .attr('x1', d => d * cellSize)
+        .attr('x1', d => d * step)
         .attr('y1', 0)
-        .attr('x2', d => d * cellSize)
-        .attr('y2', days.length * cellSize)
+        .attr('x2', d => d * step)
+        .attr('y2', days.length * step)
         .attr('stroke', colors.grid);
 
       g.append('g').selectAll('line')
@@ -472,9 +675,9 @@
         .enter()
         .append('line')
         .attr('x1', 0)
-        .attr('y1', (d, i) => i * cellSize)
-        .attr('x2', hours.length * cellSize)
-        .attr('y2', (d, i) => i * cellSize)
+        .attr('y1', (d, i) => i * step)
+        .attr('x2', hours.length * step)
+        .attr('y2', (d, i) => i * step)
         .attr('stroke', colors.grid);
 
     }
@@ -490,8 +693,12 @@
 
       const thead = document.createElement('thead');
       thead.innerHTML = `
-        <tr class="bg-gray-100">
-          ${columns.map(c => `<th class="px-3 py-2 text-left font-semibold text-gray-700">${c.label}</th>`).join('')}
+        <tr class="border-b border-gray-300">
+          ${columns.map(c => `
+            <th class="px-3 py-2 text-left font-semibold text-[#FFFFFF]">
+              ${c.label}
+            </th>
+          `).join('')}
         </tr>
       `;
       table.appendChild(thead);
@@ -499,7 +706,7 @@
       const tbody = document.createElement('tbody');
       topOnly.forEach((row, idx) => {
         const tr = document.createElement('tr');
-        tr.className = idx % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+        tr.className = 'border-b border-gray-200';
         const crown = idx === 0 ? '👑 ' : '';
 
         const tds = columns.map(c => {
@@ -551,6 +758,8 @@
       renderIssuesLineChart('issuesLineChart', issuesData);
       renderIssuesStackedBars('issuesStackedBars', issuesData);
 
+      
+
       // 2
       renderCommitHistogram('commitHistogram', metrics.commit_message_histogram || []);
 
@@ -566,28 +775,6 @@
           { key: 'position', label: '#' },
           { key: 'person', label: 'Contribuidor', renderPerson: (row, crown) => personCell(row, crown) },
           { key: 'commits', label: 'Total de commits' },
-        ],
-        { limit: 10 }
-      );
-
-      // 7
-      renderRankingTable('topPrAuthors', metrics.top_pr_authors || [],
-        [
-          { key: 'position', label: '#' },
-          { key: 'person', label: 'Autor', renderPerson: (row, crown) => personCell(row, crown) },
-          { key: 'prs_opened', label: 'PRs abertas' },
-        ],
-        { limit: 10 }
-      );
-
-      // 8
-      renderRankingTable('topIssueContributors', metrics.top_issue_contributors || [],
-        [
-          { key: 'position', label: '#' },
-          { key: 'person', label: 'Usuário', renderPerson: (row, crown) => personCell(row, crown) },
-          { key: 'opened', label: 'Abertas' },
-          { key: 'closed', label: 'Fechadas' },
-          { key: 'total', label: 'Total' },
         ],
         { limit: 10 }
       );
@@ -611,6 +798,10 @@
         container.prepend(msg);
       }
     });
+  </script>
+</body>
+
+</html>
   </script>
 </body>
 

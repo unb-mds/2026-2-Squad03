@@ -1,31 +1,49 @@
+*
+    body {
+        background-color: #021530;
+    }
+
+    svg text {
+    fill: white;
+    }
+
+    h1, h2, h3, h4, h5, h6,
+    p,
+    span,
+    label,
+    th,
+    td {
+    color: white;
+    }
     .unb-header {
         background: #000c1f;
-        color: white;
+        color: #FFFFFF;
     }
 
     .unb-open {
-        color: #011d3a;
+        color: #502f7d;
+        color: #74a5b6;
     }
 
     .unb-closed {
-        color: #550e01;
+        color: #d1c3e3;
     }
 
     .unb-bar-open {
-        fill: #011d3a;
+        fill: #502f7d;
     }
 
     .unb-bar-closed {
-        fill: #550e01;
+        fill: #d1c3e3;
     }
 
     .unb-commit-hist {
-        fill: #242424;
+        fill: #502f7d;
     }
 
     .unb-coauthors-bar {
-        fill: #f3eabb;
-        stroke: #011d3a;
+        fill: #402664;
+        stroke: #B0BACB;
         stroke-width: 1px;
     }
 
@@ -35,15 +53,8 @@
     }
 
     .card {
-        background: rgb(238, 200, 200);
-        border: 1px solid rgba(0, 0, 0, 0.08);
-        border-radius: 12px;
-    }
-
-
-    .card {
-        background: rgb(238, 200, 200);
-        border: 1px solid rgba(0, 0, 0, 0.08);
+        background: #000c1f;
+        border: 1px solid #B0BACB;
         border-radius: 12px;
     }
 
@@ -107,9 +118,6 @@
     }
 
 
- #commitHeatmap {
-    margin-top: 10%;
-}
 
 .md-header__button.md-logo img {
     height: 50px; /* aumenta aqui */
@@ -168,4 +176,122 @@
     .logo-container {
         gap: 0.5rem;
     }
+}
+
+
+.chart-card{
+  width:900px;
+  margin:40px auto;
+  padding:24px;
+
+
+
+  border-radius:24px;
+
+  color:white;
+}
+
+.chart-title{
+  font-size:28px;
+  font-weight:700;
+  letter-spacing:.5px;
+
+  margin-bottom:20px;
+
+  color:#dfe6ff;
+}
+
+.chart-svg{
+  width:100%;
+  height:auto;
+}
+
+.grid line{
+  stroke:rgba(255,255,255,.08);
+  stroke-width:1;
+}
+
+/* ABERTAS */
+
+.line-open{
+  fill:none;
+  stroke:#502f7d;
+  stroke-width:4;
+
+  stroke-linecap:round;
+  stroke-linejoin:round;
+
+  filter:
+    drop-shadow(0 0 8px rgba(244,180,0,.5));
+}
+
+.area-open{
+  fill:url(#gradientOpen);
+  fill:rgba(244,180,0,.18);
+}
+
+/* FECHADAS */
+
+.line-closed{
+  fill:none;
+  stroke:#d1c3e3;
+  stroke-width:4;
+
+  stroke-linecap:round;
+  stroke-linejoin:round;
+
+  filter:
+    drop-shadow(0 0 8px #d1c3e3);
+}
+
+.area-closed{
+  fill:rgba(74,222,128,.18);
+}
+
+/* PONTOS */
+
+.points-open circle{
+  fill:#0b1020;
+  stroke:#f4b400;
+  stroke-width:3;
+}
+
+.points-closed circle{
+  fill:#0b1020;
+  stroke:#4ade80;
+  stroke-width:3;
+}
+
+/* LEGENDA */
+
+.legend{
+  display:flex;
+  justify-content:center;
+  gap:32px;
+
+  margin-top:12px;
+}
+
+.legend-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  color:#c9d1ff;
+  font-size:15px;
+}
+
+.legend-box{
+  width:16px;
+  height:16px;
+
+  border-radius:4px;
+}
+
+.legend-box.open{
+  background:#f4b400;
+}
+
+.legend-box.closed{
+  background:#d1c3e3;
 }
