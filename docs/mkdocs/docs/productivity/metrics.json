@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-15T16:37:04Z",
+  "generated_at": "2026-05-17T23:37:40Z",
   "repository": "unb-mds/2026-2-VeritasIA",
   "issues_per_week": [
     {
@@ -19,8 +19,8 @@
     },
     {
       "week": "2026-W20",
-      "opened": 7,
-      "closed": 7
+      "opened": 8,
+      "closed": 8
     }
   ],
   "commit_message_histogram": [
@@ -30,11 +30,11 @@
     },
     {
       "range": "21-50",
-      "count": 8
+      "count": 9
     },
     {
       "range": "51-100",
-      "count": 6
+      "count": 9
     },
     {
       "range": "101-200",
@@ -45,7 +45,12 @@
       "count": 0
     }
   ],
-  "coauthors_per_week": [],
+  "coauthors_per_week": [
+    {
+      "week": "2026-W20",
+      "count": 1
+    }
+  ],
   "commit_heatmap": [
     {
       "day": 0,
@@ -105,6 +110,16 @@
     {
       "day": 4,
       "hour": 16,
+      "count": 3
+    },
+    {
+      "day": 4,
+      "hour": 20,
+      "count": 1
+    },
+    {
+      "day": 6,
+      "hour": 23,
       "count": 2
     }
   ],
@@ -112,7 +127,7 @@
     {
       "username": "danilofns",
       "name": "Danilo Fernandes",
-      "commits": 8,
+      "commits": 10,
       "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
     },
     {
@@ -130,8 +145,14 @@
     {
       "username": "jadsonRleandro",
       "name": "Jadson Ricardo",
-      "commits": 3,
+      "commits": 4,
       "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
+    },
+    {
+      "username": "github-actions[bot]",
+      "name": "github-actions[bot]",
+      "commits": 1,
+      "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4"
     },
     {
       "username": "RochaCarla",
@@ -156,20 +177,26 @@
     {
       "username": "danilofns",
       "name": "Danilo Fernandes",
-      "prs_opened": 0,
+      "prs_opened": 1,
       "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
-    },
-    {
-      "username": "TheBagomes",
-      "name": "Vitor Barreto Gomes",
-      "prs_opened": 0,
-      "avatar_url": "https://avatars.githubusercontent.com/u/154992563?v=4"
     },
     {
       "username": "jadsonRleandro",
       "name": "Jadson Ricardo",
       "prs_opened": 0,
       "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
+    },
+    {
+      "username": "github-actions[bot]",
+      "name": "github-actions[bot]",
+      "prs_opened": 0,
+      "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4"
+    },
+    {
+      "username": "TheBagomes",
+      "name": "Vitor Barreto Gomes",
+      "prs_opened": 0,
+      "avatar_url": "https://avatars.githubusercontent.com/u/154992563?v=4"
     },
     {
       "username": "Daniel241025",
@@ -209,8 +236,8 @@
       "username": "danilofns",
       "name": "Danilo Fernandes",
       "opened": 1,
-      "closed": 4,
-      "total": 5,
+      "closed": 5,
+      "total": 6,
       "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
     },
     {
@@ -222,6 +249,14 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/154992563?v=4"
     },
     {
+      "username": "jadsonRleandro",
+      "name": "Jadson Ricardo",
+      "opened": 1,
+      "closed": 3,
+      "total": 4,
+      "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
+    },
+    {
       "username": "christianrolim",
       "name": "Christian Silva Rolim",
       "opened": 0,
@@ -230,20 +265,20 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/206796132?v=4"
     },
     {
-      "username": "jadsonRleandro",
-      "name": "Jadson Ricardo",
-      "opened": 0,
-      "closed": 3,
-      "total": 3,
-      "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
-    },
-    {
       "username": "Daniel241025",
       "name": "Daniel Rodrigues Freitas",
       "opened": 0,
       "closed": 2,
       "total": 2,
       "avatar_url": "https://avatars.githubusercontent.com/u/215087737?v=4"
+    },
+    {
+      "username": "github-actions[bot]",
+      "name": "github-actions[bot]",
+      "opened": 0,
+      "closed": 0,
+      "total": 0,
+      "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4"
     },
     {
       "username": "RochaCarla",
