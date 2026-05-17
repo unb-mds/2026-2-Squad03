@@ -37,7 +37,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add resultados/*
+          git add scrapers/resultados/*
 
           echo "Git status after add:" 
           git status --porcelain
