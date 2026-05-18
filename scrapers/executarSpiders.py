@@ -21,10 +21,8 @@ def main():
     metropoles_scrapy = Process(target= metropoles_run_spider)
     metropoles_scrapy.start()
     metropoles_scrapy.join()
-
     salvar_todos_resultados()
 
 
 if __name__ == "__main__":
     main()
-    

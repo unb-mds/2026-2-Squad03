@@ -49,7 +49,7 @@ def cnn_run_spider():
     settings.set(
         'FEEDS',
         {
-            './resultados/cnn.json': {
+            'scrapers/resultados/cnn.json': {
                 'format': 'json',
                 'encoding': 'utf-8',
                 'overwrite': True
