@@ -35,7 +35,7 @@ def play_wright():
     urls = []
     with sync_playwright() as p:
 
-        browser = p.chromium.launch(headless = True)
+        browser = p.firefox.launch(headless = True)
 
 
         page = browser.new_page()
