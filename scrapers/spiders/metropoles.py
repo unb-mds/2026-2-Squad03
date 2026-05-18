@@ -38,7 +38,7 @@ def play_writght():
 
     with sync_playwright() as pw:
         todas_noticias_do_dia = False
-        browser = pw.firefox.launch(headless = False)
+        browser = pw.firefox.launch(headless = True)
         page1 = browser.new_page()
         page2 = browser.new_page()
         page1.goto("https://www.metropoles.com/tag/feminicidio", wait_until='load')

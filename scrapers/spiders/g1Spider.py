@@ -37,7 +37,7 @@ def play_writght():
     urls = []
 
     with sync_playwright() as pw:
-        browser = pw.firefox.launch(headless = False)
+        browser = pw.firefox.launch(headless = True)
 
         page1 = browser.new_page()
         page1.goto("https://g1.globo.com/busca/?q=feminicidio", wait_until='load')
