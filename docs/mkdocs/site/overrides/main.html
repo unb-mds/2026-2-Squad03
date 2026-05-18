@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <header class="md-header">
+    <nav class="md-header__inner md-grid">
+
+      <!-- Logo padrão -->
+      <a href="{{ config.site_url | default('/') }}" class="md-header__button md-logo">
+        <img src="{{ config.theme.logo | url }}" alt="logo">
+      </a>
+
+      <!-- Imagem com texto -->
+      <img src="{{ 'assets/texto.png' | url }}" style="height: 40px; margin-left: 10px;">
+
+    </nav>
+  </header>
+{% endblock %}
