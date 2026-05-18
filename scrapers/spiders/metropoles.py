@@ -79,7 +79,7 @@ def metropoles_run_spider():
     settings.set(
         'FEEDS',
         {
-            './resultados/metropoles.json': {
+            'scrapers/resultados/metropoles.json': {
                 'format': 'json',
                 'encoding': 'utf-8',
                 'overwrite': True

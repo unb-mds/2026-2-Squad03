@@ -97,7 +97,7 @@ def g1_run_spider():
     settings.set(
         'FEEDS',
         {
-            './resultados/g1.json': {
+            'scrapers/resultados/g1.json': {
                 'format': 'json',
                 'encoding': 'utf-8',
                 'overwrite': True

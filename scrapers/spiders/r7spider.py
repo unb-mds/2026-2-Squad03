@@ -79,7 +79,7 @@ def r7_run_spider():
     settings.set(
         'FEEDS',
         {
-            './resultados/r7.json': {
+            'scrapers/resultados/r7.json': {
                 'format': 'json',
                 'encoding': 'utf-8',
                 'overwrite': True
