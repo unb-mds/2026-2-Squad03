@@ -125,3 +125,110 @@ body {
   color: #2563eb;
   font-size: 14px;
 }
+.sidebar {
+  width: 220px;
+  background: #020b1c;
+  color: white;
+  padding: 28px 18px;
+}
+
+.sidebar-logo {
+  width: 150px;
+  display: block;
+  margin: 0 auto 42px;
+}
+
+.menu a {
+  padding: 12px 18px;
+  border-radius: 8px;
+  color: #d1d5db;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.content {
+  flex: 1;
+  padding: 28px 36px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 26px;
+}
+
+.header h2 {
+  font-size: 22px;
+}
+
+.header p {
+  color: #6b7280;
+  margin-top: 4px;
+  font-size: 13px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.date-button {
+  border: 1px solid #e5e7eb;
+  background: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.bell {
+  font-size: 16px;
+}
+
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-box strong {
+  font-size: 12px;
+}
+
+.user-box p {
+  font-size: 11px;
+  margin: 0;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #c7c7c7;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 36px;
+  max-width: 850px;
+  margin: 0 auto 28px;
+}
+
+.card {
+  background: white;
+  padding: 24px 28px;
+  border-radius: 8px;
+  border: 1px solid #dbe1ea;
+  min-height: 120px;
+}
+
+.card p {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.card h3 {
+  font-size: 28px;
+}
