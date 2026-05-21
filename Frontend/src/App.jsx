@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -7,7 +7,7 @@ import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
-    <BrowserRouter basename="/2026-2-VeritasIA">
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Home />} />
 
@@ -17,7 +17,7 @@ function App() {
 
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

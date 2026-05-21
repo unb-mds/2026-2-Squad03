@@ -232,3 +232,71 @@ body {
 .card h3 {
   font-size: 28px;
 }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f3f4f6;
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background: #020b1f;
+  color: white;
+  padding: 20px;
+}
+
+.content {
+  flex: 1;
+  padding: 30px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.date-button {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 10px 16px;
+  border-radius: 10px;
+}
+
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: #ccc;
+  border-radius: 50%;
+}
+
+.cards {
+  display: flex;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.stat-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 220px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
