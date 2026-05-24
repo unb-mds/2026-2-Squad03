@@ -1,8 +1,16 @@
 import "../App.css";
+import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import StatCard from "../components/StatCard";
+import NewsChart from "../components/NewsChart";
+import TopVehicles from "../components/TopVehicles";
+import RegionChart from "../components/RegionChart";
+import LatestNews from "../components/LatestNews";
+import AuthPrompt from "../components/AuthPrompt";
 
 function Dashboard() {
+  const [showModal, setShowModal] = useState(true);
+
   const stats = [
     {
       title: "Total de Notícias",
@@ -33,8 +41,10 @@ function Dashboard() {
           </div>
 
           <div className="header-actions">
-            <button className="date-button">01/05/2024 - 31/05/2024</button>
-
+            <button className="date-button">
+              <span>📅</span>
+              <span>01/05/2024 - 31/05/2024</span>
+            </button>
             <span className="bell">🔔</span>
 
             <div className="user-box">
@@ -48,6 +58,8 @@ function Dashboard() {
           </div>
         </header>
 
+        {showModal && <AuthPrompt onClose={() => setShowModal(false)} />}
+
         <section className="cards">
           {stats.map((stat, index) => (
             <StatCard
@@ -57,6 +69,38 @@ function Dashboard() {
               description={stat.description}
             />
           ))}
+        </section>
+        <section className="dashboard-grid">
+          <div className="chart-box">
+            <h3>Evolução temporal das publicações</h3>
+
+            <NewsChart />
+          </div>
+
+          <div className="map-box">
+            <h3>Distribuição por estado</h3>
+
+            <div className="fake-map">mapa aqui</div>
+          </div>
+        </section>
+        <section className="dashboard-grid bottom-grid">
+          <div className="chart-box">
+            <h3>Top Veículos</h3>
+
+            <TopVehicles />
+          </div>
+
+          <div className="map-box">
+            <h3>Notícias por região</h3>
+
+            <div className="fake-map">
+              <RegionChart />
+            </div>
+          </div>
+        </section>
+        <section className="full-box">
+          <h3>Últimas Notícias</h3>
+          <LatestNews />
         </section>
       </main>
     </div>

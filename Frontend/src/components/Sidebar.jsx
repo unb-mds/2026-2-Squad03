@@ -1,4 +1,5 @@
 import logoVeritas from "../assets/logo.png";
+import { Link } from "react-router-dom";
 
 function Sidebar() {
   return (
@@ -6,10 +7,15 @@ function Sidebar() {
       <img className="sidebar-logo" src={logoVeritas} alt="Logo Veritas IA" />
 
       <nav className="menu">
-        <a className="active">Dashboard</a>
-        <a>Mapa</a>
-        <a>Notícias</a>
-        <a>Sobre Nós</a>
+        <nav className="menu">
+          <Link to="/dashboard">Dashboard</Link>
+
+          <Link to="/mapa">Mapa</Link>
+
+          <Link to="/noticias">Notícias</Link>
+
+          <Link to="/sobre">Sobre Nós</Link>
+        </nav>
       </nav>
     </aside>
   );
