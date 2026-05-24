@@ -18,7 +18,7 @@ function AuthPrompt({ onClose }) {
         <div className="auth-modal-actions">
           <Link to="/login">Entrar</Link>
 
-          <Link to="/cadastro" className="primary">
+          <Link to="/login" className="primary">
             Cadastrar
           </Link>
 
