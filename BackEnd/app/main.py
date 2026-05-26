@@ -7,7 +7,7 @@ app = FastAPI(title="VeritasIA API")
 # Libera o Vite (React) para conversar com a API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173/2026-2-VeritasIA/"], # Porta padrão do Vite
+    allow_origins=["http://localhost:5173"], # Porta padrão do Vite
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
