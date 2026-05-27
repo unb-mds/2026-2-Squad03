@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import logoVeritas from "../assets/logo.png";
 import "../App.css";
 
 function Login() {
@@ -7,6 +8,9 @@ function Login() {
 
   return (
     <main className="auth-container">
+      <div className="auth-logo-area">
+        <img src={logoVeritas} alt="VeritasIA" />
+      </div>
       <section className={`login-card ${isRegister ? "active" : ""}`}>
         <div className="form-container register-form">
           <form>
@@ -29,9 +33,33 @@ function Login() {
             <input type="email" placeholder="Email" />
             <input type="password" placeholder="Senha" />
 
-            <a href="#">Esqueceu sua senha?</a>
+            <div className="login-options">
+              <label>
+                <input type="checkbox" />
+                Lembrar-me
+              </label>
+
+              <a href="#">Esqueceu a senha?</a>
+            </div>
 
             <button type="button">Entrar</button>
+
+            <div className="divider">
+              <span></span>
+              <p>ou</p>
+              <span></span>
+            </div>
+
+            <button type="button" className="google-button">
+              Continuar com Google
+            </button>
+
+            <p className="auth-switch-text">
+              Não tem uma conta?{" "}
+              <button type="button" onClick={() => setIsRegister(true)}>
+                Cadastre-se
+              </button>
+            </p>
 
             <Link to="/" className="back-link">
               Continuar sem login

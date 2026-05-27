@@ -829,3 +829,148 @@ body {
     display: none;
   }
 }
+.auth-container {
+  min-height: 100vh;
+  background: #e9edf3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-logo-area {
+  margin-bottom: 24px;
+}
+
+.auth-logo-area img {
+  width: 210px;
+  display: block;
+}
+
+.login-card {
+  position: relative;
+  width: 900px;
+  max-width: 92%;
+  min-height: 620px;
+  background: white;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #cfd6df;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+}
+
+.form-container form {
+  height: 100%;
+  padding: 40px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form-container h1 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.form-container span {
+  color: #374151;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.form-container input {
+  height: 40px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border: 1px solid #1e3a5f;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.form-container button,
+.toggle-panel button {
+  height: 42px;
+  border: none;
+  border-radius: 6px;
+  background: #020b1f;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.toggle {
+  background: linear-gradient(135deg, #020b1f, #082c64);
+}
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 4px 0 14px;
+  font-size: 13px;
+}
+
+.login-options label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.login-options input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 18px 0;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.divider span {
+  flex: 1;
+  height: 1px;
+  background: #d1d5db;
+}
+
+.google-button {
+  background: white !important;
+  color: #111827 !important;
+  border: 1px solid #d1d5db !important;
+}
+
+.auth-switch-text {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 13px;
+}
+
+.auth-switch-text button {
+  background: transparent;
+  color: #020b1f;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+.back-link {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+.auth-switch-text {
+  margin-top: 18px;
+}
+.brazil-map {
+  width: 100%;
+  height: 320px;
+}
+
+.brazil-map svg {
+  width: 100%;
+  height: 100%;
+}
