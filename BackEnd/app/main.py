@@ -1,16 +1,19 @@
+# backend/app/main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.app.adapters.api_adapter import locais_routes
+# Apenas importe os arquivos de rotas que você vai usar
+from backend.app.adapters.api_adapter import locais_routes, auth_routes 
 
 app = FastAPI(title="VeritasIA API")
 
-# Libera o Vite (React) para conversar com a API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"], # Porta padrão do Vite
+    allow_origins=["http://localhost:5173"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-app.include_router(locais_routes.router)
+# Registre os dois roteadores
+#app.include_router(locais_routes.router)
+app.include_router(auth_routes.router)
