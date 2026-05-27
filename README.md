@@ -28,7 +28,7 @@ A partir de informações atualizadas e notícias provenientes de canais oficiai
 - FastAPI
 
 # 🌐 Banco de Dados:
- - MySQL
+ - PostGreSQL
 
 ---
 
