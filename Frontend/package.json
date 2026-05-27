@@ -11,11 +11,10 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "axios": "^1.16.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.15.1",
-    "recharts": "^3.8.1"
+    "react-simple-maps": "^3.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

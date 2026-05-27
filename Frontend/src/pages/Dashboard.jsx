@@ -7,6 +7,7 @@ import TopVehicles from "../components/TopVehicles";
 import RegionChart from "../components/RegionChart";
 import LatestNews from "../components/LatestNews";
 import AuthPrompt from "../components/AuthPrompt";
+import BrazilMap from "../components/BrazilMap";
 
 function Dashboard() {
   const [showModal, setShowModal] = useState(true);
@@ -80,7 +81,7 @@ function Dashboard() {
           <div className="map-box">
             <h3>Distribuição por estado</h3>
 
-            <div className="fake-map">mapa aqui</div>
+            <BrazilMap />
           </div>
         </section>
         <section className="dashboard-grid bottom-grid">
