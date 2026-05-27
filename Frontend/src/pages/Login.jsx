@@ -7,10 +7,9 @@ function Login() {
   const [formData, setFormData] = useState({ email: "", senha: "", nome: "" });
   const navigate = useNavigate();
 
-  // Esta função atualiza o estado conforme o usuário digita
+
   const handleInputChange = (e) => {
-    // e.target.name pega o atributo 'name' do input
-    // e.target.value pega o texto que o usuário digitou
+
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 

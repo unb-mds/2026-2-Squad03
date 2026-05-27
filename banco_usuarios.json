@@ -3,5 +3,15 @@
         "nome": "123",
         "email": "henriquesfrosa@gmail.com",
         "senha": "123123"
+    },
+    {
+        "nome": "123",
+        "email": "123@123.com",
+        "senha": "321"
+    },
+    {
+        "nome": "teester",
+        "email": "email_teste@teste.com",
+        "senha": "1234"
     }
 ]

@@ -1,9 +1,11 @@
 # backend/app/adapters/api_adapter/auth_routes.py
+
 from fastapi import APIRouter
 from backend.app.domain.entities import UserAuth
 from backend.app.adapters.json_adapter import JsonRepositoryAdapter
 
 router = APIRouter(prefix="/api/auth", tags=["Autenticação"])
+
 repo = JsonRepositoryAdapter()
 
 @router.post("/register")
