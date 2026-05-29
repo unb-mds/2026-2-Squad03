@@ -1,0 +1,297 @@
+*
+    body {
+        background-color: #021530;
+    }
+
+    svg text {
+    fill: white;
+    }
+
+    h1, h2, h3, h4, h5, h6,
+    p,
+    span,
+    label,
+    th,
+    td {
+    color: white;
+    }
+    .unb-header {
+        background: #000c1f;
+        color: #FFFFFF;
+    }
+
+    .unb-open {
+        color: #502f7d;
+        color: #74a5b6;
+    }
+
+    .unb-closed {
+        color: #d1c3e3;
+    }
+
+    .unb-bar-open {
+        fill: #502f7d;
+    }
+
+    .unb-bar-closed {
+        fill: #d1c3e3;
+    }
+
+    .unb-commit-hist {
+        fill: #502f7d;
+    }
+
+    .unb-coauthors-bar {
+        fill: #402664;
+        stroke: #B0BACB;
+        stroke-width: 1px;
+    }
+
+    .unb-grid {
+        stroke: rgba(0, 0, 0, 0.08);
+        stroke-width: 1;
+    }
+
+    .card {
+        background: #000c1f;
+        border: 1px solid #B0BACB;
+        border-radius: 12px;
+    }
+
+    /* TOPO */
+    .topo {
+        padding: 1.8rem;
+        min-height: 180px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        gap: 1.2rem;
+    }
+
+    /* TÍTULO DAS SEÇÕES */
+    .topo h2 {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    /* TABELAS DO TOPO */
+    .topo table {
+        margin-top: 1rem;
+    }
+
+    /* CONTAINER DOS COMMITTERS */
+    .commiters {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .topo-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .topo-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .topo-full {
+        width: 100%;
+    }
+
+    /* remove scroll horizontal */
+    .topo table {
+        table-layout: fixed;
+    }
+
+    .topo td,
+    .topo th {
+        word-break: break-word;
+        padding: 0.75rem;
+    }
+
+
+
+.md-header__button.md-logo img {
+    height: 50px; /* aumenta aqui */
+}
+
+.md-header__inner {
+    display: flex;
+    align-items: center;
+}
+
+.md-header__inner img {
+    display: block;
+}
+
+.md-header {
+    color: #E6E9EE;
+} 
+
+/* Container para alinhar logo e texto */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Ajusta o logo para ficar maior */
+.md-header__button.md-logo img {
+    height: 80px; /* Aumenta de 50px para 80px */
+    width: auto;
+}
+
+/* Ajusta o texto para mesma altura do logo */
+.header-texto {
+    height: 60px; /* Mesma altura do logo */
+    width: auto;
+    display: block;
+    padding-left: 20px;
+}
+
+/* Remove bordas extras se houver */
+.md-header__button.md-logo {
+    padding: 0;
+    margin: 0;
+}
+
+/* Responsivo para telas menores */
+@media (max-width: 640px) {
+    .md-header__button.md-logo img {
+        height: 50px;
+    }
+    
+    .header-texto {
+        height: 50px;
+    }
+    
+    .logo-container {
+        gap: 0.5rem;
+    }
+}
+
+
+.chart-card{
+  width:900px;
+  margin:40px auto;
+  padding:24px;
+
+
+
+  border-radius:24px;
+
+  color:white;
+}
+
+.chart-title{
+  font-size:28px;
+  font-weight:700;
+  letter-spacing:.5px;
+
+  margin-bottom:20px;
+
+  color:#dfe6ff;
+}
+
+.chart-svg{
+  width:100%;
+  height:auto;
+}
+
+.grid line{
+  stroke:rgba(255,255,255,.08);
+  stroke-width:1;
+}
+
+/* ABERTAS */
+
+.line-open{
+  fill:none;
+  stroke:#502f7d;
+  stroke-width:4;
+
+  stroke-linecap:round;
+  stroke-linejoin:round;
+
+  filter:
+    drop-shadow(0 0 8px rgba(244,180,0,.5));
+}
+
+.area-open{
+  fill:url(#gradientOpen);
+  fill:rgba(244,180,0,.18);
+}
+
+/* FECHADAS */
+
+.line-closed{
+  fill:none;
+  stroke:#d1c3e3;
+  stroke-width:4;
+
+  stroke-linecap:round;
+  stroke-linejoin:round;
+
+  filter:
+    drop-shadow(0 0 8px #d1c3e3);
+}
+
+.area-closed{
+  fill:rgba(74,222,128,.18);
+}
+
+/* PONTOS */
+
+.points-open circle{
+  fill:#0b1020;
+  stroke:#f4b400;
+  stroke-width:3;
+}
+
+.points-closed circle{
+  fill:#0b1020;
+  stroke:#4ade80;
+  stroke-width:3;
+}
+
+/* LEGENDA */
+
+.legend{
+  display:flex;
+  justify-content:center;
+  gap:32px;
+
+  margin-top:12px;
+}
+
+.legend-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  color:#c9d1ff;
+  font-size:15px;
+}
+
+.legend-box{
+  width:16px;
+  height:16px;
+
+  border-radius:4px;
+}
+
+.legend-box.open{
+  background:#f4b400;
+}
+
+.legend-box.closed{
+  background:#d1c3e3;
+}

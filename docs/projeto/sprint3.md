@@ -14,10 +14,10 @@ Desenvolver a interface principal do sistema VeritasIA, integrar os componentes 
 
 ## Issues relacionadas
 
-- #18 — Criação do README
-- #22 — Implementação inicial do Frontend com React
-- #23 — Desenvolvimento de componentes reutilizáveis da interface
-- #24 — Integração do frontend e publicação inicial
+1. Criação do README
+1. Implementação inicial do Frontend com React
+1. Desenvolvimento de componentes reutilizáveis da interface
+1. Integração do frontend e publicação inicial
 
 ---
 
@@ -58,13 +58,13 @@ Desenvolver a interface principal do sistema VeritasIA, integrar os componentes 
 
 ## Entregas da sprint
 
-Frontend funcional  
-Componentes reutilizáveis  
-Interface inicial implementada  
-README criado  
-Documentação publicada  
-Pipeline automatizada  
-Deploy funcionando
+- Frontend funcional  
+- Componentes reutilizáveis  
+- Interface inicial implementada  
+- README criado  
+- Documentação publicada  
+- Pipeline automatizada  
+- Deploy funcionando
 
 ---
 

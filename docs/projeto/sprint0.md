@@ -37,12 +37,12 @@ Durante essa sprint o grupo realizou estudos que seriam necessarios para a reali
 
 ## Issues relacionadas
 
-- #1 — Estudo de Git
-- #2 — Estudo de Figma
-- #3 — Estudo: Arquitetura de Software
-- #4 — Estudo: Portais e Dados sobre Feminicidio
-- #5 — Estudo de agentes de IA
-- #6 — Estudo do Metodo Agil
+1. Estudo de Git
+1. Estudo de Figma
+1. Estudo de Arquitetura de Software
+1. Estudo de Portais e Dados sobre Feminicidio
+1. Estudo de agentes de IA
+1. Estudo do Metodo Agil
 
 ---
 

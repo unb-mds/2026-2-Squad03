@@ -61,13 +61,13 @@ Equipe organizada
 
 ## Issues relacionadas
 
-- #7 — Estudo de Arquitetura: Definição de Matriz Tecnológica
-- #8 — Teste
-- #9 — Scrapy
-- #10 — LangChain
-- #11 — React + Next.js
-- #12 — PostgreSQL + PostGIS
-- #13 — FastAPI
+1. Estudo de Arquitetura: Definição de Matriz Tecnológica
+1. Teste
+1. Scrapy
+1. LangChain
+1. React + Next.js
+1. PostgreSQL + PostGIS
+1. FastAPI
 
 ---
 

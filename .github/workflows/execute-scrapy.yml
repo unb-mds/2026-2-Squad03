@@ -2,11 +2,13 @@ name: executor scraper
 
 on:
   schedule:
-    - cron: '50 23 * * *' # Rodar todo dias as 23h
+    - cron: '0 * * * *' # Rodar todo dias as 23h
   workflow_dispatch: # Permite o acionamento manual.
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   run-script:
@@ -16,6 +18,8 @@ jobs:
 
       - name: Checkout do repositório
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Configurar Python
         uses: actions/setup-python@v5
@@ -49,4 +53,4 @@ jobs:
           git commit -m "[bot] Scraper executado, atualizando o repositório" 
           echo "Committed. Pushing..."
 
-          git push origin main
+          git push origin HEAD:${{ github.ref_name }}
