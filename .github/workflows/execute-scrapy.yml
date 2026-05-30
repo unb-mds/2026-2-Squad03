@@ -2,7 +2,7 @@ name: executor scraper
 
 on:
   schedule:
-    - cron: '0 * * * *' # Rodar todo dias as 23h
+    - cron: '55 23 * * *' # Rodar todo dias as 23h
   workflow_dispatch: # Permite o acionamento manual.
 
 permissions:
