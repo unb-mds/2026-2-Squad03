@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-31T15:15:13Z",
+  "generated_at": "2026-05-31T15:26:23Z",
   "repository": "unb-mds/2026-2-VeritasIA",
   "issues_per_week": [
     {
@@ -36,15 +36,15 @@
   "commit_message_histogram": [
     {
       "range": "0-20",
-      "count": 12
+      "count": 11
     },
     {
       "range": "21-50",
-      "count": 60
+      "count": 28
     },
     {
       "range": "51-100",
-      "count": 27
+      "count": 28
     },
     {
       "range": "101-200",
@@ -68,11 +68,6 @@
   "commit_heatmap": [
     {
       "day": 0,
-      "hour": 1,
-      "count": 1
-    },
-    {
-      "day": 0,
       "hour": 16,
       "count": 3
     },
@@ -89,16 +84,11 @@
     {
       "day": 0,
       "hour": 22,
-      "count": 9
+      "count": 6
     },
     {
       "day": 0,
       "hour": 23,
-      "count": 4
-    },
-    {
-      "day": 1,
-      "hour": 1,
       "count": 1
     },
     {
@@ -119,7 +109,7 @@
     {
       "day": 1,
       "hour": 22,
-      "count": 3
+      "count": 2
     },
     {
       "day": 1,
@@ -129,12 +119,7 @@
     {
       "day": 2,
       "hour": 0,
-      "count": 7
-    },
-    {
-      "day": 2,
-      "hour": 1,
-      "count": 1
+      "count": 6
     },
     {
       "day": 2,
@@ -153,11 +138,6 @@
     },
     {
       "day": 2,
-      "hour": 18,
-      "count": 1
-    },
-    {
-      "day": 2,
       "hour": 20,
       "count": 1
     },
@@ -169,11 +149,6 @@
     {
       "day": 3,
       "hour": 0,
-      "count": 1
-    },
-    {
-      "day": 3,
-      "hour": 11,
       "count": 1
     },
     {
@@ -209,27 +184,12 @@
     {
       "day": 4,
       "hour": 0,
-      "count": 2
-    },
-    {
-      "day": 4,
-      "hour": 1,
-      "count": 1
-    },
-    {
-      "day": 4,
-      "hour": 12,
       "count": 1
     },
     {
       "day": 4,
       "hour": 16,
-      "count": 4
-    },
-    {
-      "day": 4,
-      "hour": 19,
-      "count": 1
+      "count": 2
     },
     {
       "day": 4,
@@ -239,56 +199,11 @@
     {
       "day": 4,
       "hour": 21,
-      "count": 2
-    },
-    {
-      "day": 4,
-      "hour": 23,
-      "count": 1
-    },
-    {
-      "day": 5,
-      "hour": 3,
-      "count": 1
-    },
-    {
-      "day": 5,
-      "hour": 6,
-      "count": 1
-    },
-    {
-      "day": 5,
-      "hour": 9,
-      "count": 1
-    },
-    {
-      "day": 5,
-      "hour": 11,
-      "count": 1
-    },
-    {
-      "day": 5,
-      "hour": 13,
-      "count": 1
-    },
-    {
-      "day": 5,
-      "hour": 15,
-      "count": 1
-    },
-    {
-      "day": 5,
-      "hour": 17,
       "count": 1
     },
     {
       "day": 5,
       "hour": 18,
-      "count": 2
-    },
-    {
-      "day": 6,
-      "hour": 1,
       "count": 1
     },
     {
@@ -299,12 +214,12 @@
     {
       "day": 6,
       "hour": 14,
-      "count": 3
+      "count": 1
     },
     {
       "day": 6,
       "hour": 15,
-      "count": 1
+      "count": 2
     },
     {
       "day": 6,
@@ -319,20 +234,14 @@
     {
       "day": 6,
       "hour": 23,
-      "count": 3
+      "count": 2
     }
   ],
   "top_committers": [
     {
-      "username": "github-actions[bot]",
-      "name": "github-actions[bot]",
-      "commits": 32,
-      "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4"
-    },
-    {
       "username": "danilofns",
       "name": "Danilo Fernandes",
-      "commits": 21,
+      "commits": 22,
       "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
     },
     {
@@ -360,12 +269,6 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/215087737?v=4"
     },
     {
-      "username": "RochaCarla",
-      "name": "Carla Rocha",
-      "commits": 1,
-      "avatar_url": "https://avatars.githubusercontent.com/u/5897389?v=4"
-    },
-    {
       "username": "christianrolim",
       "name": "Christian Silva Rolim",
       "commits": 0,
@@ -378,12 +281,6 @@
       "name": "Danilo Fernandes",
       "prs_opened": 0,
       "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
-    },
-    {
-      "username": "github-actions[bot]",
-      "name": "github-actions[bot]",
-      "prs_opened": 0,
-      "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4"
     },
     {
       "username": "jadsonRleandro",
@@ -408,12 +305,6 @@
       "name": "Daniel Rodrigues Freitas",
       "prs_opened": 0,
       "avatar_url": "https://avatars.githubusercontent.com/u/215087737?v=4"
-    },
-    {
-      "username": "RochaCarla",
-      "name": "Carla Rocha",
-      "prs_opened": 0,
-      "avatar_url": "https://avatars.githubusercontent.com/u/5897389?v=4"
     },
     {
       "username": "christianrolim",
@@ -470,22 +361,6 @@
       "closed": 3,
       "total": 3,
       "avatar_url": "https://avatars.githubusercontent.com/u/215087737?v=4"
-    },
-    {
-      "username": "github-actions[bot]",
-      "name": "github-actions[bot]",
-      "opened": 0,
-      "closed": 0,
-      "total": 0,
-      "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4"
-    },
-    {
-      "username": "RochaCarla",
-      "name": "Carla Rocha",
-      "opened": 0,
-      "closed": 0,
-      "total": 0,
-      "avatar_url": "https://avatars.githubusercontent.com/u/5897389?v=4"
     }
   ]
 }
