@@ -1,4 +1,4 @@
-import logoVeritas from "../assets/logo.png";
+import logoVeritas from "../assets/logo_white.png";
 import { Link } from "react-router-dom";
 
 function Sidebar() {
