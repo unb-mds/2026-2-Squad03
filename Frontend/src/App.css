@@ -693,6 +693,7 @@ body {
   margin-bottom: 14px;
   border: 1px solid #dbe1ea;
   border-radius: 8px;
+  background: white;
 }
 
 .form-container button,
