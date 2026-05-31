@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-30T18:48:42Z",
+  "generated_at": "2026-05-31T14:33:09Z",
   "repository": "unb-mds/2026-2-VeritasIA",
   "issues_per_week": [
     {
@@ -40,7 +40,7 @@
     },
     {
       "range": "21-50",
-      "count": 56
+      "count": 59
     },
     {
       "range": "51-100",
@@ -284,6 +284,11 @@
     {
       "day": 5,
       "hour": 18,
+      "count": 2
+    },
+    {
+      "day": 6,
+      "hour": 1,
       "count": 1
     },
     {
@@ -294,7 +299,7 @@
     {
       "day": 6,
       "hour": 14,
-      "count": 1
+      "count": 2
     },
     {
       "day": 6,
@@ -316,7 +321,7 @@
     {
       "username": "github-actions[bot]",
       "name": "github-actions[bot]",
-      "commits": 29,
+      "commits": 31,
       "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4"
     },
     {
@@ -324,6 +329,12 @@
       "name": "Danilo Fernandes",
       "commits": 20,
       "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
+    },
+    {
+      "username": "jadsonRleandro",
+      "name": "Jadson Ricardo",
+      "commits": 15,
+      "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
     },
     {
       "username": "TheBagomes",
@@ -336,12 +347,6 @@
       "name": "SchneiderCode1",
       "commits": 14,
       "avatar_url": "https://avatars.githubusercontent.com/u/165057013?v=4"
-    },
-    {
-      "username": "jadsonRleandro",
-      "name": "Jadson Ricardo",
-      "commits": 14,
-      "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
     },
     {
       "username": "Daniel241025",
@@ -364,16 +369,22 @@
   ],
   "top_pr_authors": [
     {
-      "username": "danilofns",
-      "name": "Danilo Fernandes",
+      "username": "jadsonRleandro",
+      "name": "Jadson Ricardo",
       "prs_opened": 0,
-      "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
+      "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
     },
     {
       "username": "github-actions[bot]",
       "name": "github-actions[bot]",
       "prs_opened": 0,
       "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4"
+    },
+    {
+      "username": "danilofns",
+      "name": "Danilo Fernandes",
+      "prs_opened": 0,
+      "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
     },
     {
       "username": "SchneiderCode1",
@@ -386,12 +397,6 @@
       "name": "Vitor Barreto Gomes",
       "prs_opened": 0,
       "avatar_url": "https://avatars.githubusercontent.com/u/154992563?v=4"
-    },
-    {
-      "username": "jadsonRleandro",
-      "name": "Jadson Ricardo",
-      "prs_opened": 0,
-      "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
     },
     {
       "username": "Daniel241025",
