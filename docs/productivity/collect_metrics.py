@@ -160,6 +160,12 @@ def build_commit_aggregates(
     for commit in repo.get_commits(since=since):
         author = getattr(commit, "author", None)
         author_login = getattr(author, "login", None) if author is not None else None
+        if author_login in {
+            "github-actions[bot]",
+            "RochaCarla",
+        }:
+            continue
+        
         if not author_login:
             author_login = "unknown"
 
