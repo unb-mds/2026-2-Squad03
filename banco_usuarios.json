@@ -13,5 +13,10 @@
         "nome": "teester",
         "email": "email_teste@teste.com",
         "senha": "1234"
+    },
+    {
+        "nome": "123",
+        "email": "123123@123",
+        "senha": "123"
     }
 ]
