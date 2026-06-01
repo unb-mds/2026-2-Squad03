@@ -1,15 +1,10 @@
----
-#VeritasIA
-**Monitoramento de Notícias Inteligente Sobre Feminicídio no Brasil.**
----
+
 ## Sobre o Projeto
 
 VeritasIA é um projeto que tem como objetivo reunir, analisar e divulgar dados e estatísticas sobre casos de feminicídio no Brasil, oferecendo uma visão clara e fundamentada sobre a realidade da violência contra a mulher no país. A partir de informações atualizadas e notícias provenientes de canais oficiais e veículos de comunicação confiáveis, buscamos transformar números em consciência, promovendo informação de qualidade e acessível à sociedade.
 
 ---
 ## Tecnologias Utilizadas
-
-### Documentação
 
 - **MkDocs:** Todas as documentações do projeto está ou será feita dentro do Mkdocs, sendo público para acesso de qualquer pessoa.
 - **Frontend:** Aplicações WEB utilizada para realização dos prótotipos feitos para o projeto. Vale salientar que, na navegação desta página existe: **Prototipagem**, onde pode ser visto detalhadamente todos os prótotipos realizados.
@@ -31,8 +26,6 @@ VeritasIA é um projeto que tem como objetivo reunir, analisar e divulgar dados 
 ### Automação
 
 - **GitHub** **Actions:** Automação integrada ao GitHub que permite criar fluxos de trabalhos, que é denominado de: "workflows".
----
-
 ---
 ## Portais Utilizados
 
