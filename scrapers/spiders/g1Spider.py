@@ -17,15 +17,13 @@ class g1_spider(scrapy.Spider):
 
         if(int(dia_da_publicacao) == date.today().day): # filtrando noticias apenas do dia
 
-            alltext = response.css('article p *::text, article p::text').getall()
+            alltext = response.css('article p:not(.data)::text').getall()
 
             # colocanto toda a noticia em uma unica string
 
-            news = ' '.join(
-                t.strip()
-                for t in alltext
-                if t.strip() )
-
+            news = ''
+            for text in alltext:
+                news += text
             yield { 
                     'Portal': 'G1',
                     'Title': response.css('.content-head__title::text').get(),
@@ -109,3 +107,4 @@ def g1_run_spider():
     process = CrawlerProcess(settings)
     process.crawl(g1_spider, urls)
     process.start()
+
