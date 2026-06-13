@@ -12,13 +12,15 @@ class r7_spider(scrapy.Spider):
         self.start_urls = urls or []
 
     def parse(self, response, **kwargs):
-        alltext = response.css('article span::text').getall()
+        alltext = response.css('article p *::text, article p::text').getall()
 
         # colocanto toda a noticia em uma unica string
 
-        news = ''
-        for text in alltext:
-            news += text
+        news = ' '.join(
+            t.strip()
+            for t in alltext
+            if t.strip() )
+
 
         yield { 
                 'portal': 'R7',
