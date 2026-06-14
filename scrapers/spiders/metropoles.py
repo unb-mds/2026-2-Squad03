@@ -3,6 +3,9 @@ from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from playwright.sync_api import sync_playwright
 from datetime import date
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
 
 from urllib.parse import urljoin
 
@@ -20,8 +23,16 @@ class metropoles_spider(scrapy.Spider):
         if not data_da_publicacao:
             return
 
-        dia_da_publicacao = data_da_publicacao[0:2]
-        if(int(dia_da_publicacao) == date.today().day):
+        hoje_brasilia = datetime.now(ZoneInfo("America/Sao_Paulo"))
+        
+        print("noticia: " + response.url)
+        print(data_da_publicacao[0:2])
+        print(hoje_brasilia)
+
+
+        
+        if(int(data_da_publicacao[0:2]) == hoje_brasilia.day):# filtrando noticias apenas do dia
+            print("noticia valida")
 
             alltext = response.css('article p *::text, article p::text').getall()
 
