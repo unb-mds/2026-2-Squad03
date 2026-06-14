@@ -4,17 +4,21 @@ import scrapy
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 class cnn_spider(scrapy.Spider):
     name = 'CNN'
-    data = str(datetime.now().strftime("%Y-%m-%d"))
-
-    def start_requests(self):
-        yield scrapy.Request('https://www.cnnbrasil.com.br/tudo-sobre/feminicidio/') # Fazendo requisição para o link de feminicidio
+    data = datetime.now(ZoneInfo("America/Sao_Paulo")).strftime("%Y-%m-%d")
+    
+    start_urls = [
+        "https://www.cnnbrasil.com.br/tudo-sobre/feminicidio/"
+    ]
 
     def parse(self, response, **kwargs):
         for news in response.css('ul figure'):
+            print('data cnn: ' + news.css('time').attrib['datetime'])
             if (self.data in news.css('time').attrib['datetime']):
+                print('noticia valida')
                 yield response.follow(news.css('a').attrib['href'], self.parse_pegar)
 
     def parse_pegar(self, response):
@@ -34,7 +38,7 @@ class cnn_spider(scrapy.Spider):
                 'news':  news,
         }
 
-              
+         
 def cnn_run_spider():
     settings = get_project_settings()
     settings.set(

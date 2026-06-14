@@ -4,6 +4,7 @@ from scrapy.utils.project import get_project_settings
 from playwright.sync_api import sync_playwright
 import time
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 class r7_spider(scrapy.Spider):
     name = 'r7'
@@ -33,7 +34,7 @@ class r7_spider(scrapy.Spider):
 
 def play_wright():
     # Inicia o Playwright
-    data = str(datetime.now().strftime("%Y-%m-%d"))
+    data = datetime.now(ZoneInfo("America/Sao_Paulo")).strftime("%Y-%m-%d")
     urls = []
     with sync_playwright() as p:
 
@@ -42,17 +43,16 @@ def play_wright():
 
         page = browser.new_page()
         page.goto("https://www.r7.com/tudo-sobre/feminicidio/", wait_until='domcontentloaded')
-        teste = page.locator('[class = b-ultimas-list__items] > li').all()  
+        itens = page.locator('[class = b-ultimas-list__items] > li').all()  
         
         while True:
-            for dates_in in teste:
-                    pegar_data = dates_in.locator('time').first.get_attribute(name="datetime")
-                    ultima = pegar_data
+            for dates_in in itens:
+                    pegar_data = dates_in.locator('time').first.get_attribute(name="datetime") # pega a data da noticia
             try:
                 # Tenta localizar o botão "ver mais"
                 botao = page.get_by_text("Veja mais Notícias")
                 
-                if botao.is_visible() and data in ultima:
+                if botao.is_visible() and data in pegar_data: # Verifica se o botão está visível e se a data da notícia é a mesma do dia atual
                     botao.click()
                     page.wait_for_timeout(10000)  # espera carregar
                 else: break
@@ -61,9 +61,9 @@ def play_wright():
                 break
 
         
-        for test in teste:
-            pegar_data = test.locator('time').first.get_attribute(name="datetime")
-            pegar_link = test.locator('a').first.get_attribute(name="href")
+        for news in itens:
+            pegar_data = news.locator('time').first.get_attribute(name="datetime") 
+            pegar_link = news.locator('a').first.get_attribute(name="href")
             if data in pegar_data:
                 urls.append(pegar_link)
         
