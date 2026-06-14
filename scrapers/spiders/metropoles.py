@@ -16,6 +16,10 @@ class metropoles_spider(scrapy.Spider):
         data_da_publicacao = response.css(
             'span.inline-block.tracking-tight.text-neutral-700::text'
         ).get()
+
+        if not data_da_publicacao:
+            return
+
         dia_da_publicacao = data_da_publicacao[0:2]
         if(int(dia_da_publicacao) == date.today().day):
 
@@ -82,6 +86,10 @@ def play_writght():
 
             data_publicacao = texto.split(",")[0]
 
+            if not data_publicacao:
+                return
+
+
             print(data_publicacao)
 
             dia = data_publicacao[0:2]
@@ -121,5 +129,4 @@ def metropoles_run_spider():
     process = CrawlerProcess(settings)
     process.crawl(metropoles_spider, urls)
     process.start()
-
 
