@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-13T21:43:07Z",
+  "generated_at": "2026-06-14T19:10:51Z",
   "repository": "unb-mds/2026-2-VeritasIA",
   "issues_per_week": [
     {
@@ -35,7 +35,7 @@
     {
       "week": "2026-W24",
       "opened": 7,
-      "closed": 5
+      "closed": 6
     }
   ],
   "commit_message_histogram": [
@@ -49,7 +49,7 @@
     },
     {
       "range": "51-100",
-      "count": 30
+      "count": 31
     },
     {
       "range": "101-200",
@@ -253,7 +253,7 @@
     {
       "day": 6,
       "hour": 19,
-      "count": 1
+      "count": 2
     },
     {
       "day": 6,
@@ -276,7 +276,7 @@
     {
       "username": "jadsonRleandro",
       "name": "Jadson Ricardo",
-      "commits": 19,
+      "commits": 20,
       "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
     },
     {
@@ -306,16 +306,16 @@
   ],
   "top_pr_authors": [
     {
+      "username": "jadsonRleandro",
+      "name": "Jadson Ricardo",
+      "prs_opened": 1,
+      "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
+    },
+    {
       "username": "danilofns",
       "name": "Danilo Fernandes",
       "prs_opened": 0,
       "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
-    },
-    {
-      "username": "jadsonRleandro",
-      "name": "Jadson Ricardo",
-      "prs_opened": 0,
-      "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
     },
     {
       "username": "Daniel241025",
@@ -354,10 +354,18 @@
     {
       "username": "jadsonRleandro",
       "name": "Jadson Ricardo",
-      "opened": 6,
-      "closed": 4,
+      "opened": 5,
+      "closed": 5,
       "total": 10,
       "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
+    },
+    {
+      "username": "danilofns",
+      "name": "Danilo Fernandes",
+      "opened": 2,
+      "closed": 6,
+      "total": 8,
+      "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
     },
     {
       "username": "TheBagomes",
@@ -366,14 +374,6 @@
       "closed": 8,
       "total": 8,
       "avatar_url": "https://avatars.githubusercontent.com/u/154992563?v=4"
-    },
-    {
-      "username": "danilofns",
-      "name": "Danilo Fernandes",
-      "opened": 1,
-      "closed": 6,
-      "total": 7,
-      "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
     },
     {
       "username": "christianrolim",
