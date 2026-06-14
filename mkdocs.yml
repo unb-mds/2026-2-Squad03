@@ -1,6 +1,6 @@
 repo_name: VeritasIA
 site_name: VeritasIA
-repo_url: https://github.com/danilofns/VeritasIA
+repo_url: https://github.com/unb-mds/2026-2-VeritasIA
 site_description: "Documentação oficial do VeritasIA"
 docs_dir: docs
 
@@ -33,6 +33,8 @@ nav:
       - Sprint 2: projeto/sprint2.md
       - Sprint 3: projeto/sprint3.md
       - Sprint 4: projeto/sprint4.md
+      - Sprint 5: projeto/sprint5.md
+      - Sprint 6: projeto/sprint6.md
     
   - Frontend:
       - React: frontend/React.md
