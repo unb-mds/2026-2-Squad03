@@ -42,8 +42,8 @@ nav:
 
   - Backend:
       - FastAPI: backend/FastAPI.md
-      - Web Scraping: backend/scrapy.md
-      - Automação: backend/Automacao.md
+      - Web Scraping: backend/scrapy/scrapy.md
+      - Automação: backend/scrapy/Automacao.md
       - LangChain: backend/LangChain.md
 
   - Participantes:
