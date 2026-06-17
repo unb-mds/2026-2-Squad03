@@ -1,62 +1,96 @@
-<img width="2537" height="700" alt="LogoBlack" src="https://github.com/user-attachments/assets/f248a533-c998-46bd-97e2-1c97a966a261" />
----
-# Sobre o Projeto
-<p style="text-align: justify;">
-Este projeto tem como objetivo reunir, analisar e divulgar dados e estatísticas sobre casos de feminicídio no Brasil, oferecendo uma visão clara e fundamentada sobre a realidade da violência contra a mulher no país. A partir de informações atualizadas e notícias provenientes de canais oficiais e veículos de comunicação confiáveis, buscamos transformar números em consciência, promovendo informação de qualidade e acessível à sociedade.
+
+<div align="center">
+
+<img width="450" alt="LogoBlack" src="https://github.com/user-attachments/assets/f248a533-c998-46bd-97e2-1c97a966a261" />
+
+</div>
+
+# 📌 Sobre o Projeto
+
+<p align="justify">
+Este projeto tem como objetivo reunir, analisar e divulgar dados e estatísticas sobre casos de feminicídio no Brasil, oferecendo uma visão clara e fundamentada sobre a realidade da violência contra a mulher no país.
 </p>
-<p style="text-align: justify;">
-Mais do que apresentar dados, o projeto se propõe a dar visibilidade a uma problemática urgente, incentivando o debate, a reflexão e a conscientização. Ao centralizar essas informações em um único espaço, pretendemos contribuir para o entendimento da dimensão do feminicídio no Brasil e reforçar a importância de ações de prevenção e combate a esse tipo de violência.
+<p align="justify">
+A partir de informações atualizadas e notícias provenientes de canais oficiais e veículos de comunicação confiáveis, buscamos transformar números em consciência, promovendo informação de qualidade, acessível e centralizada para a sociedade.
 </p>
 
 ---
 
-# Tecnologias Utilizadas
 
-[Figma](https://www.figma.com/board/TERK5u1cdCHQBJgRb3m2x5/Squad-03?node-id=0-1&p=f&t=VAcCgipTLYa9FQ6e-0)
+# 🛠️ Tecnologias Utilizadas
 
-Frontend
-
+## 🎨 Frontend
 - React
 
-Backend
-
+## ⚙️ Backend
 - Scrapy
-- LangChain
 - Playwright
 - FastAPI
 
-Banco de Dados
+# 🌐 Banco de Dados:
+ - PostGreSQL
 
 ---
 
-# Portais de Noticias escolhidos
+# 🌐 Portais de Notícias Monitorados
+
+Os dados são coletados automaticamente dos seguintes portais:
 
 - G1
-- Metropoles
+- Metrópoles
 - R7
+- CNN
+---
+
+# 🔄 Fluxo do Sistema
+
+```text
+Portais de Notícias
+        ↓
+Scrapy / Playwright
+        ↓
+Coleta Automatizada
+        ↓
+Tratamento dos Dados
+        ↓
+Arquivos JSON
+        ↓
+API FastAPI
+        ↓
+Frontend React
+```
 
 ---
 
-# Squad 03
+# 🚀 Funcionalidades
 
-- [Christian](https://github.com/christianrolim)
-- [Daniel](https://github.com/Daniel241025)
-- [Danilo](https://github.com/danilofns)
-- [Henrique](https://github.com/SchneiderCode1)
-- [Jadson](https://github.com/jadsonRleandro)
-- [Vitor](https://github.com/TheBagomes)
+* Coleta automatizada de notícias;
+* Filtragem por tema relacionado a feminicídio;
+* Consolidação de dados em JSON;
+* Monitoramento contínuo;
+* Estrutura modular para expansão futura;
+* Compatibilidade com análise de dados e Machine Learning.
 
 ---
 
-# Como Executar o Backend (Ambiente de Desenvolvimento/Testes)
+# 📊 Futuras Implementações
 
-> ⚠️ **ATENÇÃO CRUCIAL PARA A EQUIPE:** Devido ao mapeamento estático e fixo dos caminhos do Frontend (`../../FrontEnd/app/static`), o servidor do Uvicorn **DEVE** ser executado obrigatoriamente de dentro do diretório interno `BackEnd/app`. 
->
-> Se você tentar rodar o comando a partir da raiz do repositório ou de outra pasta, o FastAPI não localizará os arquivos de estilo (CSS) e scripts (JS), renderizando uma página em HTML puro ou disparando um erro de inicialização (`RuntimeError`).
+* Dashboard estatístico;
+* Análise temporal;
+* Visualização gráfica;
+* Sistema de busca;
+* Análise de sentimento;
+* Classificação automática de notícias;
+* API pública para consulta de dados.
 
-# Passo a Passo para Execução:
+---
 
-1. Abra o seu terminal na raiz do repositório principal (`2026-2-VeritasIA`).
-2. Navegue diretamente para a pasta interna onde está localizado o arquivo `main.py`:
-   ```bash
-   cd BackEnd/app
+# 🤝 Squad 03 <div align="center"> <table> <tr> <td align="center"> <img src="https://github.com/christianrolim.png" width="120px;" alt="Christian"/><br> <b>Christian</b><br> <a href="https://github.com/christianrolim">@christianrolim</a> </td> <td align="center"> <img src="https://github.com/Daniel241025.png" width="120px;" alt="Daniel"/><br> <b>Daniel</b><br> <a href="https://github.com/Daniel241025">@Daniel241025</a> </td> <td align="center"> <img src="https://github.com/danilofns.png" width="120px;" alt="Danilo"/><br> <b>Danilo</b><br> <a href="https://github.com/danilofns">@danilofns</a> </td> </tr> <tr> <td align="center"> <img src="https://github.com/SchneiderCode1.png" width="120px;" alt="Henrique"/><br> <b>Henrique</b><br> <a href="https://github.com/SchneiderCode1">@SchneiderCode1</a> </td> <td align="center"> <img src="https://github.com/jadsonRleandro.png" width="120px;" alt="Jadson"/><br> <b>Jadson</b><br> <a href="https://github.com/jadsonRleandro">@jadsonRleandro</a> </td> <td align="center"> <img src="https://github.com/TheBagomes.png" width="120px;" alt="Vitor"/><br> <b>Vitor</b><br> <a href="https://github.com/TheBagomes">@TheBagomes</a> </td> </tr> </table> </div>
+
+---
+
+# ⚖️ Aviso
+
+Este projeto utiliza exclusivamente informações públicas provenientes de portais jornalísticos e fontes abertas, respeitando limites éticos de coleta de dados e sem contornar mecanismos de proteção ou autenticação.
+
+---

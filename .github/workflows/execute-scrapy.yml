@@ -1,0 +1,56 @@
+name: executor scraper
+
+on:
+  schedule:
+    - cron: '55 23 * * *' # Rodar todo dias as 23h
+  workflow_dispatch: # Permite o acionamento manual.
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar Scrapy
+        run: |
+          pip install scrapy
+          pip install playwright
+          playwright install --with-deps firefox
+
+      - name: Executar script
+        run: python scrapers/executarSpiders.py
+
+      - name: Scraper executado, atualizando o repositório
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add scrapers/resultados/*
+
+          echo "Git status after add:" 
+          git status --porcelain
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "[bot] Scraper executado, atualizando o repositório" 
+          echo "Committed. Pushing..."
+
+          git push origin HEAD:${{ github.ref_name }}
