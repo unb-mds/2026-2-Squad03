@@ -3,25 +3,25 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 from dotenv import load_dotenv
 
-# 1. Carrega as variáveis do arquivo .env
+# Carrega as variáveis do arquivo .env
 load_dotenv()
 
-# 2. Recupera a URL do banco. Se não encontrar no .env, usa uma local padrão por segurança
+# Recupera a URL do banco. Se não encontrar no .env, usa uma local padrão
 DATABASE_URL = os.getenv(
     "DATABASE_URL", 
-    "postgresql://postgres:123321123@localhost:5432/veritas_db"
+    "postgresql://postgres:postgres@localhost:5432/veritas_db"
 )
 
-# 3. A Engine é o motor que gerencia a comunicação e o "pool" de conexões com o Postgres
+# A Engine é o motor que gerencia a comunicação com o Postgres (seja local ou no Supabase)
 engine = create_engine(DATABASE_URL)
 
-# 4. O SessionLocal é uma fábrica de sessões. Cada requisição na API abrirá uma sessão para conversar com o banco
+# O SessionLocal é quem abre as portas para fazermos consultas e salvamentos
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# 5. A Base declarativa que as nossas classes/models vão herdar para mapear as tabelas
+# A Base que os nossos Models (models.py) usam para criar as tabelas
 Base = declarative_base()
 
-# 6. Função utilitária (Injeção de Dependência) para abrir e fechar a conexão automaticamente nas rotas
+# Função que o FastAPI usa para abrir e fechar a conexão nas rotas automaticamente
 def get_db():
     db = SessionLocal()
     try:

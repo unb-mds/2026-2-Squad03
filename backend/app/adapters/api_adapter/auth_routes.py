@@ -2,14 +2,14 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from backend.app.domain.entities import UserAuth
 from backend.app.database import get_db
-from backend.app.adapters.db_adapter import PostgresRepositoryAdapter
+from backend.app.adapters.db_adapter import PostgresRepositoryAdapter # Alterado de JsonRepositoryAdapter para PostgresRepositoryAdapter
 
 router = APIRouter(prefix="/api/auth", tags=["Autenticação"])
 
 @router.post("/register")
 def registrar(user: UserAuth, db: Session = Depends(get_db)):
     # 1. Instancia o adaptador passando a sessão ativa do Postgres
-    repo = PostgresRepositoryAdapter(db)
+    repo = PostgresRepositoryAdapter(db) #@
     
     try:
         # 2. Executa o salvamento
