@@ -1,37 +1,44 @@
-from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import Session
-from sqlalchemy.ext.declarative import declarative_base
-from geoalchemy2 import Geometry
-from geoalchemy2.shape import from_shape, to_shape
-from shapely.geometry import Point
-from backend.app.ports.repository_port import IRegiaoRepository
-from backend.app.domain.entities import RegiaoMonitorada
+from backend.app.models import UsuarioModel, RegiaoModel, NoticiaModel
 
-Base = declarative_base()
+class PostgresRepositoryAdapter:
+    def __init__(self, db: Session):
+        # O adaptador recebe a sessão ativa do banco de dados para trabalhar
+        self.db = db
 
-class LocalModel(Base):
-    __tablename__ = "locais_monitorados"
-    id = Column(Integer, primary_key=True, index=True)
-    nome = Column(String(255), nullable=False)
-    geom = Column(Geometry(geometry_type="POINT", srid=4326), nullable=False)
+    def salvar_usuario(self, user_data: dict) -> bool:
+        # 1. Transforma o dicionário vindo do FastAPI em um Objeto do banco
+        novo_usuario = UsuarioModel(
+            nome=user_data.get("nome"),
+            email=user_data.get("email"),
+            senha=user_data.get("senha")
+        )
+        # 2. Avisa o SQLAlchemy que queremos inserir esse objeto
+        self.db.add(novo_usuario)
+        # 3. Confirma a transação no PostgreSQL (executa o INSERT)
+        self.db.commit()
+        return True
 
-class PostGisRepositoryAdapter(IRegiaoRepository):
-    def __init__(self, session: Session):
-        self.session = session
+    def salvar_local(self, nome: str, latitude: float, longitude: float) -> RegiaoModel:
+        nova_regiao = RegiaoModel(nome=nome, latitude=latitude, longitude=longitude)
+        self.db.add(nova_regiao)
+        self.db.commit()
+        # O refresh atualiza o objeto com o ID que o Postgres gerou automaticamente
+        self.db.refresh(nova_regiao)
+        return nova_regiao
 
-    def salvar(self, regiao: RegiaoMonitorada) -> RegiaoMonitorada:
-        ponto = from_shape(Point(regiao.longitude, regiao.latitude), srid=4326)
-        db_model = LocalModel(nome=regiao.nome, geom=ponto)
-        self.session.add(db_model)
-        self.session.commit()
-        self.session.refresh(db_model)
-        regiao.id = db_model.id
-        return regiao
+    def listar_todas_regioes(self):
+        # Equivalente ao 'SELECT * FROM regioes_monitoradas'
+        return self.db.query(RegiaoModel).all()
 
-    def listar_todas(self) -> list[RegiaoMonitorada]:
-        registros = self.session.query(LocalModel).all()
-        lista = []
-        for reg in registros:
-            pt = to_shape(reg.geom)
-            lista.append(RegiaoMonitorada(id=reg.id, nome=reg.nome, latitude=pt.y, longitude=pt.x))
-        return lista
+    def salvar_noticia(self, titulo: str, url: str, resumo: str, sentimento: str, regiao_id: int):
+        nova_noticia = NoticiaModel(
+            titulo=titulo,
+            url=url,
+            resumo=resumo,
+            sentimento=sentimento,
+            regiao_id=regiao_id
+        )
+        self.db.add(nova_noticia)
+        self.db.commit()
+        return True
