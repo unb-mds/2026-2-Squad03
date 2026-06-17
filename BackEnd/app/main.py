@@ -1,4 +1,15 @@
 # backend/app/main.py
+
+
+#senha db = SenhaSecreta123
+
+
+from backend.app.database import engine, Base
+import backend.app.models as models
+
+# Esse comando cria as tabelas no Supabase caso elas não existam lá ainda!
+Base.metadata.create_all(bind=engine)
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 # Apenas importe os arquivos de rotas que você vai usar
