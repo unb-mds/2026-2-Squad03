@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-17T22:52:24Z",
+  "generated_at": "2026-06-19T19:35:32Z",
   "repository": "unb-mds/2026-2-VeritasIA",
   "issues_per_week": [
     {
@@ -34,13 +34,13 @@
     },
     {
       "week": "2026-W24",
-      "opened": 5,
+      "opened": 1,
       "closed": 7
     },
     {
       "week": "2026-W25",
-      "opened": 0,
-      "closed": 1
+      "opened": 6,
+      "closed": 5
     }
   ],
   "commit_message_histogram": [
@@ -50,15 +50,15 @@
     },
     {
       "range": "21-50",
-      "count": 31
-    },
-    {
-      "range": "51-100",
       "count": 32
     },
     {
+      "range": "51-100",
+      "count": 35
+    },
+    {
       "range": "101-200",
-      "count": 17
+      "count": 26
     },
     {
       "range": "200+",
@@ -208,7 +208,12 @@
     {
       "day": 3,
       "hour": 20,
-      "count": 2
+      "count": 5
+    },
+    {
+      "day": 3,
+      "hour": 21,
+      "count": 3
     },
     {
       "day": 3,
@@ -223,6 +228,11 @@
     {
       "day": 4,
       "hour": 16,
+      "count": 2
+    },
+    {
+      "day": 4,
+      "hour": 19,
       "count": 2
     },
     {
@@ -242,13 +252,23 @@
     },
     {
       "day": 5,
+      "hour": 20,
+      "count": 1
+    },
+    {
+      "day": 5,
       "hour": 21,
-      "count": 2
+      "count": 3
+    },
+    {
+      "day": 6,
+      "hour": 0,
+      "count": 1
     },
     {
       "day": 6,
       "hour": 2,
-      "count": 1
+      "count": 3
     },
     {
       "day": 6,
@@ -290,20 +310,20 @@
     {
       "username": "danilofns",
       "name": "Danilo Fernandes",
-      "commits": 26,
+      "commits": 32,
       "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
-    },
-    {
-      "username": "SchneiderCode1",
-      "name": "SchneiderCode1",
-      "commits": 20,
-      "avatar_url": "https://avatars.githubusercontent.com/u/165057013?v=4"
     },
     {
       "username": "jadsonRleandro",
       "name": "Jadson Ricardo",
-      "commits": 20,
+      "commits": 25,
       "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
+    },
+    {
+      "username": "SchneiderCode1",
+      "name": "SchneiderCode1",
+      "commits": 22,
+      "avatar_url": "https://avatars.githubusercontent.com/u/165057013?v=4"
     },
     {
       "username": "TheBagomes",
@@ -326,16 +346,16 @@
   ],
   "top_pr_authors": [
     {
-      "username": "jadsonRleandro",
-      "name": "Jadson Ricardo",
-      "prs_opened": 1,
-      "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
-    },
-    {
       "username": "SchneiderCode1",
       "name": "SchneiderCode1",
       "prs_opened": 0,
       "avatar_url": "https://avatars.githubusercontent.com/u/165057013?v=4"
+    },
+    {
+      "username": "jadsonRleandro",
+      "name": "Jadson Ricardo",
+      "prs_opened": 0,
+      "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
     },
     {
       "username": "danilofns",
@@ -366,24 +386,24 @@
     {
       "username": "SchneiderCode1",
       "name": "SchneiderCode1",
-      "opened": 1,
+      "opened": 7,
       "closed": 10,
-      "total": 11,
+      "total": 17,
       "avatar_url": "https://avatars.githubusercontent.com/u/165057013?v=4"
     },
     {
       "username": "jadsonRleandro",
       "name": "Jadson Ricardo",
-      "opened": 4,
-      "closed": 6,
+      "opened": 1,
+      "closed": 9,
       "total": 10,
       "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
     },
     {
       "username": "danilofns",
       "name": "Danilo Fernandes",
-      "opened": 1,
-      "closed": 7,
+      "opened": 0,
+      "closed": 8,
       "total": 8,
       "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
     },
