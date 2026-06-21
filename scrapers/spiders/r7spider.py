@@ -3,8 +3,11 @@ from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from playwright.sync_api import sync_playwright
 import time
+import json
 from datetime import datetime
 from zoneinfo import ZoneInfo
+from backend.tratamentoDeDados.tratamentoDeTexto import formatar_texto, juntar_texto, transformar_padrao_data
+import os
 
 class r7_spider(scrapy.Spider):
     name = 'r7'
@@ -15,20 +18,21 @@ class r7_spider(scrapy.Spider):
     def parse(self, response, **kwargs):
         alltext = response.css('article p *::text, article p::text').getall()
 
+
+        data_da_publicacao = response.css('article time').attrib['datetime']
+        if not data_da_publicacao:
+            return
         # colocanto toda a noticia em uma unica string
 
-        news = ' '.join(
-            t.strip()
-            for t in alltext
-            if t.strip() )
+        news = juntar_texto(alltext)
 
 
         yield { 
-                'portal': 'R7',
-                'title': response.css('article h1::text').get(),
-                'data': response.css('article time::text').get(),
-                'link': response.url,
-                'news': news
+                'Portal': 'R7',
+                'titulo': response.css('article h1::text').get(),
+                'data_publicacao': transformar_padrao_data(data_da_publicacao),
+                'fonte_url': response.url,
+                'conteudo': formatar_texto(news)
             }
 
 
