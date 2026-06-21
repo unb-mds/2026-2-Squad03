@@ -1,6 +1,6 @@
 import "../App.css";
 import Sidebar from "../components/Sidebar";
-import BrazilMap from "../components/BrazilMap";
+import LeafletMap from "../components/LeafletMap";
 
 function Mapa() {
   return (
@@ -19,7 +19,7 @@ function Mapa() {
           <h3>Distribuição das notícias pelo Brasil</h3>
 
           <div className="map-page-container">
-            <BrazilMap />
+            <LeafletMap />
           </div>
         </section>
       </main>
