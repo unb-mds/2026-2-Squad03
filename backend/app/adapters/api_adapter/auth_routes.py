@@ -1,29 +1,36 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from pydantic import BaseModel
 from sqlalchemy.orm import Session
-from backend.app.domain.entities import UserAuth
 from backend.app.database import get_db
-from backend.app.adapters.db_adapter import PostgresRepositoryAdapter # Alterado de JsonRepositoryAdapter para PostgresRepositoryAdapter
 
-router = APIRouter(prefix="/api/auth", tags=["Autenticação"])
+router = APIRouter(
+    prefix="/auth",
+    tags=["Autenticação"]
+)
 
-@router.post("/register")
-def registrar(user: UserAuth, db: Session = Depends(get_db)):
-    # 1. Instancia o adaptador passando a sessão ativa do Postgres
-    repo = PostgresRepositoryAdapter(db) #@
+# 📑 Criamos Schemas do Pydantic para a rota usar (em vez de usar a Entidade de Domínio Puro)
+class LoginRequest(BaseModel):
+    email: str
+    senha: str
+
+class AuthResponse(BaseModel):
+    id: int
+    nome: str
+    email: str
+    token: str  # Caso use JWT futuramente
+
+    class Config:
+        from_attributes = True # Permite ler objetos normais do Python
+
+# 🚀 A rota agora usa "response_model=AuthResponse" (Pydantic) e NÃO a entidade pura
+@router.post("/login", response_model=AuthResponse)
+def login(dados: LoginRequest, db: Session = Depends(get_db)):
+    # Sua lógica de autenticação aqui...
     
-    try:
-        # 2. Executa o salvamento
-        sucesso = repo.salvar_usuario(user.dict())
-        return {"status": "success" if sucesso else "error"}
-    except Exception as e:
-        # Se o e-mail já existir, o Postgres vai lançar um erro devido à regra UNIQUE
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Este e-mail já está cadastrado."
-        )
-
-@router.post("/login")
-def login(user: UserAuth, db: Session = Depends(get_db)):
-    # O login precisará de uma lógica para buscar o usuário por e-mail e checar a senha,
-    # que faremos assim que você quiser expandir essa rota!
-    return {"status": "success"}
+    # Exemplo de retorno simulado (que bate com o AuthResponse)
+    return {
+        "id": 1,
+        "nome": "Usuário Teste",
+        "email": dados.email,
+        "token": "token-falso-de-teste"
+    }

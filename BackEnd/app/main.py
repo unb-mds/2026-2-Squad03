@@ -1,14 +1,11 @@
 # backend/app/main.py
 
 
-#senha db = SenhaSecreta123
-
-
 from backend.app.database import engine, Base
 import backend.app.models as models
 
-# Esse comando cria as tabelas no Supabase caso elas não existam lá ainda!
-Base.metadata.create_all(bind=engine)
+#comando pra criar no supabase as tables 
+#Base.metadata.create_all(bind=engine)
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -26,5 +23,9 @@ app.add_middleware(
 )
 
 # Registre os dois roteadores
-#app.include_router(locais_routes.router)
+app.include_router(locais_routes.router)
 app.include_router(auth_routes.router)
+
+@app.get("/")
+def home():
+    return {"message": "Bem-vindo a API do VeritasIA!"}

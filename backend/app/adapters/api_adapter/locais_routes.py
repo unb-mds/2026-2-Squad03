@@ -1,36 +1,42 @@
-# # backend/app/adapters/api_adapter/locais_routes.py
-# from fastapi import APIRouter, HTTPException, Depends
-# from pydantic import BaseModel
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
+from typing import List
+from backend.app.database import get_db
+from backend.app.models import NoticiaModel as Noticia
+from backend.app.schemas.noticia import NoticiaCreate, NoticiaResponse
 
-# from backend.app.adapters.json_adapter import JsonRepositoryAdapter
-# from backend.app.domain.entities import RegiaoMonitorada
+router = APIRouter(
+    prefix="/locais",
+    tags=["Locais e Notícias"]
+)
 
-
-# # Ela cria o 'router' que o main.py está tentando importar.
-# router = APIRouter(prefix="/api/locais", tags=["Locais"])
-
-# class RegiaoSchema(BaseModel):
-#     nome: str
-#     latitude: float
-#     longitude: float
-
-# def get_repo():
-#     return JsonRepositoryAdapter()
-
-# @router.post("/")
-# def cadastrar(payload: RegiaoSchema, repo: JsonRepositoryAdapter = Depends(get_repo)):
-#     nova_regiao = RegiaoMonitorada(
-#         id=None, 
-#         nome=payload.nome, 
-#         latitude=payload.latitude, 
-#         longitude=payload.longitude
-#     )
+# 🚀 Endpoint para o Scraper injetar notícias com coordenadas geográficas
+@router.post("/noticias", response_model=NoticiaResponse, status_code=status.HTTP_201_CREATED)
+def cadastrar_noticia_local(noticia: NoticiaCreate, db: Session = Depends(get_db)):
+    # Evita duplicados pela URL da fonte
+    noticia_existente = db.query(Noticia).filter(Noticia.fonte_url == noticia.fonte_url).first()
+    if noticia_existente:
+        raise HTTPException(
+            status_code=400, 
+            detail="Esta notícia já foi catalogada no sistema."
+        )
     
-#     if not nova_regiao.coordenadas_validas():
-#         raise HTTPException(status_code=400, detail="Coordenadas inválidas")
-        
-#     return repo.salvar(nova_regiao)
+    nova_noticia = Noticia(
+        titulo=noticia.titulo,
+        conteudo=noticia.conteudo,
+        fonte_url=noticia.fonte_url,
+        data_publicacao=noticia.data_publicacao,
+        localizacao_texto=noticia.localizacao_texto,
+        latitude=noticia.latitude,
+        longitude=noticia.longitude
+    )
+    
+    db.add(nova_noticia)
+    db.commit()
+    db.refresh(nova_noticia)
+    return nova_noticia
 
-# @router.get("/")
-# def listar(repo: JsonRepositoryAdapter = Depends(get_repo)):
-#     return repo.listar_todas()
+# 📱 Endpoint para o Front-end listar os locais que possuem alertas/notícias
+@router.get("/noticias", response_model=List[NoticiaResponse])
+def listar_noticias_locais(skip: int = 0, limit: int = 50, db: Session = Depends(get_db)):
+    return db.query(Noticia).offset(skip).limit(limit).all()
