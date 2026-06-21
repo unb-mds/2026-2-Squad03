@@ -1,3 +1,5 @@
+from urllib import response
+
 import scrapy
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
@@ -5,6 +7,7 @@ from playwright.sync_api import sync_playwright
 from datetime import date
 from datetime import datetime
 from zoneinfo import ZoneInfo
+from backend.tratamentoDeDados.tratamentoDeTexto import transformar_padrao_data, formatar_texto, juntar_texto
 
 
 from urllib.parse import urljoin
@@ -12,13 +15,12 @@ from urllib.parse import urljoin
 class metropoles_spider(scrapy.Spider):
     name = 'metropoles'
 
+
     def __init__(self, urls = None, **kwargs):
         self.start_urls = urls or []
 
     def parse(self, response, **kwargs):
-        data_da_publicacao = response.css(
-            'span.inline-block.tracking-tight.text-neutral-700::text'
-        ).get()
+        data_da_publicacao = response.css('meta[property="article:published_time"]::attr(content)').get()
 
         if not data_da_publicacao:
             return
@@ -26,29 +28,27 @@ class metropoles_spider(scrapy.Spider):
         hoje_brasilia = datetime.now(ZoneInfo("America/Sao_Paulo"))
         
         print("noticia: " + response.url)
-        print(data_da_publicacao[0:2])
+        print(data_da_publicacao) # 18/06/2026 11:21
         print(hoje_brasilia)
 
+        dia_da_publicacao = data_da_publicacao[8:10]
 
         
-        if(int(data_da_publicacao[0:2]) == hoje_brasilia.day):# filtrando noticias apenas do dia
+        if(int(dia_da_publicacao) == hoje_brasilia): # filtrando noticias apenas do dia
             print("noticia valida")
 
             alltext = response.css('article p *::text, article p::text').getall()
 
             # colocanto toda a noticia em uma unica string
 
-            news = ' '.join(
-                t.strip()
-                for t in alltext
-                if t.strip() )
+            news = juntar_texto(alltext)
 
             yield { 
-                    'portal': 'Metrópoles',
-                    'title': response.css('h1::text').get(),
-                    'data': data_da_publicacao,
-                    'link': response.url,
-                    'news': news
+                    'Portal': 'Metrópoles',
+                    'titulo': response.css('h1::text').get(),
+                    'data_publicacao': transformar_padrao_data(data_da_publicacao),
+                    'fonte_url': response.url,
+                    'conteudo': formatar_texto(news)
                 }
             
         
@@ -91,22 +91,18 @@ def play_writght():
 
             page2.goto(ultima_noticia, wait_until="load")
 
-            texto = page2.locator(
-                "span.inline-block.tracking-tight.text-neutral-700"
-            ).first.text_content()
+            data_da_publicacao = page2.locator('meta[property="article:published_time"]').get_attribute('content')
 
-            data_publicacao = texto.split(",")[0]
-
-            if not data_publicacao:
+            if not data_da_publicacao:
                 return
 
 
-            print(data_publicacao)
+            print(data_da_publicacao)
 
-            dia = data_publicacao[0:2]
-            mes = data_publicacao[3:5]
+            dia_da_publicacao = data_da_publicacao[8:10]
+            mes_da_publicacao = data_da_publicacao[5:7]
 
-            todas_noticias_do_dia = verificar_dia_mes(dia, mes)
+            todas_noticias_do_dia = verificar_dia_mes(dia_da_publicacao, mes_da_publicacao)
 
         browser.close()
 
@@ -137,6 +133,7 @@ def metropoles_run_spider():
             }
         }
     )
+    settings.set('DOWNLOADER_CLIENT_TLS_VERIFY', False)
     process = CrawlerProcess(settings)
     process.crawl(metropoles_spider, urls)
     process.start()
