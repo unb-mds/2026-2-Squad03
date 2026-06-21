@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Noticias from "./pages/Noticias";
 import Sobre from "./pages/Sobre";
+import Mapa from "./pages/Mapa";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/noticias" element={<Noticias />} />
         <Route path="/sobre" element={<Sobre />} />
+        <Route path="/mapa" element={<Mapa />} />
       </Routes>
     </HashRouter>
   );
