@@ -5,6 +5,7 @@ from playwright.sync_api import sync_playwright
 from datetime import date
 from datetime import datetime
 from zoneinfo import ZoneInfo
+from backend.tratamentoDeDados.tratamentoDeTexto import transformar_padrao_data, formatar_texto, juntar_texto
 
 
 class g1_spider(scrapy.Spider):
@@ -16,12 +17,13 @@ class g1_spider(scrapy.Spider):
     def parse(self, response, **kwargs):
 
         data_da_publicacao = response.css('time').attrib['datetime']
-        dia_da_publicacao = data_da_publicacao[8:10]
-        hoje_brasilia = datetime.now(ZoneInfo("America/Sao_Paulo"))
-        
-        print("dia da noticia: " + dia_da_publicacao)
-        print("dia de hoje: " + str(hoje_brasilia.day))
 
+        if not data_da_publicacao:
+            return
+
+        dia_da_publicacao = data_da_publicacao[8:10]
+
+        hoje_brasilia = datetime.now(ZoneInfo("America/Sao_Paulo"))
 
         
         if(int(dia_da_publicacao) == hoje_brasilia.day):# filtrando noticias apenas do dia
@@ -30,17 +32,15 @@ class g1_spider(scrapy.Spider):
 
             # colocanto toda a noticia em uma unica string
 
-            news = ' '.join(
-                t.strip()
-                for t in alltext
-                if t.strip() )
+            news = juntar_texto(alltext)
+            
 
             yield { 
                     'Portal': 'G1',
-                    'Title': response.css('.content-head__title::text').get(),
-                    'Time': response.css('time::text').get(),
-                    'Link': response.url,
-                    'News': news
+                    'titulo': response.css('.content-head__title::text').get(),
+                    'data_publicacao': transformar_padrao_data(data_da_publicacao),
+                    'fonte_url': response.url,
+                    'conteudo': formatar_texto(news)
                 }
 
         
@@ -119,3 +119,4 @@ def g1_run_spider():
     process = CrawlerProcess(settings)
     process.crawl(g1_spider, urls)
     process.start()
+
