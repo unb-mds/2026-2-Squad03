@@ -2,48 +2,52 @@ import scrapy
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from datetime import datetime
+from zoneinfo import ZoneInfo
+from backend.tratamentoDeDados.tratamentoDeTexto import transformar_padrao_data, formatar_texto, juntar_texto
 
 class cnn_spider(scrapy.Spider):
-    name = 'CNN'
-    data = str(datetime.now().strftime("%Y-%m-%d"))
-    links = []
-    i = 1
+    name = "cnn"
 
-    def start_requests(self):
-        yield scrapy.Request('https://www.cnnbrasil.com.br/tudo-sobre/feminicidio/')
+    data = datetime.now(ZoneInfo("America/Sao_Paulo")).strftime("%Y-%m-%d")
+    start_urls = [
+        "https://www.cnnbrasil.com.br/tudo-sobre/feminicidio/"
+    ]
 
-    def parse(self, response, **kwargs):
-        for news in response.css('ul figure'):
-            if (self.data in news.css('time').attrib['datetime']):
-                yield response.follow(news.css('a').attrib['href'], self.parse_pegar)
+    def parse(self, response):
+        conteudo = response.css("ul figure")
+        for pegar_conteudo in conteudo:
+            coletar_data = pegar_conteudo.css("time::attr(datetime)").get()
 
-        pag = response.css('a:contains("Pr")::attr(href)').get() 
+            link = pegar_conteudo.css("a::attr(href)").get()
 
-        if pag:
-            yield response.follow(pag, self.parse)
-        else:
-            yield response.follow(self.links[0], self.parse_pegar)
+            if not coletar_data or not link:
+                return
 
-    def parse_pegar(self, response):
-        alltext = response.css('.text-lg p::text').getall()
-        news = ''
-        for text in alltext:
-             news+= text
+            padronizar_data = coletar_data[:10]
 
+            if padronizar_data == self.data:
+                yield response.follow(link, callback=self.parse_ir)
+            else:
+                continue
+
+    def parse_ir(self, response, **kwargs):
+        alltext = response.css('article p *::text, article p::text, article p strong::text').getall()
+        # 2026-01-10
+        
+        data_da_publicacao = response.css('article time').attrib['datetime']
+
+            # colocanto toda a noticia em uma unica string
+        news = juntar_texto(alltext)
+        
         yield {
-                'portal': 'CNN',
-                'title': response.css('article').css('header').css('h1::text').get(),
-                'data': response.css('article').css('span').css('.timestamp__date::text').getall(),
-                'links': response.css('ul figure a').attrib['href'],
-                'texto':  news,
-                'autor': response.css('article').css('header').css('span').css('a').css('span::text').get()
+                'Portal': 'CNN',
+                'titulo': response.css('article').css('header').css('h1::text').get(),
+                'data_publicacao': transformar_padrao_data(data_da_publicacao),
+                'fonte_url': response.url,
+                'conteudo':  formatar_texto(news)
         }
-        for self.i in range(len(self.links)):
-                get = self.links[self.i]
-                self.i += 1
-                yield response.follow(get, self.parse_pegar)
 
-              
+         
 def cnn_run_spider():
     settings = get_project_settings()
     settings.set(

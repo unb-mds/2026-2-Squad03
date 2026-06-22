@@ -1,34 +1,54 @@
+from urllib import response
+
 import scrapy
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from playwright.sync_api import sync_playwright
 from datetime import date
+from datetime import datetime
+from zoneinfo import ZoneInfo
+from backend.tratamentoDeDados.tratamentoDeTexto import transformar_padrao_data, formatar_texto, juntar_texto
+
+
+from urllib.parse import urljoin
 
 class metropoles_spider(scrapy.Spider):
     name = 'metropoles'
+
 
     def __init__(self, urls = None, **kwargs):
         self.start_urls = urls or []
 
     def parse(self, response, **kwargs):
-        data_da_publicacao = response.css('time').attrib['datetime']
-        dia_da_publicacao = data_da_publicacao[8:10]
-        if(int(dia_da_publicacao) == date.today().day):
+        data_da_publicacao = response.css('meta[property="article:published_time"]::attr(content)').get()
 
-            alltext = response.css('article p:not(.data)::text').getall()
+        if not data_da_publicacao:
+            return
+
+        hoje_brasilia = datetime.now(ZoneInfo("America/Sao_Paulo"))
+        
+        print("noticia: " + response.url)
+        print(data_da_publicacao) # 18/06/2026 11:21
+        print(hoje_brasilia)
+
+        dia_da_publicacao = data_da_publicacao[8:10]
+
+        
+        if(int(dia_da_publicacao) == hoje_brasilia): # filtrando noticias apenas do dia
+            print("noticia valida")
+
+            alltext = response.css('article p *::text, article p::text').getall()
 
             # colocanto toda a noticia em uma unica string
 
-            news = ''
-            for text in alltext:
-                news += text
+            news = juntar_texto(alltext)
 
             yield { 
-                    'portal': 'Metrópoles',
-                    'title': response.css('h1::text').get(),
-                    'data': data_da_publicacao,
-                    'link': response.url,
-                    'news': news
+                    'Portal': 'Metrópoles',
+                    'titulo': response.css('h1::text').get(),
+                    'data_publicacao': transformar_padrao_data(data_da_publicacao),
+                    'fonte_url': response.url,
+                    'conteudo': formatar_texto(news)
                 }
             
         
@@ -38,28 +58,55 @@ def play_writght():
 
     with sync_playwright() as pw:
         todas_noticias_do_dia = False
+
         browser = pw.firefox.launch(headless = True)
         page1 = browser.new_page()
         page2 = browser.new_page()
-        page1.goto("https://www.metropoles.com/tag/feminicidio", wait_until='load')
 
-        while todas_noticias_do_dia != True:
-            page1.get_by_role("button", name = "Carregar mais notícias", exact = False).click()
-            newsContent = page1.locator('h4 > a').all()
-            urls = []
-            for news in newsContent:
-                urls.append(news.get_attribute(name="href"))
-            
-            ultima_noticia = urls[len(urls) - 1] # pegando ultima noticia da lista
-            page2.goto(ultima_noticia, wait_until='load')
-            data_da_publicacao = page2.locator('time').nth(0).get_attribute(name = "datetime") # data que a ultima noticia foi publicada
-            mes_da_publicacao = data_da_publicacao[5:7]
+        page1.goto(
+            "https://www.metropoles.com/tag/feminicidio",
+            wait_until="load"
+        )
+
+        while not todas_noticias_do_dia:
+
+            page1.get_by_role(
+                "button",
+                name="Ver mais notícias",
+                exact=False
+            ).click()
+
+            page1.wait_for_timeout(2000)
+
+            urls = page1.locator("h3 a[href]").evaluate_all(
+                """
+                els => [...new Set(
+                    els.map(el => el.href)
+                )]
+                """
+            )
+
+            print(urls)
+            ultima_noticia = urls[-1]
+
+            page2.goto(ultima_noticia, wait_until="load")
+
+            data_da_publicacao = page2.locator('meta[property="article:published_time"]').get_attribute('content')
+
+            if not data_da_publicacao:
+                return
+
+
+            print(data_da_publicacao)
+
             dia_da_publicacao = data_da_publicacao[8:10]
+            mes_da_publicacao = data_da_publicacao[5:7]
+
             todas_noticias_do_dia = verificar_dia_mes(dia_da_publicacao, mes_da_publicacao)
+
         browser.close()
 
     return urls
-
 def verificar_dia_mes(dia, mes):
     if (int(mes) == date.today().month): # comparando o mes com o mes atual
         if (int(dia) < date.today().day):
@@ -86,6 +133,8 @@ def metropoles_run_spider():
             }
         }
     )
+    settings.set('DOWNLOADER_CLIENT_TLS_VERIFY', False)
     process = CrawlerProcess(settings)
     process.crawl(metropoles_spider, urls)
     process.start()
+
