@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from backend.app.database import Base
+from geoalchemy2 import Geometry
 
 class UsuarioModel(Base):
     __tablename__ = "usuarios"
@@ -17,8 +18,8 @@ class RegiaoModel(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     nome = Column(String(150), nullable=False)
-    latitude = Column(Float, nullable=False)
-    longitude = Column(Float, nullable=False)
+
+    geom = Column(Geometry('POINT', srid=4326), nullable=False)# Armazena a geometria como WKT (Well-Known Text)
 
     # Relacionamento bidirecional: permite aceder às notícias desta região facilmente
     noticias = relationship("NoticiaModel", back_populates="regiao", cascade="all, delete-orphan")
@@ -29,8 +30,8 @@ class NoticiaModel(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     titulo = Column(String(300), nullable=False)
-    url = Column(String(500), unique=True, index=True, nullable=False)
-    corpo_texto = Column(String, nullable=True) # Mapeia para o tipo TEXT do Postgres
+    fonte_url = Column(String(500), unique=True, index=True, nullable=False)
+    conteudo = Column(String, nullable=True) # Mapeia para o tipo TEXT do Postgres
     resumo_raw = Column(String, nullable=True) # Mapeia para o tipo TEXT do Postgres
     resumo_blur = Column(String, nullable=True) # Mapeia para o tipo TEXT do Postgres
     data_publicacao = Column(DateTime, default=datetime.utcnow)

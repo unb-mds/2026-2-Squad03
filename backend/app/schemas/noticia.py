@@ -5,10 +5,10 @@ from typing import Optional
 # Dados que o Scraper PRECISA enviar ao cadastrar uma notícia
 class NoticiaCreate(BaseModel):
     titulo: str
-    corpo_texto: str
+    conteudo: str
     resumo_raw: Optional[str] = None
     resumo_blur: Optional[str] = None
-    url: str
+    fonte_url: str
     data_publicacao: Optional[datetime] = None
     localizacao_texto: Optional[str] = None  # Ex: "Brasília, DF"
     latitude: Optional[float] = None
@@ -18,8 +18,8 @@ class NoticiaCreate(BaseModel):
 class NoticiaResponse(BaseModel):
     id: int
     titulo: str
-    url: str
-    corpo_texto: Optional[str] = None
+    fonte_url: str
+    conteudo: Optional[str] = None
     resumo_raw: Optional[str] = None
     resumo_blur: Optional[str] = None
     data_publicacao: Optional[datetime] = None
