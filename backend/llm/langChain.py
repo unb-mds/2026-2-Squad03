@@ -5,7 +5,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from google.api_core.exceptions import ResourceExhausted
 from langchain_google_genai.chat_models import ChatGoogleGenerativeAIError
-from news_Classification import NewsClassification
+from backend.llm.news_Classification import NewsClassification
 
 def classifation_news_with_LLM(news):
 
@@ -56,6 +56,7 @@ def classifation_news_with_LLM(news):
             Retorne exclusivamente um JSON válido:
 
             {{
+                "titulo": "Manter o título da notícia",
                 "feminicidio": True/False
                 "Portal": "Manter o portal da notícia'
                 "resumo_raw": "Resumo Completo",

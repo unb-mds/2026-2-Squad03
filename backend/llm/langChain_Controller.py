@@ -1,4 +1,4 @@
-from langChain import classifation_news_with_LLM
+from backend.llm.langChain import classifation_news_with_LLM
 import json
 import os
 from backend.tratamentoDeDados.juntar_dados import juntar_dados

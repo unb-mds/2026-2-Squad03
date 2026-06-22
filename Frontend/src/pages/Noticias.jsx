@@ -1,105 +1,80 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import Sidebar from "../components/Sidebar";
 import "../App.css";
 import "./Noticias.css";
 
-const MOCK_NEWS = [
-  {
-    id: 1,
-    titulo: "Mulher é morta a facadas pelo ex-companheiro em SP",
-    veiculo: "G1",
-    data: "12/05/2026",
-    estado: "SP",
-  },
-  {
-    id: 2,
-    titulo: "Feminicídio: mulher é assassinada dentro de casa em BH",
-    veiculo: "UOL",
-    data: "11/05/2026",
-    estado: "MG",
-  },
-  {
-    id: 3,
-    titulo: "Polícia prende suspeito de feminicídio no Rio de Janeiro",
-    veiculo: "Metrópoles",
-    data: "11/05/2026",
-    estado: "RJ",
-  },
-  {
-    id: 4,
-    titulo: "Dados apontam aumento de casos de feminicídio no país",
-    veiculo: "Folha de S.Paulo",
-    data: "10/05/2026",
-    estado: "DF",
-  },
-  {
-    id: 5,
-    titulo: "Vítima de violência doméstica recebe medida protetiva em Brasília",
-    veiculo: "R7",
-    data: "10/05/2026",
-    estado: "DF",
-  },
-  {
-    id: 6,
-    titulo: "Mulher é morta a facadas pelo ex-companheiro em SP",
-    veiculo: "G1",
-    data: "09/05/2026",
-    estado: "SP",
-  },
-  {
-    id: 7,
-    titulo: "Caso de feminicídio é investigado pela polícia no Nordeste",
-    veiculo: "G1",
-    data: "09/05/2026",
-    estado: "BA",
-  },
-  {
-    id: 8,
-    titulo: "Mulher sobrevive a tentativa de feminicídio em Porto Alegre",
-    veiculo: "Metrópoles",
-    data: "08/05/2026",
-    estado: "RS",
-  },
-  {
-    id: 9,
-    titulo: "Delegacia da mulher recebe recorde de denúncias em maio",
-    veiculo: "UOL",
-    data: "08/05/2026",
-    estado: "SP",
-  },
-  {
-    id: 10,
-    titulo: "Governo lança campanha de combate à violência doméstica",
-    veiculo: "Folha de S.Paulo",
-    data: "07/05/2026",
-    estado: "DF",
-  },
-  {
-    id: 11,
-    titulo: "Mulher é assassinada pelo marido após pedir divórcio no CE",
-    veiculo: "R7",
-    data: "07/05/2026",
-    estado: "CE",
-  },
-  {
-    id: 12,
-    titulo: "Feminicídio tentado: mulher escapa após vizinhos acionarem PM",
-    veiculo: "G1",
-    data: "06/05/2026",
-    estado: "RJ",
-  },
-];
+export default function ListaNoticias() {
+  // 1. Estados para gerenciar o ciclo de dados da API
+  const [noticias, setNoticias] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState(null);
 
-const ESTADOS = [...new Set(MOCK_NEWS.map((n) => n.estado))].sort();
-const VEICULOS = [...new Set(MOCK_NEWS.map((n) => n.veiculo))].sort();
-
-export default function Noticias() {
+  // 2. Estados para manipulação de filtros e paginação da interface
   const [busca, setBusca] = useState("");
   const [filtroEstado, setFiltroEstado] = useState("");
   const [filtroVeiculo, setFiltroVeiculo] = useState("");
   const [filtroPeriodo, setFiltroPeriodo] = useState("");
   const [pagina, setPagina] = useState(1);
   const POR_PAGINA = 8;
+
+  // Hook para buscar os dados reais do seu banco de dados via FastAPI
+  useEffect(() => {
+    async function buscarTodasAsNoticias() {
+      try {
+        const resposta = await fetch('http://localhost:8000/noticias');
+        
+        if (!resposta.ok) {
+          throw new Error('Não foi possível obter os dados do servidor.');
+        }
+
+        const dadosDoBanco = await resposta.json();
+        setNoticias(dadosDoBanco); 
+      } catch (err) {
+        console.error("Erro na requisição:", err);
+        setErro(err.message);
+      } finally {
+        setCarregando(false);
+      }
+    }
+
+    buscarTodasAsNoticias();
+  }, []); 
+
+  // 3. Extração dinâmica de opções para os filtros baseada no que existe no banco
+  const ESTADOS = useMemo(() => {
+    const ufs = noticias.map((n) => n.estado).filter(Boolean);
+    return [...new Set(ufs)].sort();
+  }, [noticias]);
+
+  const VEICULOS = useMemo(() => {
+    const mídias = noticias.map((n) => n.veiculo).filter(Boolean);
+    return [...new Set(mídias)].sort();
+  }, [noticias]);
+
+  // 4. Lógica de Filtro aplicada sobre as notícias reais do banco
+  const noticiasFiltradas = useMemo(() => {
+    return noticias.filter((n) => {
+      const buscaOk =
+        !busca ||
+        (n.titulo && n.titulo.toLowerCase().includes(busca.toLowerCase())) ||
+        (n.veiculo && n.veiculo.toLowerCase().includes(busca.toLowerCase()));
+      const estadoOk = !filtroEstado || n.estado === filtroEstado;
+      const veiculoOk = !filtroVeiculo || n.veiculo === filtroVeiculo;
+      return buscaOk && estadoOk && veiculoOk;
+    });
+  }, [noticias, busca, filtroEstado, filtroVeiculo]);
+
+  // 5. Cálculos de Paginação
+  const totalPaginas = Math.ceil(noticiasFiltradas.length / POR_PAGINA);
+  const noticiasPagina = useMemo(() => {
+    return noticiasFiltradas.slice(
+      (pagina - 1) * POR_PAGINA,
+      pagina * POR_PAGINA,
+    );
+  }, [noticiasFiltradas, pagina]);
+
+  const temFiltro = busca || filtroEstado || filtroVeiculo || filtroPeriodo;
 
   function limparFiltros() {
     setBusca("");
@@ -109,25 +84,9 @@ export default function Noticias() {
     setPagina(1);
   }
 
-  const noticiasFiltradas = useMemo(() => {
-    return MOCK_NEWS.filter((n) => {
-      const buscaOk =
-        !busca ||
-        n.titulo.toLowerCase().includes(busca.toLowerCase()) ||
-        n.veiculo.toLowerCase().includes(busca.toLowerCase());
-      const estadoOk = !filtroEstado || n.estado === filtroEstado;
-      const veiculoOk = !filtroVeiculo || n.veiculo === filtroVeiculo;
-      return buscaOk && estadoOk && veiculoOk;
-    });
-  }, [busca, filtroEstado, filtroVeiculo]);
-
-  const totalPaginas = Math.ceil(noticiasFiltradas.length / POR_PAGINA);
-  const noticiasPagina = noticiasFiltradas.slice(
-    (pagina - 1) * POR_PAGINA,
-    pagina * POR_PAGINA,
-  );
-
-  const temFiltro = busca || filtroEstado || filtroVeiculo || filtroPeriodo;
+  // Renderizações condicionais para carregamento ou erro de rede
+  if (carregando) return <div className="app p-6">Carregando dados do banco de dados...</div>;
+  if (erro) return <div className="app p-6 text-red-600">Erro de conexão com o servidor: {erro}</div>;
 
   return (
     <div className="app">
@@ -136,12 +95,12 @@ export default function Noticias() {
         <header className="header">
           <div>
             <h2>Notícias</h2>
-            <p>Monitoramento de notícias sobre feminicídio no Brasil</p>
+            <p>Monitoramento de notícias sobre desinformação no Brasil</p>
           </div>
           <div className="header-actions">
             <button className="date-button">
               <span>📅</span>
-              <span>01/05/2024 - 31/05/2024</span>
+              <span>01/05/2026 - 31/05/2026</span>
             </button>
             <span className="bell">🔔</span>
             <div className="user-box">
@@ -226,32 +185,47 @@ export default function Noticias() {
             </div>
           </div>
 
-          {/* Tabela */}
+          {/* Tabela Modificada para o Banco de Dados */}
           <div className="noticias-table-wrap">
             <table className="noticias-table">
               <thead>
                 <tr>
                   <th>Título</th>
-                  <th>Veículo</th>
-                  <th>Data</th>
-                  <th>Estado</th>
+                  <th>Link Original</th>
+                  <th>Resumo IA</th>
+                  <th>ID Banco</th>
                 </tr>
               </thead>
               <tbody>
                 {noticiasPagina.length === 0 ? (
                   <tr>
                     <td colSpan={4} className="noticias-empty">
-                      Nenhuma notícia encontrada para os filtros selecionados.
+                      Nenhuma notícia encontrada no banco para os filtros selecionados.
                     </td>
                   </tr>
                 ) : (
                   noticiasPagina.map((n) => (
                     <tr key={n.id}>
-                      <td className="noticia-titulo">{n.titulo}</td>
-                      <td>{n.veiculo}</td>
-                      <td>{n.data}</td>
+                      <td className="noticia-titulo">
+                        <Link to={`/noticias/${n.id}`} style={{ textDecoration: 'none', color: '#007acc', fontWeight: 'bold' }}>
+                          {n.titulo}
+                        </Link>
+                      </td>
+                      
                       <td>
-                        <span className="estado-badge">{n.estado}</span>
+                        <a href={n.fonte_url} target="_blank" rel="noreferrer" style={{ color: '#555' }}>
+                          Acessar Fonte
+                        </a>
+                      </td>
+                      
+                      <td style={{ fontSize: '0.9em', color: '#666' }}>
+                        {n.resumo_raw ? `${n.resumo_raw.substring(0, 60)}...` : "Sem resumo disponível"}
+                      </td>
+                      
+                      <td>
+                        <span className="estado-badge" style={{ fontFamily: 'monospace' }}>
+                          #{n.id}
+                        </span>
                       </td>
                     </tr>
                   ))
@@ -288,9 +262,7 @@ export default function Noticias() {
                   ),
                 )}
                 <button
-                  onClick={() =>
-                    setPagina((p) => Math.min(totalPaginas, p + 1))
-                  }
+                  onClick={() => setPagina((p) => Math.min(totalPaginas, p + 1))}
                   disabled={pagina === totalPaginas}
                   className="page-btn"
                 >

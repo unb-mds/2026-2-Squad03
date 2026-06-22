@@ -24,7 +24,7 @@ app.add_middleware(
 
 # Registre os dois roteadores
 app.include_router(locais_routes.router)
-app.include_router(auth_routes.router)
+#app.include_router(auth_routes.router)
 
 @app.get("/")
 def home():

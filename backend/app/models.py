@@ -30,9 +30,10 @@ class NoticiaModel(Base):
     id = Column(Integer, primary_key=True, index=True)
     titulo = Column(String(300), nullable=False)
     url = Column(String(500), unique=True, index=True, nullable=False)
-    resumo = Column(String, nullable=True) # Mapeia para o tipo TEXT do Postgres
+    corpo_texto = Column(String, nullable=True) # Mapeia para o tipo TEXT do Postgres
+    resumo_raw = Column(String, nullable=True) # Mapeia para o tipo TEXT do Postgres
+    resumo_blur = Column(String, nullable=True) # Mapeia para o tipo TEXT do Postgres
     data_publicacao = Column(DateTime, default=datetime.utcnow)
-    sentimento = Column(String(50), nullable=True)
 
     # A nossa famosa Chave Estrangeira (Foreign Key)
     regiao_id = Column(Integer, ForeignKey("regioes_monitoradas.id", ondelete="CASCADE"), nullable=False)
