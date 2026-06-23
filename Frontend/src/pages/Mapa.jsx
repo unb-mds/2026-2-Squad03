@@ -11,7 +11,7 @@ export default function Mapa() {
   useEffect(() => {
     async function buscarNoticiasMapa() {
       try {
-        const resposta = await fetch('http://localhost:8000/mapa');
+        const resposta = await fetch('https://two026-2-veritasia.onrender.com/mapa');
         
         if (!resposta.ok) {
           throw new Error('Não foi possível carregar os dados geográficos.');

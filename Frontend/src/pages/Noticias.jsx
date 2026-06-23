@@ -22,7 +22,7 @@ export default function ListaNoticias() {
   useEffect(() => {
     async function buscarTodasAsNoticias() {
       try {
-        const resposta = await fetch('http://localhost:8000/noticias');
+        const resposta = await fetch('https://two026-2-veritasia.onrender.com/noticias');
         
         if (!resposta.ok) {
           throw new Error('Não foi possível obter os dados do servidor.');
