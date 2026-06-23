@@ -8,7 +8,7 @@ import {
   GeoJSON,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-// Opcional: corrija o ícone padrão do Leaflet que costuma sumir com React
+
 import L from 'leaflet';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
