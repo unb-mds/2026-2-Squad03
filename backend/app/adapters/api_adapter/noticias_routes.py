@@ -14,5 +14,18 @@ router = APIRouter(
 @router.get("/", response_model=List[NoticiaResponse])
 def listar_noticias_locais(skip: int = 0, limit: int = 50, db: Session = Depends(get_db)):
     noticias = db.query(Noticia).offset(skip).limit(limit).all()
-    print(noticias)
+    #print(noticias)
     return noticias
+
+@router.get("/{id}", response_model=NoticiaResponse)
+def ler_noticia(id: int, db: Session = Depends(get_db)):
+    print(f"Buscando notícia com ID {id} no banco de dados...")
+    noticia = db.query(Noticia).filter(Noticia.id == id).first()
+    print(noticia, "Notícia encontrada no banco de dados")
+    if not noticia:
+        raise HTTPException(
+            status_code=404, 
+            detail="Notícia não encontrada"
+        )
+    
+    return noticia

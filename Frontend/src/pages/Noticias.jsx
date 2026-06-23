@@ -85,8 +85,7 @@ export default function ListaNoticias() {
   }
 
   // Renderizações condicionais para carregamento ou erro de rede
-  if (carregando) return <div className="app p-6">Carregando dados do banco de dados...</div>;
-  if (erro) return <div className="app p-6 text-red-600">Erro de conexão com o servidor: {erro}</div>;
+
 
   return (
     <div className="app">
@@ -197,40 +196,51 @@ export default function ListaNoticias() {
                 </tr>
               </thead>
               <tbody>
-                {noticiasPagina.length === 0 ? (
-                  <tr>
-                    <td colSpan={4} className="noticias-empty">
-                      Nenhuma notícia encontrada no banco para os filtros selecionados.
+              {carregando ? (
+                // Caso esteja carregando
+                <tr>
+                  <td colSpan={4} className="noticias-empty">
+                    Procurando notícias no banco de dados... <span className="loading-dots">⏳</span>
+                  </td>
+                </tr>
+              ) : erro ? (
+                // Caso tenha ocorrido um erro (opcional, mas recomendado)
+                <tr>
+                  <td colSpan={4} className="noticias-empty" style={{ color: 'red' }}>
+                    Erro ao carregar: {erro}
+                  </td>
+                </tr>
+              ) : noticiasPagina.length > 0 ? (
+                // Caso tenha notícias
+                noticiasPagina.map((n) => (
+                  <tr key={n.id}>
+                    <td className="noticia-titulo">
+                      <Link to={`/noticias/${n.id}`} style={{ textDecoration: 'none', color: '#007acc', fontWeight: 'bold' }}>
+                        {n.titulo}
+                      </Link>
+                    </td>
+                    <td>
+                      <a href={n.fonte_url} target="_blank" rel="noreferrer" style={{ color: '#555' }}>
+                        Acessar Fonte
+                      </a>
+                    </td>
+                    <td style={{ fontSize: '0.9em', color: '#666' }}>
+                      {n.resumo_blur ? `${n.resumo_blur.substring()}...` : "Sem resumo"}
+                    </td>
+                    <td>
+                      <span className="estado-badge" style={{ fontFamily: 'monospace' }}>#{n.id}</span>
                     </td>
                   </tr>
-                ) : (
-                  noticiasPagina.map((n) => (
-                    <tr key={n.id}>
-                      <td className="noticia-titulo">
-                        <Link to={`/noticias/${n.id}`} style={{ textDecoration: 'none', color: '#007acc', fontWeight: 'bold' }}>
-                          {n.titulo}
-                        </Link>
-                      </td>
-                      
-                      <td>
-                        <a href={n.fonte_url} target="_blank" rel="noreferrer" style={{ color: '#555' }}>
-                          Acessar Fonte
-                        </a>
-                      </td>
-                      
-                      <td style={{ fontSize: '0.9em', color: '#666' }}>
-                        {n.resumo_raw ? `${n.resumo_raw.substring(0, 60)}...` : "Sem resumo disponível"}
-                      </td>
-                      
-                      <td>
-                        <span className="estado-badge" style={{ fontFamily: 'monospace' }}>
-                          #{n.id}
-                        </span>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
+                ))
+              ) : (
+                // Caso a lista esteja vazia após os filtros
+                <tr>
+                  <td colSpan={4} className="noticias-empty">
+                    Nenhuma notícia encontrada com os filtros atuais.
+                  </td>
+                </tr>
+              )}
+            </tbody>
             </table>
           </div>
 
