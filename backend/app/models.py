@@ -35,6 +35,7 @@ class NoticiaModel(Base):
     resumo_raw = Column(String, nullable=True) # Mapeia para o tipo TEXT do Postgres
     resumo_blur = Column(String, nullable=True) # Mapeia para o tipo TEXT do Postgres
     data_publicacao = Column(DateTime, default=datetime.utcnow)
+    Portal = Column(String, nullable=False)
 
     # A nossa famosa Chave Estrangeira (Foreign Key)
     regiao_id = Column(Integer, ForeignKey("regioes_monitoradas.id", ondelete="CASCADE"), nullable=False)

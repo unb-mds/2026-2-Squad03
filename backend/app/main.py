@@ -10,7 +10,7 @@ import backend.app.models as models
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 # Apenas importe os arquivos de rotas que você vai usar
-from backend.app.adapters.api_adapter import auth_routes, noticias_routes 
+from backend.app.adapters.api_adapter import auth_routes, noticias_routes , mapa_routes
 
 app = FastAPI(title="VeritasIA API")
 
@@ -24,7 +24,8 @@ app.add_middleware(
 
 # Registre os dois roteadores
 app.include_router(noticias_routes.router)
-#app.include_router(auth_routes.router)
+app.include_router(mapa_routes.router)
+app.include_router(auth_routes.router)
 
 @app.get("/")
 def home():
