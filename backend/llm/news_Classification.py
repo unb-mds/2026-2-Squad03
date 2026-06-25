@@ -1,5 +1,7 @@
 from pydantic import BaseModel
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
 class NewsClassification(BaseModel):
     titulo: str
     feminicidio: bool
@@ -8,3 +10,5 @@ class NewsClassification(BaseModel):
     resumo_blur: str
     local: str
     fonte_url: str
+    
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+

@@ -5,6 +5,8 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 from backend.tratamentoDeDados.tratamentoDeTexto import transformar_padrao_data, formatar_texto, juntar_texto
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
 class cnn_spider(scrapy.Spider):
     name = "cnn"
 
@@ -12,6 +14,8 @@ class cnn_spider(scrapy.Spider):
     start_urls = [
         "https://www.cnnbrasil.com.br/tudo-sobre/feminicidio/"
     ]
+
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
     def parse(self, response):
         conteudo = response.css("ul figure")
@@ -30,6 +34,8 @@ class cnn_spider(scrapy.Spider):
             else:
                 continue
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
     def parse_ir(self, response, **kwargs):
         alltext = response.css('article p *::text, article p::text, article p strong::text').getall()
         # 2026-01-10
@@ -47,7 +53,8 @@ class cnn_spider(scrapy.Spider):
                 'conteudo':  formatar_texto(news)
         }
 
-         
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
 def cnn_run_spider():
     settings = get_project_settings()
     settings.set(
@@ -63,3 +70,5 @@ def cnn_run_spider():
     process = CrawlerProcess(settings)
     process.crawl(cnn_spider)
     process.start()
+    
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+

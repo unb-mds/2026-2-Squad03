@@ -5,6 +5,8 @@ from spiders.r7spider import r7_run_spider
 from spiders.metropoles import metropoles_run_spider
 from salvarscrapys import salvar_todos_resultados
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
 def main():
     g1_scrapy = Process(target = g1_run_spider)
     g1_scrapy.start()
@@ -23,6 +25,9 @@ def main():
     metropoles_scrapy.join()
     salvar_todos_resultados()
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 if __name__ == "__main__":
     main()
+    
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+

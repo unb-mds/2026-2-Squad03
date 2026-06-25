@@ -10,10 +10,14 @@ from sqlalchemy.orm import Session
 from geoalchemy2.functions import ST_AsGeoJSON # Esta é a função principal
 from sqlalchemy import func
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
 router = APIRouter(
     prefix="/mapa",
     tags=["Mapas e Regiões"]
 )
+
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 # 📱 Endpoint para o Front-end listar os locais que possuem alertas/notícias
 @router.get("/")
@@ -40,3 +44,5 @@ def ler_noticias_mapa(db: Session = Depends(get_db)):
             
     
     return {"type": "FeatureCollection", "features": features}
+
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+

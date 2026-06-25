@@ -7,12 +7,15 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 from backend.tratamentoDeDados.tratamentoDeTexto import transformar_padrao_data, formatar_texto, juntar_texto
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 class g1_spider(scrapy.Spider):
     name = 'g1'
 
     def __init__(self, urls = None, **kwargs):
         self.start_urls = urls or []
+
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
     def parse(self, response, **kwargs):
 
@@ -43,6 +46,7 @@ class g1_spider(scrapy.Spider):
                     'conteudo': formatar_texto(news)
                 }
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
         
 def play_writght():
     urls = []
@@ -69,6 +73,7 @@ def play_writght():
 
     return urls
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 def scroll_to_absolute_bottom(page):
     while True:
@@ -88,6 +93,8 @@ def scroll_to_absolute_bottom(page):
         if new_height == current_height:
             break
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
 def verificar_dia_mes(dia, mes):
     if (int(mes) == date.today().month): # comparando o mes com o mes atual
         if (int(dia) < date.today().day):
@@ -97,7 +104,7 @@ def verificar_dia_mes(dia, mes):
     else:
         return True
         
-
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 def g1_run_spider():
     
@@ -120,3 +127,4 @@ def g1_run_spider():
     process.crawl(g1_spider, urls)
     process.start()
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+

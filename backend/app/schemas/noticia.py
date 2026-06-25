@@ -2,6 +2,8 @@ from pydantic import BaseModel, ConfigDict, HttpUrl
 from datetime import datetime
 from typing import Optional
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
 # Dados que o Scraper PRECISA enviar ao cadastrar uma notícia
 class NoticiaCreate(BaseModel):
     titulo: str
@@ -13,6 +15,8 @@ class NoticiaCreate(BaseModel):
     localizacao_texto: Optional[str] = None  # Ex: "Brasília, DF"
     latitude: Optional[float] = None
     longitude: Optional[float] = None
+
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 # Dados que a API vai RETORNAR (inclui o ID criado pelo banco)
 class NoticiaResponse(BaseModel):
@@ -27,3 +31,5 @@ class NoticiaResponse(BaseModel):
 
     # O from_attributes = True é a chave para o SQLAlchemy funcionar no Pydantic v2
     model_config = ConfigDict(from_attributes=True)
+    
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+

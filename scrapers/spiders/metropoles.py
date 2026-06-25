@@ -1,5 +1,4 @@
 from urllib import response
-
 import scrapy
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
@@ -8,9 +7,9 @@ from datetime import date
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from backend.tratamentoDeDados.tratamentoDeTexto import transformar_padrao_data, formatar_texto, juntar_texto
-
-
 from urllib.parse import urljoin
+
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 class metropoles_spider(scrapy.Spider):
     name = 'metropoles'
@@ -51,7 +50,7 @@ class metropoles_spider(scrapy.Spider):
                     'conteudo': formatar_texto(news)
                 }
             
-        
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
         
 def play_writght():
     urls = []
@@ -107,6 +106,9 @@ def play_writght():
         browser.close()
 
     return urls
+
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
 def verificar_dia_mes(dia, mes):
     if (int(mes) == date.today().month): # comparando o mes com o mes atual
         if (int(dia) < date.today().day):
@@ -115,6 +117,8 @@ def verificar_dia_mes(dia, mes):
             return False
     else:
         return True
+
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 def metropoles_run_spider():
     
@@ -138,3 +142,4 @@ def metropoles_run_spider():
     process.crawl(metropoles_spider, urls)
     process.start()
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+

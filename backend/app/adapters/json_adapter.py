@@ -1,6 +1,8 @@
 import json
 import os
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
 # Definindo os nomes dos arquivos na raiz do banco
 ARQUIVO_LOCAIS = "banco_locais.json"
 ARQUIVO_USUARIOS = "banco_usuarios.json"
@@ -19,9 +21,13 @@ class JsonRepositoryAdapter:
         })
         self._escrever(ARQUIVO_LOCAIS, dados)
         return True
+    
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
     def listar_todas(self):
         return self._ler(ARQUIVO_LOCAIS)
+
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
     # --- MÉTODOS PARA USUÁRIOS ---
     def salvar_usuario(self, user_data: dict):
@@ -33,6 +39,8 @@ class JsonRepositoryAdapter:
         dados.append(user_data)
         self._escrever(ARQUIVO_USUARIOS, dados)
         return True
+    
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
     # --- MÉTODOS DE APOIO (PRIVADOS) ---
     def _ler(self, arquivo):
@@ -45,7 +53,11 @@ class JsonRepositoryAdapter:
         except json.JSONDecodeError:
             return []
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
     def _escrever(self, arquivo, dados):
         """Escreve a lista de dados no arquivo JSON com formatação."""
         with open(arquivo, "w", encoding="utf-8") as f:
             json.dump(dados, f, indent=4, ensure_ascii=False)
+            
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+

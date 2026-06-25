@@ -7,6 +7,8 @@ from google.api_core.exceptions import ResourceExhausted
 from langchain_google_genai.chat_models import ChatGoogleGenerativeAIError
 from backend.llm.news_Classification import NewsClassification
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
 def classifation_news_with_LLM(news):
 
     load_dotenv() # carregando arquivo .env aonde esta a "API_KEY"
@@ -97,3 +99,5 @@ def classifation_news_with_LLM(news):
             continue
         
     raise Exception("Todas as chaves de API falharam ou estão sem tokens.")
+
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+

@@ -1,5 +1,5 @@
 import "../App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import StatCard from "../components/StatCard";
 import NewsChart from "../components/NewsChart";
@@ -9,13 +9,39 @@ import LatestNews from "../components/LatestNews";
 import AuthPrompt from "../components/AuthPrompt";
 import BrazilMap from "../components/BrazilMap";
 
+
+
 function Dashboard() {
   const [showModal, setShowModal] = useState(true);
 
+  const [noticias, setNoticias] = useState([]);
+  useEffect(() => {
+      async function maiorIdNoticia() {
+        try {
+
+          const resposta = await fetch('http://127.0.0.1:8000/noticias');
+          
+          if (!resposta.ok) {
+            throw new Error('Não foi possível obter os dados do servidor.');
+          }
+
+          const dadosDoBanco = await resposta.json();
+          
+          setNoticias(dadosDoBanco); 
+        } catch (err) {
+          console.error("Erro na requisição:", err);
+          setErro(err.message);
+        } finally {
+          setCarregando(false);
+        }
+      }
+
+      maiorIdNoticia();
+    }, []); 
   const stats = [
     {
       title: "Total de Notícias",
-      value: "0.000",
+      value: noticias.length,
       description: "00,00% vs período anterior",
     },
     {

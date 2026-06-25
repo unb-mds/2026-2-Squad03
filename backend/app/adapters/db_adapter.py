@@ -1,10 +1,14 @@
 from sqlalchemy.orm import Session
 from backend.app.models import UsuarioModel, RegiaoModel, NoticiaModel
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
 class PostgresRepositoryAdapter:
     def __init__(self, db: Session):
         # O adaptador recebe a sessão ativa do banco de dados para trabalhar
         self.db = db
+
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
     def salvar_usuario(self, user_data: dict) -> bool:
         # 1. Transforma o dicionário vindo do FastAPI em um Objeto do banco
@@ -19,3 +23,4 @@ class PostgresRepositoryAdapter:
         self.db.commit()
         return True
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+

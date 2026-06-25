@@ -3,11 +3,15 @@ import json
 import os
 from backend.tratamentoDeDados.juntar_dados import juntar_dados
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
 def read_json(path):
     with open(path, 'r', encoding="utf-8") as file:
         data = json.load(file)
 
     return data if data else []
+
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 def save_result_to_json(result, noticia):
     output_path = os.path.join("backend/llm/news-llm.json")
@@ -37,6 +41,8 @@ def save_result_to_json(result, noticia):
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(news_exists, f, ensure_ascii=False, indent=4)
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
 def main():
     path = os.path.join("scrapers/resultados/resultados.json")
     noticias = read_json(path)
@@ -48,9 +54,10 @@ def main():
             if result != None:
                 print(result)
                 save_result_to_json(result, noticia)
-    juntar_dados()
 
+    juntar_dados()
 
 if __name__ == "__main__":
     main()
     
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+

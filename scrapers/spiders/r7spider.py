@@ -9,6 +9,8 @@ from zoneinfo import ZoneInfo
 from backend.tratamentoDeDados.tratamentoDeTexto import formatar_texto, juntar_texto, transformar_padrao_data
 import os
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
 class r7_spider(scrapy.Spider):
     name = 'r7'
 
@@ -35,6 +37,7 @@ class r7_spider(scrapy.Spider):
                 'conteudo': formatar_texto(news)
             }
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 def play_wright():
     # Inicia o Playwright
@@ -75,6 +78,8 @@ def play_wright():
         browser.close()
     return urls
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
 def r7_run_spider():
     
     # pegando os urls com o playwritght
@@ -95,3 +100,5 @@ def r7_run_spider():
     process = CrawlerProcess(settings)
     process.crawl(r7_spider, urls)
     process.start()
+    
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+

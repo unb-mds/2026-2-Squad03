@@ -1,5 +1,7 @@
 import emoji
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
 def transformar_padrao_data(data_da_publicacao):
     dia_da_publicacao = data_da_publicacao[8:10]
     mes_da_publicacao = data_da_publicacao[5:7]
@@ -8,6 +10,8 @@ def transformar_padrao_data(data_da_publicacao):
     minuto_da_publicacao = data_da_publicacao[14:16]
 
     return f"{ano_da_publicacao}-{mes_da_publicacao}-{dia_da_publicacao} {hora_da_publicacao}:{minuto_da_publicacao}:00"
+
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 def formatar_texto(texto):
     
@@ -25,6 +29,8 @@ def formatar_texto(texto):
 
     return texto
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
 def juntar_texto(alltext):
     news = ' '.join(
     t.strip()
@@ -32,3 +38,5 @@ def juntar_texto(alltext):
         if t.strip() )
     
     return news
+
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+

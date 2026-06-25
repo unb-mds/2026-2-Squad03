@@ -2,13 +2,10 @@
 import os
 from sqlalchemy import text
 from backend.app.database import engine, Base
-# Garante que o SQLAlchemy carregue as classes antes de tentar criar as tabelas
 import backend.app.models
-
 from backend.app.database import engine, Base
 import backend.app.models as models
 
-#comando pra criar no supabase as tables 
 #Base.metadata.create_all(bind=engine)
 
 from fastapi import FastAPI
@@ -26,10 +23,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
 # Registre os dois roteadores
 app.include_router(noticias_routes.router)
 app.include_router(mapa_routes.router)
 app.include_router(auth_routes.router)
+
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 @app.get("/")
 def home():
@@ -75,3 +76,5 @@ def home():
 
     rodar_teste_infraestrutura()
     return {"message": "Bem-vindo a API do VeritasIA!"}
+
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
