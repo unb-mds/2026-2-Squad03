@@ -14,7 +14,7 @@ export default function DetalhesNoticia() {
     async function carregarNoticia() {
       try {
         // Agora sim, o fetch aponta para a porta 8000 (FastAPI)
-        const resposta = await fetch(`https://two026-2-veritasia.onrender.com//noticias/${id}`);
+        const resposta = await fetch(`https://two026-2-veritasia.onrender.com/noticias/${id}`);
         
         if (!resposta.ok) throw new Error("Erro ao buscar notícia");
         
