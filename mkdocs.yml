@@ -35,6 +35,7 @@ nav:
       - Sprint 4: projeto/sprint4.md
       - Sprint 5: projeto/sprint5.md
       - Sprint 6: projeto/sprint6.md
+      - Sprint 7: projeto/sprint7.md
     
   - Frontend:
       - React: frontend/React.md
@@ -43,8 +44,10 @@ nav:
   - Backend:
       - FastAPI: backend/FastAPI.md
       - Web Scraping: backend/scrapy/scrapy.md
-      - Automação: backend/scrapy/Automacao.md
-      - LangChain: backend/LangChain.md
+      - Workflow Scrapy: backend/scrapy/Automacao.md
+      - LangChain: backend/langChain/LangChain.md
+      - Controlador: backend/langChain/LangChainControlador.md
+      - WorkFlow LangChain: backend/langChain/LangChainWorkFlow.md
 
   - Participantes:
         - sobre-nos.md
