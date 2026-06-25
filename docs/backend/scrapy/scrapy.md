@@ -14,17 +14,16 @@ Dentro do projeto existe quatro spiders, sendo eles:
 
 Cada um desses Scripts está fazendo uma requisição para a página de cada um dos respectivos portais, onde realiza a coleta dos seguintes dados:
 
-``` json
-[
+```json
     {
-        "portal": portal,
-        "title": title,
-        "data": data,
-        "links": links,
-        "news": news,
+        "Portal": "portal de noticia",
+        "titulo": "titulo",
+        "data_publicacao": "yyyy-mm-dd hh-mm-ss",
+        "fonte_url": "url",
+        "conteudo": "noticia"
     }
-]
 ```
+
 ### Dependências para a Execução:
 Utilize os seguintes comandos para fazer a instalação das dependências para a execução dos Scripts:
 
