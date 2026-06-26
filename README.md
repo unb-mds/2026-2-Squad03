@@ -40,7 +40,6 @@ Banco de Dados
 
 # Squad 03
 
-- [Christian](https://github.com/christianrolim)
 - [Daniel](https://github.com/Daniel241025)
 - [Danilo](https://github.com/danilofns)
 - [Henrique](https://github.com/SchneiderCode1)
