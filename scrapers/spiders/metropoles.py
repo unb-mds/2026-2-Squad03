@@ -1,3 +1,6 @@
+import sys
+import os
+import platform
 from urllib import response
 import scrapy
 from scrapy.crawler import CrawlerProcess
@@ -5,7 +8,17 @@ from scrapy.utils.project import get_project_settings
 from playwright.sync_api import sync_playwright
 from datetime import date
 from datetime import datetime
-from zoneinfo import ZoneInfo
+
+# Ajuste de Fuso Horário Multiplataforma
+if platform.system() == "Windows":
+    try:
+        import tzdata
+    except ImportError:
+        pass
+    from zoneinfo import ZoneInfo
+else:
+    from zoneinfo import ZoneInfo
+
 from backend.tratamentoDeDados.tratamentoDeTexto import transformar_padrao_data, formatar_texto, juntar_texto
 from urllib.parse import urljoin
 
@@ -14,8 +27,8 @@ from urllib.parse import urljoin
 class metropoles_spider(scrapy.Spider):
     name = 'metropoles'
 
-
     def __init__(self, urls = None, **kwargs):
+        super().__init__(**kwargs)
         self.start_urls = urls or []
 
     def parse(self, response, **kwargs):
@@ -27,18 +40,16 @@ class metropoles_spider(scrapy.Spider):
         hoje_brasilia = datetime.now(ZoneInfo("America/Sao_Paulo"))
         
         print("noticia: " + response.url)
-        print(data_da_publicacao) # 18/06/2026 11:21
+        print(data_da_publicacao) 
         print(hoje_brasilia)
 
         dia_da_publicacao = data_da_publicacao[8:10]
 
-        
-        if(int(dia_da_publicacao) == hoje_brasilia): # filtrando noticias apenas do dia
+        # Mantendo sua lógica original de comparação
+        if(int(dia_da_publicacao) == hoje_brasilia.day): 
             print("noticia valida")
 
             alltext = response.css('article p *::text, article p::text').getall()
-
-            # colocanto toda a noticia em uma unica string
 
             news = juntar_texto(alltext)
 
@@ -95,7 +106,6 @@ def play_writght():
             if not data_da_publicacao:
                 return
 
-
             print(data_da_publicacao)
 
             dia_da_publicacao = data_da_publicacao[8:10]
@@ -110,7 +120,7 @@ def play_writght():
 #+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 def verificar_dia_mes(dia, mes):
-    if (int(mes) == date.today().month): # comparando o mes com o mes atual
+    if (int(mes) == date.today().month):
         if (int(dia) < date.today().day):
             return True
         else:
@@ -121,9 +131,6 @@ def verificar_dia_mes(dia, mes):
 #+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 def metropoles_run_spider():
-    
-    # pegando os urls com o playwritght
-
     urls = play_writght() 
 
     settings = get_project_settings()
@@ -139,7 +146,5 @@ def metropoles_run_spider():
     )
     settings.set('DOWNLOADER_CLIENT_TLS_VERIFY', False)
     process = CrawlerProcess(settings)
-    process.crawl(metropoles_spider, urls)
+    process.crawl(metropoles_spider, urls=urls)
     process.start()
-
-#+-------------------------------------------++-------------------------------------------++-------------------------------------------+

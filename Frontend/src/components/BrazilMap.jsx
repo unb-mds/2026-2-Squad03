@@ -1,68 +1,60 @@
+import { useState, useEffect } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 
-const geoUrl =
-  "https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/brazil-states.geojson";
+const geoUrl = "https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/brazil-states.geojson";
 
-const stateData = {
-  SP: 320,
-  RJ: 210,
-  MG: 180,
-  BA: 160,
-  DF: 90,
-  RS: 140,
-};
+function BrazilMap({ data }) {
+  const [geoData, setGeoData] = useState(null);
 
-function getColor(value) {
-  if (value > 250) return "#312e81";
-  if (value > 180) return "#4338ca";
-  if (value > 120) return "#6366f1";
-  if (value > 80) return "#8b5cf6";
+  useEffect(() => {
+    fetch(geoUrl)
+      .then((res) => res.json())
+      .then((json) => setGeoData(json))
+      .catch((err) => console.error("Erro no GeoJSON:", err));
+  }, []);
 
-  return "#c4b5fd";
-}
+  if (!geoData) return <div>Carregando mapa...</div>;
 
-function BrazilMap() {
   return (
     <div className="brazil-map">
-      <ComposableMap
-        projection="geoMercator"
-        projectionConfig={{
-          scale: 650,
-          center: [-54, -15],
-        }}
+      <ComposableMap 
+        projection="geoMercator" 
+        projectionConfig={{ scale: 700, center: [-54, -15] }}
       >
-        <Geographies geography={geoUrl}>
+        <Geographies geography={geoData}>
           {({ geographies }) =>
-            geographies.map((geo) => {
-              const uf = geo.properties.sigla;
+            geographies
+              // FILTRO DE SEGURANÇA: Remove qualquer item malformado antes do map
+              .filter(geo => geo && geo.geometry && geo.properties)
+              .map((geo) => {
+                const mapNomeParaSigla = {
+                  "Acre": "AC", "Alagoas": "AL", "Amapá": "AP", "Amazonas": "AM", "Bahia": "BA",
+                  "Ceará": "CE", "Distrito Federal": "DF", "Espírito Santo": "ES", "Goiás": "GO",
+                  "Maranhão": "MA", "Mato Grosso": "MT", "Mato Grosso do Sul": "MS", "Minas Gerais": "MG",
+                  "Pará": "PA", "Paraíba": "PB", "Paraná": "PR", "Pernambuco": "PE", "Piauí": "PI",
+                  "Rio de Janeiro": "RJ", "Rio Grande do Norte": "RN", "Rio Grande do Sul": "RS",
+                  "Rondônia": "RO", "Roraima": "RR", "Santa Catarina": "SC", "São Paulo": "SP",
+                  "Sergipe": "SE", "Tocantins": "TO"
+                };
 
-              const value = stateData[uf] || 20;
+                const uf = mapNomeParaSigla[geo.properties.name] || "";
+                const value = data ? (data[uf] || 0) : 0;
 
-              return (
-                <Geography
-                  key={geo.rsmKey}
-                  geography={geo}
-                  title={`${uf}: ${value} notícias`}
-                  style={{
-                    default: {
-                      fill: getColor(value),
-                      stroke: "#ffffff",
-                      outline: "none",
-                    },
-                    hover: {
-                      fill: "#111827",
-                      stroke: "#ffffff",
-                      outline: "none",
-                    },
-                    pressed: {
-                      fill: "#1e1b4b",
-                      stroke: "#ffffff",
-                      outline: "none",
-                    },
-                  }}
-                />
-              );
-            })
+                return (
+                  <Geography
+                    key={geo.rsmKey}
+                    geography={geo}
+                    style={{
+                      default: { 
+                        fill: value > 0 ? "#6366f1" : "#e5e7eb", 
+                        stroke: "#FFFFFF", 
+                        strokeWidth: 0.5 
+                      },
+                      hover: { fill: "#4338ca", cursor: "pointer" }
+                    }}
+                  />
+                );
+              })
           }
         </Geographies>
       </ComposableMap>

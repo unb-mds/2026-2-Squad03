@@ -14,38 +14,54 @@ function Dashboard() {
     return localStorage.getItem("veritas-auth-modal") !== "closed";
   });
 
-  // Estado para armazenar os dados vindo do backend
   const [info, setInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchDashboard() {
       try {
+        setLoading(true);
         const resposta = await fetch('https://two026-2-veritasia.onrender.com/dashboard/');
         if (!resposta.ok) throw new Error('Erro ao buscar estatísticas');
         const dados = await resposta.json();
         setInfo(dados);
       } catch (err) {
         console.error("Erro no Dashboard:", err);
+      } finally {
+        setLoading(false);
       }
     }
     fetchDashboard();
   }, []);
 
-  // Dados dos cards consumindo o estado 'info'
+  // Retorno visual enquanto carrega (evita erro de undefined)
+  if (loading) {
+    return (
+      <div className="app" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <p>Carregando Dashboard...</p>
+      </div>
+    );
+  }
+
+  // Segurança caso não haja dados
+  if (!info) {
+    return <div className="latest-news"><p>Dados não disponíveis.</p></div>;
+  }
+
   const stats = [
     {
       title: "Total de Notícias",
-      value: info?.total_atual?.toLocaleString() || "0",
+      value: info?.estatisticas?.[0]?.total_atual?.toLocaleString() || "0",
       description: "Total acumulado na base",
     },
     {
       title: "Média por dia",
-      value: info?.media_diaria?.toString() || "0",
+      value: info?.estatisticas?.[0]?.media_diaria?.toString() || "0",
       description: "Média da última semana",
     },
     {
       title: "Crescimento",
-      value: `${info?.crescimento_percentual || 0}%`,
+      value: `${info?.estatisticas?.[0]?.crescimento_percentual || 0}%`,
       description: "vs Semana anterior",
     },
   ];
@@ -60,75 +76,60 @@ function Dashboard() {
             <h2>Dashboard</h2>
             <p>Visão geral do monitoramento de notícias</p>
           </div>
-
           <div className="header-actions">
-            <button className="date-button">
-              <span>📅</span>
-              <span>Últimos 14 dias</span>
-            </button>
-
+            <button className="date-button">📅 <span>Últimos 14 dias</span></button>
             <span className="bell">🔔</span>
-
             <div className="user-box">
               <div className="avatar"></div>
-
-              <div>
-                <strong>Usuário</strong>
-                <p>Analista</p>
-              </div>
+              <div><strong>Usuário</strong><p>Analista</p></div>
             </div>
           </div>
         </header>
 
         {showModal && (
-          <AuthPrompt
-            onClose={() => {
-              localStorage.setItem("veritas-auth-modal", "closed");
-              setShowModal(false);
-            }}
-          />
+          <AuthPrompt onClose={() => {
+            localStorage.setItem("veritas-auth-modal", "closed");
+            setShowModal(false);
+          }} />
         )}
 
         <section className="cards">
           {stats.map((stat, index) => (
-            <StatCard
-              key={index}
-              title={stat.title}
-              value={stat.value}
-              description={stat.description}
-            />
+            <StatCard key={index} title={stat.title} value={stat.value} description={stat.description} />
           ))}
         </section>
 
         <section className="dashboard-grid">
           <div className="chart-box">
             <h3>Evolução temporal das publicações</h3>
-            <NewsChart />
+            {/* Passamos dados via props */}
+            <NewsChart data={info.noticias_semana} />
           </div>
 
           <div className="map-box">
             <h3>Distribuição por estado</h3>
-            <BrazilMap />
+            {/* Passamos dados via props */}
+            {/*BrazilMap Nao consegui fazer funcionar */}
           </div>
         </section>
 
         <section className="dashboard-grid bottom-grid">
           <div className="chart-box">
             <h3>Top Veículos</h3>
-            <TopVehicles />
+            <TopVehicles data={info.top_portais} />
           </div>
 
           <div className="map-box">
             <h3>Notícias por região</h3>
             <div className="fake-map">
-              <RegionChart />
+              <RegionChart data={info.top_regioes} />
             </div>
           </div>
         </section>
 
         <section className="full-box">
           <h3>Últimas Notícias</h3>
-          <LatestNews />
+          <LatestNews data={info.latest_news} />
         </section>
       </main>
     </div>
