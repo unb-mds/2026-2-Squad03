@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-25T19:48:32Z",
+  "generated_at": "2026-06-26T00:39:35Z",
   "repository": "unb-mds/2026-2-VeritasIA",
   "issues_per_week": [
     {
@@ -44,7 +44,7 @@
     },
     {
       "week": "2026-W26",
-      "opened": 0,
+      "opened": 1,
       "closed": 3
     }
   ],
@@ -55,7 +55,7 @@
     },
     {
       "range": "21-50",
-      "count": 33
+      "count": 34
     },
     {
       "range": "51-100",
@@ -63,7 +63,7 @@
     },
     {
       "range": "101-200",
-      "count": 28
+      "count": 29
     },
     {
       "range": "200+",
@@ -228,7 +228,7 @@
     {
       "day": 4,
       "hour": 0,
-      "count": 1
+      "count": 3
     },
     {
       "day": 4,
@@ -339,7 +339,7 @@
     {
       "username": "Daniel241025",
       "name": "Daniel Rodrigues Freitas",
-      "commits": 10,
+      "commits": 12,
       "avatar_url": "https://avatars.githubusercontent.com/u/215087737?v=4"
     },
     {
@@ -351,10 +351,10 @@
   ],
   "top_pr_authors": [
     {
-      "username": "SchneiderCode1",
-      "name": "SchneiderCode1",
-      "prs_opened": 1,
-      "avatar_url": "https://avatars.githubusercontent.com/u/165057013?v=4"
+      "username": "Daniel241025",
+      "name": "Daniel Rodrigues Freitas",
+      "prs_opened": 0,
+      "avatar_url": "https://avatars.githubusercontent.com/u/215087737?v=4"
     },
     {
       "username": "danilofns",
@@ -369,10 +369,10 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
     },
     {
-      "username": "Daniel241025",
-      "name": "Daniel Rodrigues Freitas",
+      "username": "SchneiderCode1",
+      "name": "SchneiderCode1",
       "prs_opened": 0,
-      "avatar_url": "https://avatars.githubusercontent.com/u/215087737?v=4"
+      "avatar_url": "https://avatars.githubusercontent.com/u/165057013?v=4"
     },
     {
       "username": "TheBagomes",
@@ -407,9 +407,9 @@
     {
       "username": "TheBagomes",
       "name": "Vitor Barreto Gomes",
-      "opened": 0,
+      "opened": 1,
       "closed": 10,
-      "total": 10,
+      "total": 11,
       "avatar_url": "https://avatars.githubusercontent.com/u/154992563?v=4"
     },
     {
