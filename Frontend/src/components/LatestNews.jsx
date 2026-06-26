@@ -1,37 +1,41 @@
+import { useState, useEffect } from "react";
+
+
 function LatestNews() {
-  const news = [
-    {
-      title: "Caso de feminicídio é investigado pela polícia",
-      source: "G1",
-      state: "SP",
-      date: "12/05/2026",
-    },
-    {
-      title: "Mulher vítima de violência doméstica recebe medida protetiva",
-      source: "UOL",
-      state: "RJ",
-      date: "11/05/2026",
-    },
-    {
-      title: "Dados apontam aumento de denúncias no país",
-      source: "Folha",
-      state: "DF",
-      date: "10/05/2026",
-    },
-  ];
+  // Inicialize com null para identificar que os dados ainda não foram carregados
+  const [info, setInfo] = useState(null); 
+
+  useEffect(() => {
+    async function fetchDashboard() {
+      try {
+        const resposta = await fetch('http://127.0.0.1:8000/dashboard');
+        if (!resposta.ok) throw new Error('Erro ao buscar dados');
+        const dadosDoBack = await resposta.json();
+        setInfo(dadosDoBack); 
+      } catch (err) {
+        console.error("Erro na requisição:", err);
+      }
+    }
+    fetchDashboard();
+  }, []); 
+
+  // --- AQUI ESTÁ A CORREÇÃO ---
+  // Se 'info' for null ou se 'latest_news' ainda não existir, exibe um carregando
+  if (!info || !info.latest_news) {
+    return <div className="latest-news"><p>Carregando notícias...</p></div>;
+  }
 
   return (
     <div className="latest-news">
-      {news.map((item, index) => (
+      {info.latest_news.map((item, index) => (
         <div className="news-item" key={index}>
           <div>
-            <h4>{item.title}</h4>
+            <h4>{item.titulo}</h4>
             <p>
-              {item.source} • {item.state}
+              {item.Portal} • {item.regiao}
             </p>
           </div>
-
-          <span>{item.date}</span>
+          <span>{item.data_publicacao}</span>
         </div>
       ))}
     </div>

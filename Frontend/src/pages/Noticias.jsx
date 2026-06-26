@@ -23,13 +23,15 @@ export default function ListaNoticias() {
     async function buscarTodasAsNoticias() {
       try {
         const resposta = await fetch('https://two026-2-veritasia.onrender.com/noticias');
+        //const resposta = await fetch('http://127.0.0.1:8000/noticias');
         
         if (!resposta.ok) {
           throw new Error('Não foi possível obter os dados do servidor.');
         }
 
         const dadosDoBanco = await resposta.json();
-        setNoticias(dadosDoBanco); 
+      //console.log("O que o servidor enviou:", dadosDoBanco); // <--- ADICIONE ISSO
+      setNoticias(dadosDoBanco);
       } catch (err) {
         console.error("Erro na requisição:", err);
         setErro(err.message);

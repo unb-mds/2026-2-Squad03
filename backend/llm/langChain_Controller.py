@@ -49,7 +49,7 @@ def main():
 
     if noticias:
         for noticia in noticias:
-
+            
             result = classifation_news_with_LLM(noticia)
             if result != None:
                 print(result)

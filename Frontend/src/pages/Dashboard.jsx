@@ -9,49 +9,57 @@ import LatestNews from "../components/LatestNews";
 import AuthPrompt from "../components/AuthPrompt";
 import BrazilMap from "../components/BrazilMap";
 
-
-
 function Dashboard() {
-  const [showModal, setShowModal] = useState(true);
+  // 1. Inicializa o estado lendo o localStorage. 
+  // Se "modalDashboardFechado" existir, showModal começa como false.
+  const [showModal, setShowModal] = useState(() => {
+    const modalJaFechado = localStorage.getItem("modalDashboardFechado");
+    return !modalJaFechado; 
+  });
+  
+  const [info, setInfo] = useState(null);
 
-  const [noticias, setNoticias] = useState([]);
   useEffect(() => {
-      async function maiorIdNoticia() {
+      async function fetchDashboard() {
         try {
-
-          const resposta = await fetch('http://127.0.0.1:8000/noticias');
+          const resposta = await fetch('https://two026-2-veritasia.onrender.com/dashboard');
           
           if (!resposta.ok) {
             throw new Error('Não foi possível obter os dados do servidor.');
           }
 
-          const dadosDoBanco = await resposta.json();
-          
-          setNoticias(dadosDoBanco); 
+          const dadosDoBack = await resposta.json();
+          setInfo(dadosDoBack); 
         } catch (err) {
           console.error("Erro na requisição:", err);
-          setErro(err.message);
         } finally {
-          setCarregando(false);
+          console.log("Dados recebidos do servidor");
         }
       }
 
-      maiorIdNoticia();
+      fetchDashboard();
     }, []); 
+
+  // 2. Cria a função que fecha o modal e salva a preferência no navegador
+  const fecharEGravarModal = () => {
+    setShowModal(false);
+    localStorage.setItem("modalDashboardFechado", "true");
+  };
+
   const stats = [
     {
       title: "Total de Notícias",
-      value: noticias.length,
-      description: "00,00% vs período anterior",
+      value: info?.total_atual || 0, 
+      description: "Desde o início do monitoramento",
     },
     {
       title: "Média por dia",
-      value: "0.000",
-      description: "00,00% vs período anterior",
+      value: info?.media_diaria || 0,
+      description: "Hoje",
     },
     {
       title: "Comparação",
-      value: "00,00%",
+      value: `${info?.crescimento_percentual || 0}%`,
       description: "vs Semana anterior",
     },
   ];
@@ -76,7 +84,6 @@ function Dashboard() {
 
             <div className="user-box">
               <div className="avatar"></div>
-
               <div>
                 <strong>Usuário</strong>
                 <p>Analista</p>
@@ -85,7 +92,8 @@ function Dashboard() {
           </div>
         </header>
 
-        {showModal && <AuthPrompt onClose={() => setShowModal(false)} />}
+        {/* 3. Passa a nova função para o componente AuthPrompt */}
+        {showModal && <AuthPrompt onClose={fecharEGravarModal} />}
 
         <section className="cards">
           {stats.map((stat, index) => (
@@ -97,34 +105,33 @@ function Dashboard() {
             />
           ))}
         </section>
+
         <section className="dashboard-grid">
           <div className="chart-box">
             <h3>Evolução temporal das publicações</h3>
-
             <NewsChart />
           </div>
 
           <div className="map-box">
             <h3>Distribuição por estado</h3>
-
             <BrazilMap />
           </div>
         </section>
+
         <section className="dashboard-grid bottom-grid">
           <div className="chart-box">
             <h3>Top Veículos</h3>
-
             <TopVehicles />
           </div>
 
           <div className="map-box">
             <h3>Notícias por região</h3>
-
             <div className="fake-map">
               <RegionChart />
             </div>
           </div>
         </section>
+
         <section className="full-box">
           <h3>Últimas Notícias</h3>
           <LatestNews />

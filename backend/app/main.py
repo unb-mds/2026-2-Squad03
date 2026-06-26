@@ -1,20 +1,31 @@
-# backend/app/main.py
+"""
+Ponto de entrada principal da API do VeritasIA.
+
+Este módulo inicializa a aplicação FastAPI, configura os middlewares de CORS 
+para permitir a comunicação com o frontend, registra os roteadores da aplicação 
+(notícias, mapa, autenticação e dashboard) e define a rota raiz que executa 
+um teste de conectividade e sincronização com o banco de dados.
+"""
+
 import os
 from sqlalchemy import text
-from backend.app.database import engine, Base
-import backend.app.models
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+# Importações do banco de dados e modelos
 from backend.app.database import engine, Base
 import backend.app.models as models
 
-#Base.metadata.create_all(bind=engine)
-
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-# Apenas importe os arquivos de rotas que você vai usar
-from backend.app.adapters.api_adapter import auth_routes, noticias_routes , mapa_routes
+# Importações das rotas
+from backend.app.adapters.api_adapter import auth_routes, noticias_routes, mapa_routes, dashboard_routes
 
 app = FastAPI(title="VeritasIA API")
+"""
+Instância principal do FastAPI.
+Responsável por orquestrar rotas, middlewares e configurações da API.
+"""
 
+# Configuração de CORS para permitir requisições do frontend (local e em produção)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173", "https://two026-2-veritasia.onrender.com/"], 
@@ -25,16 +36,39 @@ app.add_middleware(
 
 #+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
-# Registre os dois roteadores
+# Registro de Rotas (Routers)
 app.include_router(noticias_routes.router)
 app.include_router(mapa_routes.router)
 app.include_router(auth_routes.router)
+app.include_router(dashboard_routes.router)
 
 #+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 @app.get("/")
 def home():
+    """
+    Rota raiz da API do VeritasIA.
+
+    Ao ser acessada, esta rota executa um teste interno de infraestrutura 
+    para validar a conexão com o banco de dados (Supabase), ativar a extensão 
+    PostGIS (se necessário) e sincronizar os modelos ORM criando as tabelas 
+    faltantes.
+
+    Returns:
+        dict: Um dicionário de boas-vindas confirmando que a API está no ar.
+    """
+    
     def rodar_teste_infraestrutura():
+        """
+        Função auxiliar interna que realiza a verificação de saúde do banco de dados.
+        
+        Executa os seguintes passos:
+        1. Renderiza e exibe a URL de conexão (ocultando a senha por segurança).
+        2. Tenta conectar ao banco de dados usando a `engine` do SQLAlchemy.
+        3. Executa a criação da extensão PostGIS no PostgreSQL.
+        4. Sincroniza os modelos do sistema (`Base.metadata.create_all`).
+        5. Imprime logs no terminal detalhando o sucesso ou falha das operações.
+        """
         print("\n" + "="*50)
         print("🔄 [VeritasIA] Iniciando teste de conexão com o Supabase...")
         print("="*50 + "\n")
@@ -72,7 +106,6 @@ def home():
             print("-" * 50)
             print("💡 Dica: Verifique se o host do Session Pooler e a senha estão batendo.")
             print("="*50 + "\n")
-
 
     rodar_teste_infraestrutura()
     return {"message": "Bem-vindo a API do VeritasIA!"}

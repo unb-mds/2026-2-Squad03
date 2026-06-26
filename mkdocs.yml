@@ -10,24 +10,16 @@ theme:
   favicon: assets/Logo.png
   custom_dir: overrides
   language: pt-BR
-
   features:
     - navigation.tabs
-    
   palette:
     primary: custom
     accent: custom
 
 nav:
-  - Home: 
-      - index.md
-
-  - Arquitetura:
-      - projeto/Arquitetura.md
-
-  - Requisitos:
-      - projeto/Requisitos.md
-
+  - Home: index.md
+  - Arquitetura: projeto/Arquitetura.md
+  - Requisitos: projeto/Requisitos.md
   - Organização:
       - Sprint 1: projeto/sprint1.md
       - Sprint 2: projeto/sprint2.md
@@ -35,23 +27,26 @@ nav:
       - Sprint 4: projeto/sprint4.md
       - Sprint 5: projeto/sprint5.md
       - Sprint 6: projeto/sprint6.md
-    
+      - Sprint 7: projeto/sprint7.md
+      - Sprint 8: projeto/sprint8.md
+      - Sprint 9: projeto/sprint9.md
+      - Sprint 10: projeto/sprint10.md
   - Frontend:
       - React: frontend/React.md
       - Prototipagem: frontend/Prototipagem.md
-
   - Backend:
-      - FastAPI: backend/FastAPI.md
+      - FastAPI: backend/FastAPI/FastAPI.md
+      - Main: backend/FastAPI/base/main.md
+      - Banco de Dados: backend/FastAPI/banco de dados/database.md
+      - Models: backend/FastAPI/banco de dados/models.md
+      - Adapters: backend/FastAPI/adapters/adapter.md
+      - Schemas: backend/FastAPI/schemas/schemas.md
       - Web Scraping: backend/scrapy/scrapy.md
       - Automação: backend/scrapy/Automacao.md
       - LangChain: backend/LangChain.md
-
-  - Participantes:
-        - sobre-nos.md
-
+  - Participantes: sobre-nos.md
   - DashBoard:
       - Produtividade: dashboard/dashboard.md
-
 
 site_dir: site
 
@@ -60,3 +55,9 @@ extra_css:
 
 plugins:
   - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [.]
+          import:
+            - https://docs.python.org/3/objects.inv
