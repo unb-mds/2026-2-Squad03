@@ -15,7 +15,7 @@ import json
 from backend.app.database import get_db
 from backend.app.models import NoticiaModel as Noticia
 from backend.app.models import RegiaoModel as Regiao
-from backend.app.schemas.noticia import NoticiaCreate, NoticiaResponse
+from backend.app.schemas.noticia import NoticiaResponse
 
 # Importações para manipulação de dados espaciais no banco
 from geoalchemy2.functions import ST_AsGeoJSON # Esta é a função principal

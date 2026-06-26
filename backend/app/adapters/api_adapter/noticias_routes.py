@@ -7,11 +7,12 @@ e a busca detalhada de um artigo específico através do seu ID.
 """
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from typing import List
 from backend.app.database import get_db
 from backend.app.models import NoticiaModel as Noticia
-from backend.app.schemas.noticia import NoticiaCreate, NoticiaResponse
+from backend.app.models import RegiaoModel as Regiao
+from backend.app.schemas.noticia import NoticiaResponse
 
 #+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
@@ -27,11 +28,11 @@ router = APIRouter(
 @router.get("/", response_model=List[NoticiaResponse])
 def listar_noticias_locais(skip: int = 0, limit: int = 50, db: Session = Depends(get_db)):
     """
-    Lista as notícias cadastradas no banco de dados com suporte a paginação.
+    Lista as notícias cadastradas no banco de dados com suporte a paginação
+    e inclusão automática dos dados da região associada.
 
-    Este endpoint recupera um lote de notícias, permitindo que o frontend
-    controle a quantidade de dados recebidos por vez (paginação) para não 
-    sobrecarregar a aplicação.
+    Este endpoint recupera um lote de notícias trazendo as propriedades do modelo
+    de Região aninhados no objeto, evitando o problema de consultas N+1 no banco.
 
     Args:
         skip (int, optional): Número de registros para pular antes de começar 
@@ -41,11 +42,17 @@ def listar_noticias_locais(skip: int = 0, limit: int = 50, db: Session = Depends
         db (Session, optional): Sessão do banco de dados injetada pelo FastAPI.
 
     Returns:
-        List[NoticiaResponse]: Uma lista de notícias serializadas conforme 
-            o schema do Pydantic.
+        List[NoticiaResponse]: Uma lista de notícias contendo dados da região aninhados.
     """
-    noticias = db.query(Noticia).offset(skip).limit(limit).all()
-    #print(noticias)
+    # O .options(joinedload(Noticia.regiao)) anexa os dados da tabela Regiao dentro do objeto Noticia
+    noticias = (
+        db.query(Noticia)
+        .options(joinedload(Noticia.regiao)) 
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
+    
     return noticias
 
 #+-------------------------------------------++-------------------------------------------++-------------------------------------------+

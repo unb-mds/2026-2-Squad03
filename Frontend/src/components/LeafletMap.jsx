@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -5,44 +6,41 @@ import {
   Popup,
   Polygon,
 } from "react-leaflet";
+import { useNavigate } from "react-router-dom"; // 1. Importe o useNavigate
 import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+let DefaultIcon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41]
+});
+L.Marker.prototype.options.icon = DefaultIcon;
 
 function LeafletMap() {
-  const noticias = [
-    {
-      id: 1,
-      titulo: "Operação contra fraude digital em São Paulo",
-      resumo: "Investigação apura esquema de disseminação de notícias falsas.",
-      link: "#/noticias",
-      posicao: [-23.5505, -46.6333],
-    },
-    {
-      id: 2,
-      titulo: "Nova campanha de conscientização no Rio",
-      resumo: "Projeto busca combater a desinformação em redes sociais.",
-      link: "#/noticias",
-      posicao: [-22.9068, -43.1729],
-    },
-    {
-      id: 3,
-      titulo: "Relatório aponta aumento de fake news",
-      resumo: "Levantamento mostra crescimento da desinformação no DF.",
-      link: "#/noticias",
-      posicao: [-15.7801, -47.9292],
-    },
-  ];
+  const [geoJsonData, setGeoJsonData] = useState(null);
+  const navigate = useNavigate(); // 2. Inicialize o navigate
 
-  const regioesMonitoradas = [
-    {
-      nome: "Distrito Federal",
-      coordenadas: [
-        [-15.5, -48.2],
-        [-15.5, -47.6],
-        [-16.0, -47.6],
-        [-16.0, -48.2],
-      ],
-    },
-  ];
+  useEffect(() => {
+    async function fetchMapaData() {
+      try {
+        const resposta = await fetch("https://two026-2-veritasia.onrender.com/mapa/");
+        if (!resposta.ok) throw new Error("Erro ao buscar dados do mapa.");
+        const dados = await resposta.json();
+        setGeoJsonData(dados);
+      } catch (err) {
+        console.error("Erro ao carregar dados geográficos:", err);
+      }
+    }
+    fetchMapaData();
+  }, []);
+
+  if (!geoJsonData) {
+    return <div style={{ height: "600px" }}><p>Carregando mapa...</p></div>;
+  }
 
   return (
     <MapContainer
@@ -51,44 +49,67 @@ function LeafletMap() {
       style={{ height: "600px", width: "100%" }}
     >
       <TileLayer
-        attribution="&copy; OpenStreetMap contributors"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      {noticias.map((noticia) => (
-        <Marker key={noticia.id} position={noticia.posicao}>
-          <Popup>
-            <div>
-              <h4>{noticia.titulo}</h4>
+      {geoJsonData.features.map((feature, index) => {
+        const { type, coordinates } = feature.geometry;
+        const { id, titulo, resumo, veiculo } = feature.properties;
 
-              <p>{noticia.resumo}</p>
+        // Função interna para navegar ao clicar no título
+        const irParaNoticia = () => navigate(`/noticias/${id}`);
 
-              <a href={noticia.link}>
-                Ver notícia completa
-              </a>
-            </div>
-          </Popup>
-        </Marker>
-      ))}
+        if (type === "Point") {
+          const posicao = [coordinates[1], coordinates[0]];
+          return (
+            <Marker key={id || index} position={posicao}>
+              <Popup>
+                <div>
+                  {/* 3. Título como link clicável */}
+                  <h4 
+                    onClick={irParaNoticia} 
+                    style={{ cursor: "pointer", color: "#4338ca", textDecoration: "underline" }}
+                  >
+                    {titulo}
+                  </h4>
+                  <p>{resumo.substring(0, 120).trim() + "..."}</p>
+                  <p><em>Portal: {veiculo}</em></p>
+                </div>
+              </Popup>
+            </Marker>
+          );
+        }
 
-      {regioesMonitoradas.map((regiao, index) => (
-        <Polygon
-          key={index}
-          positions={regiao.coordenadas}
-          pathOptions={{
-            color: "#4338ca",
-            fillColor: "#6366f1",
-            fillOpacity: 0.3,
-          }}
-        >
-          <Popup>
-            <div>
-              <strong>{regiao.nome}</strong>
-              <p>Região monitorada pelo sistema.</p>
-            </div>
-          </Popup>
-        </Polygon>
-      ))}
+        if (type === "Polygon") {
+          const posicoes = coordinates[0].map((coord) => [coord[1], coord[0]]);
+          return (
+            <Polygon
+              key={id || index}
+              positions={posicoes}
+              pathOptions={{
+                color: "#4338ca",
+                fillColor: "#6366f1",
+                fillOpacity: 0.3,
+              }}
+            >
+              <Popup>
+                <div>
+                  {/* 3. Título como link clicável */}
+                  <strong 
+                    onClick={irParaNoticia} 
+                    style={{ cursor: "pointer", color: "#4338ca", textDecoration: "underline" }}
+                  >
+                    {titulo}
+                  </strong>
+                  <p>{resumo.substring(0, 120).trim() + "..."}</p>
+                </div>
+              </Popup>
+            </Polygon>
+          );
+        }
+        return null;
+      })}
     </MapContainer>
   );
 }

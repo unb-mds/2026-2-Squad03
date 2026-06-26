@@ -1,41 +1,53 @@
 import { useState, useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
 
 function LatestNews() {
-  // Inicialize com null para identificar que os dados ainda não foram carregados
   const [info, setInfo] = useState(null); 
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchDashboard() {
       try {
-        const resposta = await fetch('http://127.0.0.1:8000/dashboard');
+        setLoading(true);
+        const resposta = await fetch('https://two026-2-veritasia.onrender.com/dashboard');
         if (!resposta.ok) throw new Error('Erro ao buscar dados');
         const dadosDoBack = await resposta.json();
         setInfo(dadosDoBack); 
       } catch (err) {
         console.error("Erro na requisição:", err);
+      } finally {
+        setLoading(false);
       }
     }
     fetchDashboard();
   }, []); 
 
-  // --- AQUI ESTÁ A CORREÇÃO ---
-  // Se 'info' for null ou se 'latest_news' ainda não existir, exibe um carregando
-  if (!info || !info.latest_news) {
-    return <div className="latest-news"><p>Carregando notícias...</p></div>;
-  }
+  const formatarData = (dataString) => {
+    if (!dataString) return "";
+    return new Date(dataString).toLocaleDateString('pt-BR');
+  };
+
+  if (loading) return <div className="latest-news"><p>Carregando notícias...</p></div>;
+  if (!info || !info.latest_news) return null;
 
   return (
     <div className="latest-news">
-      {info.latest_news.map((item, index) => (
-        <div className="news-item" key={index}>
+      {info.latest_news.map((item) => (
+        <div className="news-item" key={item.id}>
           <div>
-            <h4>{item.titulo}</h4>
+            {/* O título agora é clicável e dispara a navegação */}
+            <h4 
+              onClick={() => navigate(`/noticias/${item.id}`)}
+              style={{ cursor: "pointer", color: "#4338ca", textDecoration: "underline" }}
+            >
+              {item.titulo}
+            </h4>
             <p>
               {item.Portal} • {item.regiao}
             </p>
           </div>
-          <span>{item.data_publicacao}</span>
+          <span>{formatarData(item.data_publicacao)}</span>
         </div>
       ))}
     </div>
