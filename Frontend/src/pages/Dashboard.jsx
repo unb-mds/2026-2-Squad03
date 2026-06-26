@@ -8,29 +8,41 @@ import RegionChart from "../components/RegionChart";
 import LatestNews from "../components/LatestNews";
 import AuthPrompt from "../components/AuthPrompt";
 import BrazilMap from "../components/BrazilMap";
+import {
+  FaNewspaper,
+  FaCalendarAlt,
+  FaChartLine,
+} from "react-icons/fa";
+
+import PageHeader from "../components/PageHeader";
 
 function Dashboard() {
   const [showModal, setShowModal] = useState(() => {
     return localStorage.getItem("veritas-auth-modal") !== "closed";
   });
 
-  const stats = [
-    {
-      title: "Total de Notícias",
-      value: "0.000",
-      description: "00,00% vs período anterior",
-    },
-    {
-      title: "Média por dia",
-      value: "0.000",
-      description: "00,00% vs período anterior",
-    },
-    {
-      title: "Comparação",
-      value: "00,00%",
-      description: "vs Semana anterior",
-    },
-  ];
+ const stats = [
+  {
+    title: "Total de Notícias",
+    value: "0.000",
+    description: "00,00% vs período anterior",
+    icon: <FaNewspaper />,
+  },
+
+  {
+    title: "Média por dia",
+    value: "0.000",
+    description: "00,00% vs período anterior",
+    icon: <FaCalendarAlt />,
+  },
+
+  {
+    title: "Comparação",
+    value: "00,00%",
+    description: "vs Semana anterior",
+    icon: <FaChartLine />,
+  },
+];
 
   return (
     <div className="app">
@@ -78,6 +90,7 @@ function Dashboard() {
               title={stat.title}
               value={stat.value}
               description={stat.description}
+              icon={stat.icon}
             />
           ))}
         </section>

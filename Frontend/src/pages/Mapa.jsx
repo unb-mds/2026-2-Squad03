@@ -17,34 +17,41 @@ function Mapa() {
         </header>
 
         <section className="full-box">
-          <h3>Distribuição das notícias pelo Brasil</h3>
+  <h3>Distribuição das notícias pelo Brasil</h3>
 
-          <div className="map-page-container">
+  <div className="map-page-container">
+    <LeafletMap />
+  </div>
 
-            <LeafletMap />
+  <div className="map-legend">
 
-            <div className="map-legend">
-              <h4>Legenda</h4>
+    <div className="legend-header">
+      <span className="legend-icon">🗺️</span>
+      <h4>Legenda do mapa</h4>
+    </div>
 
-            <div className="legend-item">
-              <span className="legend-dot red"></span>
-                Feminicídio
-            </div>
+    <div className="legend-items">
 
-            <div className="legend-item">
-              <span className="legend-dot orange"></span>
-                Violência doméstica
-            </div>
+      <div className="legend-item">
+        <span className="legend-dot red"></span>
+        <span>Feminicídio</span>
+      </div>
 
-            <div className="legend-item">
-              <span className="legend-dot blue"></span>
-                Outros
-            </div>
-          </div>
+      <div className="legend-item">
+        <span className="legend-dot orange"></span>
+        <span>Violência Doméstica</span>
+      </div>
 
-          </div>
+      <div className="legend-item">
+        <span className="legend-dot blue"></span>
+        <span>Outros</span>
+      </div>
 
-        </section>
+    </div>
+
+  </div>
+
+</section>
       </main>
     </div>
   );

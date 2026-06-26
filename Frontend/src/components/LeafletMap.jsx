@@ -5,10 +5,18 @@ import {
   Popup,
   Polygon,
 } from "react-leaflet";
+
 import "leaflet/dist/leaflet.css";
+
 import { noticias } from "../data/noticias";
-console.log(noticias);
+
 import { useNavigate } from "react-router-dom";
+
+import L from "leaflet";
+
+import { renderToStaticMarkup } from "react-dom/server";
+
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 const coordenadas = {
   SP: [-23.5505, -46.6333],
@@ -19,6 +27,47 @@ const coordenadas = {
   RS: [-30.0346, -51.2177],
   CE: [-3.7319, -38.5267],
 };
+
+function criarIcone(cor) {
+  return new L.DivIcon({
+    html: renderToStaticMarkup(
+      <FaMapMarkerAlt
+        size={36}
+        color={cor}
+        style={{
+          filter:"drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.35))",
+        }}
+      />
+    ),
+    className: "",
+    iconSize: [34, 34],
+    iconAnchor: [17, 34],
+    popupAnchor: [0, -30],
+  });
+}
+
+const markerRed = criarIcone("#dc2626");
+
+const markerOrange = criarIcone("#ea580c");
+
+const markerBlue = criarIcone("#2563eb");
+
+function getMarker(tipo) {
+
+  switch(tipo){
+
+    case "feminicidio":
+      return markerRed;
+
+    case "violencia":
+      return markerOrange;
+
+    default:
+      return markerBlue;
+
+  }
+
+}
 
 function LeafletMap() {
   const navigate = useNavigate();
@@ -50,7 +99,8 @@ function LeafletMap() {
       {noticias.map((noticia) => (
         <Marker 
           key={noticia.id}
-          position={coordenadas[noticia.estado]}>
+          position={coordenadas[noticia.estado]}
+          icon={getMarker(noticia.tipo)}>
         <Popup>
           <div className="popup-card">
 

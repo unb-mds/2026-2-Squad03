@@ -130,3 +130,115 @@
     background:#3730a3;
 
 }
+
+/* ================= MAPA ================= */
+
+.map-legend{
+
+    margin-top:25px;
+
+    background:white;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:18px;
+
+    padding:20px 24px;
+
+    box-shadow:0 4px 18px rgba(0,0,0,.06);
+
+}
+
+.legend-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:18px;
+
+}
+
+.legend-header h4{
+
+    margin:0;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    color:#111827;
+
+}
+
+.legend-icon{
+
+    font-size:22px;
+
+}
+
+.legend-items{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:18px;
+
+}
+
+.legend-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:10px 16px;
+
+    border-radius:12px;
+
+    background:#f8fafc;
+
+    transition:.2s;
+
+}
+
+.legend-item:hover{
+
+    background:#eef2ff;
+
+}
+
+.legend-dot{
+
+    width:14px;
+
+    height:14px;
+
+    border-radius:50%;
+
+    flex-shrink:0;
+
+}
+
+.red{
+
+    background:#dc2626;
+
+}
+
+.orange{
+
+    background:#ea580c;
+
+}
+
+.blue{
+
+    background:#2563eb;
+
+}
