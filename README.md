@@ -85,7 +85,7 @@ Frontend React
 
 ---
 
-# 🤝 Squad 03# 🤝 Squad 03
+# 🤝 Squad 03#
 
 <table>
   <tr>
