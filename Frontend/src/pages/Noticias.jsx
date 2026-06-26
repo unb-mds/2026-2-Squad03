@@ -1,82 +1,21 @@
-import { useState, useMemo, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { useState, useMemo } from "react";
 import Sidebar from "../components/Sidebar";
 import "../App.css";
 import "./Noticias.css";
+import { noticias } from "../data/noticias";
+import { useNavigate } from "react-router-dom";
 
-export default function ListaNoticias() {
-  // 1. Estados para gerenciar o ciclo de dados da API
-  const [noticias, setNoticias] = useState([]);
-  const [carregando, setCarregando] = useState(true);
-  const [erro, setErro] = useState(null);
+const ESTADOS = [...new Set(noticias.map((n) => n.estado))].sort();
+const VEICULOS = [...new Set(noticias.map((n) => n.fonte))].sort();
 
-  // 2. Estados para manipulação de filtros e paginação da interface
+export default function Noticias() {
+  const navigate = useNavigate();
   const [busca, setBusca] = useState("");
   const [filtroEstado, setFiltroEstado] = useState("");
   const [filtroVeiculo, setFiltroVeiculo] = useState("");
   const [filtroPeriodo, setFiltroPeriodo] = useState("");
   const [pagina, setPagina] = useState(1);
   const POR_PAGINA = 8;
-
-  // Hook para buscar os dados reais do seu banco de dados via FastAPI
-  useEffect(() => {
-    async function buscarTodasAsNoticias() {
-      try {
-        const resposta = await fetch('https://two026-2-veritasia.onrender.com/noticias');
-        //const resposta = await fetch('http://127.0.0.1:8000/noticias');
-        
-        if (!resposta.ok) {
-          throw new Error('Não foi possível obter os dados do servidor.');
-        }
-
-        const dadosDoBanco = await resposta.json();
-      //console.log("O que o servidor enviou:", dadosDoBanco); // <--- ADICIONE ISSO
-      setNoticias(dadosDoBanco);
-      } catch (err) {
-        console.error("Erro na requisição:", err);
-        setErro(err.message);
-      } finally {
-        setCarregando(false);
-      }
-    }
-
-    buscarTodasAsNoticias();
-  }, []); 
-
-  // 3. Extração dinâmica de opções para os filtros baseada no que existe no banco
-  const ESTADOS = useMemo(() => {
-    const ufs = noticias.map((n) => n.estado).filter(Boolean);
-    return [...new Set(ufs)].sort();
-  }, [noticias]);
-
-  const VEICULOS = useMemo(() => {
-    const mídias = noticias.map((n) => n.veiculo).filter(Boolean);
-    return [...new Set(mídias)].sort();
-  }, [noticias]);
-
-  // 4. Lógica de Filtro aplicada sobre as notícias reais do banco
-  const noticiasFiltradas = useMemo(() => {
-    return noticias.filter((n) => {
-      const buscaOk =
-        !busca ||
-        (n.titulo && n.titulo.toLowerCase().includes(busca.toLowerCase())) ||
-        (n.veiculo && n.veiculo.toLowerCase().includes(busca.toLowerCase()));
-      const estadoOk = !filtroEstado || n.estado === filtroEstado;
-      const veiculoOk = !filtroVeiculo || n.veiculo === filtroVeiculo;
-      return buscaOk && estadoOk && veiculoOk;
-    });
-  }, [noticias, busca, filtroEstado, filtroVeiculo]);
-
-  // 5. Cálculos de Paginação
-  const totalPaginas = Math.ceil(noticiasFiltradas.length / POR_PAGINA);
-  const noticiasPagina = useMemo(() => {
-    return noticiasFiltradas.slice(
-      (pagina - 1) * POR_PAGINA,
-      pagina * POR_PAGINA,
-    );
-  }, [noticiasFiltradas, pagina]);
-
-  const temFiltro = busca || filtroEstado || filtroVeiculo || filtroPeriodo;
 
   function limparFiltros() {
     setBusca("");
@@ -86,8 +25,25 @@ export default function ListaNoticias() {
     setPagina(1);
   }
 
-  // Renderizações condicionais para carregamento ou erro de rede
+  const noticiasFiltradas = useMemo(() => {
+    return noticias.filter((n) => {
+      const buscaOk =
+        !busca ||
+        n.titulo.toLowerCase().includes(busca.toLowerCase()) ||
+        n.fonte.toLowerCase().includes(busca.toLowerCase());
+      const estadoOk = !filtroEstado || n.estado === filtroEstado;
+      const veiculoOk = !filtroVeiculo || n.fonte === filtroVeiculo;
+      return buscaOk && estadoOk && veiculoOk;
+    });
+  }, [busca, filtroEstado, filtroVeiculo]);
 
+  const totalPaginas = Math.ceil(noticiasFiltradas.length / POR_PAGINA);
+  const noticiasPagina = noticiasFiltradas.slice(
+    (pagina - 1) * POR_PAGINA,
+    pagina * POR_PAGINA,
+  );
+
+  const temFiltro = busca || filtroEstado || filtroVeiculo || filtroPeriodo;
 
   return (
     <div className="app">
@@ -96,12 +52,12 @@ export default function ListaNoticias() {
         <header className="header">
           <div>
             <h2>Notícias</h2>
-            <p>Monitoramento de notícias sobre desinformação no Brasil</p>
+            <p>Monitoramento de notícias sobre feminicídio no Brasil</p>
           </div>
           <div className="header-actions">
             <button className="date-button">
               <span>📅</span>
-              <span>01/05/2026 - 31/05/2026</span>
+              <span>01/05/2024 - 31/05/2024</span>
             </button>
             <span className="bell">🔔</span>
             <div className="user-box">
@@ -186,65 +142,101 @@ export default function ListaNoticias() {
             </div>
           </div>
 
-          {/* Tabela Modificada para o Banco de Dados */}
-          <div className="noticias-table-wrap">
-            <table className="noticias-table">
-              <thead>
-                <tr>
-                  <th>Título</th>
-                  <th>Link Original</th>
-                  <th>Resumo IA</th>
-                  <th>ID Banco</th>
-                </tr>
-              </thead>
-              <tbody>
-              {carregando ? (
-                // Caso esteja carregando
-                <tr>
-                  <td colSpan={4} className="noticias-empty">
-                    Procurando notícias no banco de dados... <span className="loading-dots">⏳</span>
-                  </td>
-                </tr>
-              ) : erro ? (
-                // Caso tenha ocorrido um erro (opcional, mas recomendado)
-                <tr>
-                  <td colSpan={4} className="noticias-empty" style={{ color: 'red' }}>
-                    Erro ao carregar: {erro}
-                  </td>
-                </tr>
-              ) : noticiasPagina.length > 0 ? (
-                // Caso tenha notícias
-                noticiasPagina.map((n) => (
-                  <tr key={n.id}>
-                    <td className="noticia-titulo">
-                      <Link to={`/noticias/${n.id}`} style={{ textDecoration: 'none', color: '#007acc', fontWeight: 'bold' }}>
-                        {n.titulo}
-                      </Link>
-                    </td>
-                    <td>
-                      <a href={n.fonte_url} target="_blank" rel="noreferrer" style={{ color: '#555' }}>
-                        Acessar Fonte
-                      </a>
-                    </td>
-                    <td style={{ fontSize: '0.9em', color: '#666' }}>
-                      {n.resumo_blur ? `${n.resumo_blur.substring()}...` : "Sem resumo"}
-                    </td>
-                    <td>
-                      <span className="estado-badge" style={{ fontFamily: 'monospace' }}>#{n.id}</span>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                // Caso a lista esteja vazia após os filtros
-                <tr>
-                  <td colSpan={4} className="noticias-empty">
-                    Nenhuma notícia encontrada com os filtros atuais.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-            </table>
+          {/* Tabela */}
+          <div className="news-grid">
+
+  {noticiasPagina.length === 0 ? (
+
+    <div className="noticias-empty-card">
+
+      Nenhuma notícia encontrada.
+
+    </div>
+
+  ) : (
+
+    noticiasPagina.map((n) => (
+
+      <article
+        key={n.id}
+        className="news-card"
+        onClick={() => navigate(`/noticias/${n.id}`)}
+      >
+
+        {n.conteudoSensivel && (
+
+          <div className="news-warning">
+
+            ⚠ Conteúdo Sensível
+
           </div>
+
+        )}
+
+        <h3>
+
+          <img
+            src={n.imagem}
+            alt={n.titulo}
+            className="news-image"
+          />
+        </h3>
+
+        <p className="news-summary">
+
+          {n.resumo}
+
+        </p>
+
+        <div className="news-meta">
+
+          <span>📰 {n.fonte}</span>
+
+          <span>📅 {n.data}</span>
+
+        </div>
+
+        <div className="news-meta">
+
+          <span>📍 {n.cidade} - {n.estado}</span>
+
+        </div>
+
+        <div className="news-tags">
+
+          <span className="categoria-badge">
+
+            {n.categoria}
+
+          </span>
+
+          <span
+            className={`status-badge ${n.status
+              .toLowerCase()
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "")
+              .replace(/\s+/g, "-")}`}
+          >
+
+            {n.status}
+
+          </span>
+
+        </div>
+
+        <button className="ler-btn">
+
+          Ler notícia →
+
+        </button>
+
+      </article>
+
+    ))
+
+  )}
+
+</div>
 
           {/* Paginação */}
           {totalPaginas > 1 && (
@@ -274,7 +266,9 @@ export default function ListaNoticias() {
                   ),
                 )}
                 <button
-                  onClick={() => setPagina((p) => Math.min(totalPaginas, p + 1))}
+                  onClick={() =>
+                    setPagina((p) => Math.min(totalPaginas, p + 1))
+                  }
                   disabled={pagina === totalPaginas}
                   className="page-btn"
                 >

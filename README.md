@@ -1,96 +1,48 @@
+<img width="707" height="269" alt="Screenshot_12-5-2026_131425_prnt sc" src="https://github.com/user-attachments/assets/4e5a278f-92c5-4c52-9046-627e239f43c7" />
 
-<div align="center">
-
-<img width="450" alt="LogoBlack" src="https://github.com/user-attachments/assets/f248a533-c998-46bd-97e2-1c97a966a261" />
-
-</div>
-
-# 📌 Sobre o Projeto
-
-<p align="justify">
-Este projeto tem como objetivo reunir, analisar e divulgar dados e estatísticas sobre casos de feminicídio no Brasil, oferecendo uma visão clara e fundamentada sobre a realidade da violência contra a mulher no país.
+---
+# Sobre o Projeto
+<p style="text-align: justify;">
+Este projeto tem como objetivo reunir, analisar e divulgar dados e estatísticas sobre casos de feminicídio no Brasil, oferecendo uma visão clara e fundamentada sobre a realidade da violência contra a mulher no país. A partir de informações atualizadas e notícias provenientes de canais oficiais e veículos de comunicação confiáveis, buscamos transformar números em consciência, promovendo informação de qualidade e acessível à sociedade.
 </p>
-<p align="justify">
-A partir de informações atualizadas e notícias provenientes de canais oficiais e veículos de comunicação confiáveis, buscamos transformar números em consciência, promovendo informação de qualidade, acessível e centralizada para a sociedade.
+<p style="text-align: justify;">
+Mais do que apresentar dados, o projeto se propõe a dar visibilidade a uma problemática urgente, incentivando o debate, a reflexão e a conscientização. Ao centralizar essas informações em um único espaço, pretendemos contribuir para o entendimento da dimensão do feminicídio no Brasil e reforçar a importância de ações de prevenção e combate a esse tipo de violência.
 </p>
 
 ---
 
+# Tecnologias Utilizadas
 
-# 🛠️ Tecnologias Utilizadas
+[Figma](https://www.figma.com/board/TERK5u1cdCHQBJgRb3m2x5/Squad-03?node-id=0-1&p=f&t=VAcCgipTLYa9FQ6e-0)
 
-## 🎨 Frontend
+Frontend
+
 - React
 
-## ⚙️ Backend
+Backend
+
 - Scrapy
+- LangChain
 - Playwright
 - FastAPI
 
-# 🌐 Banco de Dados:
- - PostGreSQL
+Banco de Dados
 
 ---
 
-# 🌐 Portais de Notícias Monitorados
-
-Os dados são coletados automaticamente dos seguintes portais:
+# Portais de Noticias escolhidos
 
 - G1
-- Metrópoles
+- Metropoles
 - R7
-- CNN
----
-
-# 🔄 Fluxo do Sistema
-
-```text
-Portais de Notícias
-        ↓
-Scrapy / Playwright
-        ↓
-Coleta Automatizada
-        ↓
-Tratamento dos Dados
-        ↓
-Arquivos JSON
-        ↓
-API FastAPI
-        ↓
-Frontend React
-```
 
 ---
 
-# 🚀 Funcionalidades
+# Squad 03
 
-* Coleta automatizada de notícias;
-* Filtragem por tema relacionado a feminicídio;
-* Consolidação de dados em JSON;
-* Monitoramento contínuo;
-* Estrutura modular para expansão futura;
-* Compatibilidade com análise de dados e Machine Learning.
+- [Daniel](https://github.com/Daniel241025)
+- [Danilo](https://github.com/danilofns)
+- [Henrique](https://github.com/SchneiderCode1)
+- [Jadson](https://github.com/jadsonRleandro)
+- [Vitor](https://github.com/TheBagomes)
 
----
-
-# 📊 Futuras Implementações
-
-* Dashboard estatístico;
-* Análise temporal;
-* Visualização gráfica;
-* Sistema de busca;
-* Análise de sentimento;
-* Classificação automática de notícias;
-* API pública para consulta de dados.
-
----
-
-# 🤝 Squad 03 <div align="center"> <table> <tr> <td align="center"> <img src="https://github.com/christianrolim.png" width="120px;" alt="Christian"/><br> <b>Christian</b><br> <a href="https://github.com/christianrolim">@christianrolim</a> </td> <td align="center"> <img src="https://github.com/Daniel241025.png" width="120px;" alt="Daniel"/><br> <b>Daniel</b><br> <a href="https://github.com/Daniel241025">@Daniel241025</a> </td> <td align="center"> <img src="https://github.com/danilofns.png" width="120px;" alt="Danilo"/><br> <b>Danilo</b><br> <a href="https://github.com/danilofns">@danilofns</a> </td> </tr> <tr> <td align="center"> <img src="https://github.com/SchneiderCode1.png" width="120px;" alt="Henrique"/><br> <b>Henrique</b><br> <a href="https://github.com/SchneiderCode1">@SchneiderCode1</a> </td> <td align="center"> <img src="https://github.com/jadsonRleandro.png" width="120px;" alt="Jadson"/><br> <b>Jadson</b><br> <a href="https://github.com/jadsonRleandro">@jadsonRleandro</a> </td> <td align="center"> <img src="https://github.com/TheBagomes.png" width="120px;" alt="Vitor"/><br> <b>Vitor</b><br> <a href="https://github.com/TheBagomes">@TheBagomes</a> </td> </tr> </table> </div>
-
----
-
-# ⚖️ Aviso
-
-Este projeto utiliza exclusivamente informações públicas provenientes de portais jornalísticos e fontes abertas, respeitando limites éticos de coleta de dados e sem contornar mecanismos de proteção ou autenticação.
-
----
