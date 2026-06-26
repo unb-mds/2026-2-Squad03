@@ -41,7 +41,7 @@ function LeafletMap({ viewType }) {
   if (!geoJsonData) return <div>Carregando mapa...</div>;
 
   return (
-    <MapContainer center={[-15.7801, -47.9292]} zoom={4} style={{ height: "600px", width: "100%" }}>
+    <MapContainer center={[-15.7801, -47.9292]} zoom={4} minZoom={4} maxZoom={12} style={{ height: "600px", width: "100%" }}>
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       
       {viewType === "heat" && (

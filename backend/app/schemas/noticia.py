@@ -14,7 +14,8 @@ class RegiaoParcialResponse(BaseModel):
 class NoticiaResponse(BaseModel):
     id: int
     titulo: str
-    resumo_blur: str | None
+    resumo_blur: str 
+    resumo_raw: str 
     Portal: str
     fonte_url: str
     data_publicacao: datetime
