@@ -85,7 +85,41 @@ Frontend React
 
 ---
 
-# 🤝 Squad 03 <div align="center"> <table> <tr> <td align="center"> <img src="https://github.com/christianrolim.png" width="120px;" alt="Christian"/><br> <b>Christian</b><br> <a href="https://github.com/christianrolim">@christianrolim</a> </td> <td align="center"> <img src="https://github.com/Daniel241025.png" width="120px;" alt="Daniel"/><br> <b>Daniel</b><br> <a href="https://github.com/Daniel241025">@Daniel241025</a> </td> <td align="center"> <img src="https://github.com/danilofns.png" width="120px;" alt="Danilo"/><br> <b>Danilo</b><br> <a href="https://github.com/danilofns">@danilofns</a> </td> </tr> <tr> <td align="center"> <img src="https://github.com/SchneiderCode1.png" width="120px;" alt="Henrique"/><br> <b>Henrique</b><br> <a href="https://github.com/SchneiderCode1">@SchneiderCode1</a> </td> <td align="center"> <img src="https://github.com/jadsonRleandro.png" width="120px;" alt="Jadson"/><br> <b>Jadson</b><br> <a href="https://github.com/jadsonRleandro">@jadsonRleandro</a> </td> <td align="center"> <img src="https://github.com/TheBagomes.png" width="120px;" alt="Vitor"/><br> <b>Vitor</b><br> <a href="https://github.com/TheBagomes">@TheBagomes</a> </td> </tr> </table> </div>
+# 🤝 Squad 03# 🤝 Squad 03
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/Daniel241025.png" width="120px;" alt="Daniel"/><br>
+      <b>Daniel</b><br>
+      <a href="https://github.com/Daniel241025">@Daniel241025</a>
+    </td>
+
+   <td align="center">
+      <img src="https://github.com/danilofns.png" width="120px;" alt="Danilo"/><br>
+      <b>Danilo</b><br>
+      <a href="https://github.com/danilofns">@danilofns</a>
+    </td>
+
+   <td align="center">
+      <img src="https://github.com/SchneiderCode1.png" width="120px;" alt="Henrique"/><br>
+      <b>Henrique</b><br>
+      <a href="https://github.com/SchneiderCode1">@SchneiderCode1</a>
+    </td>
+
+   <td align="center">
+      <img src="https://github.com/jadsonRleandro.png" width="120px;" alt="Jadson"/><br>
+      <b>Jadson</b><br>
+      <a href="https://github.com/jadsonRleandro">@jadsonRleandro</a>
+    </td>
+
+   <td align="center">
+      <img src="https://github.com/TheBagomes.png" width="120px;" alt="Vitor"/><br>
+      <b>Vitor</b><br>
+      <a href="https://github.com/TheBagomes">@TheBagomes</a>
+    </td>
+  </tr>
+</table>
 
 ---
 
