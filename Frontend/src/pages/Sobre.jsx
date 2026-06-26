@@ -39,6 +39,17 @@ const ROADMAP = [
   "API pública para consulta de dados",
 ];
 
+const EQUIPE = [
+  {
+    nome: "Vitor Barreto Gomes",
+    funcao: "Frontend",
+    github: "https://github.com/TheBagomes",
+
+  },
+
+  
+];
+
 export default function Sobre() {
   return (
     <div className="app">

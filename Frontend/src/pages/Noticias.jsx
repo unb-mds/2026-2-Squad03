@@ -2,98 +2,14 @@ import { useState, useMemo } from "react";
 import Sidebar from "../components/Sidebar";
 import "../App.css";
 import "./Noticias.css";
+import { noticias } from "../data/noticias";
+import { useNavigate } from "react-router-dom";
 
-const MOCK_NEWS = [
-  {
-    id: 1,
-    titulo: "Mulher é morta a facadas pelo ex-companheiro em SP",
-    veiculo: "G1",
-    data: "12/05/2026",
-    estado: "SP",
-  },
-  {
-    id: 2,
-    titulo: "Feminicídio: mulher é assassinada dentro de casa em BH",
-    veiculo: "UOL",
-    data: "11/05/2026",
-    estado: "MG",
-  },
-  {
-    id: 3,
-    titulo: "Polícia prende suspeito de feminicídio no Rio de Janeiro",
-    veiculo: "Metrópoles",
-    data: "11/05/2026",
-    estado: "RJ",
-  },
-  {
-    id: 4,
-    titulo: "Dados apontam aumento de casos de feminicídio no país",
-    veiculo: "Folha de S.Paulo",
-    data: "10/05/2026",
-    estado: "DF",
-  },
-  {
-    id: 5,
-    titulo: "Vítima de violência doméstica recebe medida protetiva em Brasília",
-    veiculo: "R7",
-    data: "10/05/2026",
-    estado: "DF",
-  },
-  {
-    id: 6,
-    titulo: "Mulher é morta a facadas pelo ex-companheiro em SP",
-    veiculo: "G1",
-    data: "09/05/2026",
-    estado: "SP",
-  },
-  {
-    id: 7,
-    titulo: "Caso de feminicídio é investigado pela polícia no Nordeste",
-    veiculo: "G1",
-    data: "09/05/2026",
-    estado: "BA",
-  },
-  {
-    id: 8,
-    titulo: "Mulher sobrevive a tentativa de feminicídio em Porto Alegre",
-    veiculo: "Metrópoles",
-    data: "08/05/2026",
-    estado: "RS",
-  },
-  {
-    id: 9,
-    titulo: "Delegacia da mulher recebe recorde de denúncias em maio",
-    veiculo: "UOL",
-    data: "08/05/2026",
-    estado: "SP",
-  },
-  {
-    id: 10,
-    titulo: "Governo lança campanha de combate à violência doméstica",
-    veiculo: "Folha de S.Paulo",
-    data: "07/05/2026",
-    estado: "DF",
-  },
-  {
-    id: 11,
-    titulo: "Mulher é assassinada pelo marido após pedir divórcio no CE",
-    veiculo: "R7",
-    data: "07/05/2026",
-    estado: "CE",
-  },
-  {
-    id: 12,
-    titulo: "Feminicídio tentado: mulher escapa após vizinhos acionarem PM",
-    veiculo: "G1",
-    data: "06/05/2026",
-    estado: "RJ",
-  },
-];
-
-const ESTADOS = [...new Set(MOCK_NEWS.map((n) => n.estado))].sort();
-const VEICULOS = [...new Set(MOCK_NEWS.map((n) => n.veiculo))].sort();
+const ESTADOS = [...new Set(noticias.map((n) => n.estado))].sort();
+const VEICULOS = [...new Set(noticias.map((n) => n.fonte))].sort();
 
 export default function Noticias() {
+  const navigate = useNavigate();
   const [busca, setBusca] = useState("");
   const [filtroEstado, setFiltroEstado] = useState("");
   const [filtroVeiculo, setFiltroVeiculo] = useState("");
@@ -110,13 +26,13 @@ export default function Noticias() {
   }
 
   const noticiasFiltradas = useMemo(() => {
-    return MOCK_NEWS.filter((n) => {
+    return noticias.filter((n) => {
       const buscaOk =
         !busca ||
         n.titulo.toLowerCase().includes(busca.toLowerCase()) ||
-        n.veiculo.toLowerCase().includes(busca.toLowerCase());
+        n.fonte.toLowerCase().includes(busca.toLowerCase());
       const estadoOk = !filtroEstado || n.estado === filtroEstado;
-      const veiculoOk = !filtroVeiculo || n.veiculo === filtroVeiculo;
+      const veiculoOk = !filtroVeiculo || n.fonte === filtroVeiculo;
       return buscaOk && estadoOk && veiculoOk;
     });
   }, [busca, filtroEstado, filtroVeiculo]);
@@ -227,38 +143,100 @@ export default function Noticias() {
           </div>
 
           {/* Tabela */}
-          <div className="noticias-table-wrap">
-            <table className="noticias-table">
-              <thead>
-                <tr>
-                  <th>Título</th>
-                  <th>Veículo</th>
-                  <th>Data</th>
-                  <th>Estado</th>
-                </tr>
-              </thead>
-              <tbody>
-                {noticiasPagina.length === 0 ? (
-                  <tr>
-                    <td colSpan={4} className="noticias-empty">
-                      Nenhuma notícia encontrada para os filtros selecionados.
-                    </td>
-                  </tr>
-                ) : (
-                  noticiasPagina.map((n) => (
-                    <tr key={n.id}>
-                      <td className="noticia-titulo">{n.titulo}</td>
-                      <td>{n.veiculo}</td>
-                      <td>{n.data}</td>
-                      <td>
-                        <span className="estado-badge">{n.estado}</span>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
+          <div className="news-grid">
+
+  {noticiasPagina.length === 0 ? (
+
+    <div className="noticias-empty-card">
+
+      Nenhuma notícia encontrada.
+
+    </div>
+
+  ) : (
+
+    noticiasPagina.map((n) => (
+
+      <article
+        key={n.id}
+        className="news-card"
+        onClick={() => navigate(`/noticias/${n.id}`)}
+      >
+
+        {n.conteudoSensivel && (
+
+          <div className="news-warning">
+
+            ⚠ Conteúdo Sensível
+
           </div>
+
+        )}
+
+        <h3>
+
+          <img
+            src={n.imagem}
+            alt={n.titulo}
+            className="news-image"
+          />
+        </h3>
+
+        <p className="news-summary">
+
+          {n.resumo}
+
+        </p>
+
+        <div className="news-meta">
+
+          <span>📰 {n.fonte}</span>
+
+          <span>📅 {n.data}</span>
+
+        </div>
+
+        <div className="news-meta">
+
+          <span>📍 {n.cidade} - {n.estado}</span>
+
+        </div>
+
+        <div className="news-tags">
+
+          <span className="categoria-badge">
+
+            {n.categoria}
+
+          </span>
+
+          <span
+            className={`status-badge ${n.status
+              .toLowerCase()
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "")
+              .replace(/\s+/g, "-")}`}
+          >
+
+            {n.status}
+
+          </span>
+
+        </div>
+
+        <button className="ler-btn">
+
+          Ler notícia →
+
+        </button>
+
+      </article>
+
+    ))
+
+  )}
+
+</div>
 
           {/* Paginação */}
           {totalPaginas > 1 && (

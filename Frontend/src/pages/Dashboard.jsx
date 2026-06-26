@@ -10,7 +10,9 @@ import AuthPrompt from "../components/AuthPrompt";
 import BrazilMap from "../components/BrazilMap";
 
 function Dashboard() {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(() => {
+    return localStorage.getItem("veritas-auth-modal") !== "closed";
+  });
 
   const stats = [
     {
@@ -46,6 +48,7 @@ function Dashboard() {
               <span>📅</span>
               <span>01/05/2024 - 31/05/2024</span>
             </button>
+
             <span className="bell">🔔</span>
 
             <div className="user-box">
@@ -59,7 +62,14 @@ function Dashboard() {
           </div>
         </header>
 
-        {showModal && <AuthPrompt onClose={() => setShowModal(false)} />}
+        {showModal && (
+          <AuthPrompt
+            onClose={() => {
+              localStorage.setItem("veritas-auth-modal", "closed");
+              setShowModal(false);
+            }}
+          />
+        )}
 
         <section className="cards">
           {stats.map((stat, index) => (
@@ -71,6 +81,7 @@ function Dashboard() {
             />
           ))}
         </section>
+
         <section className="dashboard-grid">
           <div className="chart-box">
             <h3>Evolução temporal das publicações</h3>
@@ -84,6 +95,7 @@ function Dashboard() {
             <BrazilMap />
           </div>
         </section>
+
         <section className="dashboard-grid bottom-grid">
           <div className="chart-box">
             <h3>Top Veículos</h3>
@@ -99,8 +111,10 @@ function Dashboard() {
             </div>
           </div>
         </section>
+
         <section className="full-box">
           <h3>Últimas Notícias</h3>
+
           <LatestNews />
         </section>
       </main>
