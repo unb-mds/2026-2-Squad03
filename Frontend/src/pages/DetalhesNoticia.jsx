@@ -3,49 +3,40 @@ import "./DetalhesNoticia.css";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import PageHeader from "../components/PageHeader";
 
 export default function Detalhes_Noticia() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [mostrarAviso, setMostrarAviso] = useState(true);
+  
+  // Estados para o aviso de conteúdo sensível
+  const [naoMostrarNovamente, setNaoMostrarNovamente] = useState(false);
+  const [mostrarAviso, setMostrarAviso] = useState(() => {
+    return localStorage.getItem("veritas-aviso-sensivel") !== "true";
+  });
 
-  // 1. Novos estados para gerenciar a requisição da API
   const [noticia, setNoticia] = useState(null);
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState(false);
 
-  // 2. Fetch dos dados detalhados da notícia específica
   useEffect(() => {
     async function fetchNoticiaDetalhada() {
       try {
         setLoading(true);
         const resposta = await fetch(`https://two026-2-veritasia.onrender.com/noticias/${id}`);
-        
-        if (!resposta.ok) {
-          throw new Error("Notícia não encontrada no servidor");
-        }
+        if (!resposta.ok) throw new Error("Notícia não encontrada");
         
         const n = await resposta.json();
-
-        // 3. Formatação da data
-        let dataFormatada = "Data não informada";
-        if (n.data_publicacao) {
-          const dataObj = new Date(n.data_publicacao);
-          dataFormatada = dataObj.toLocaleDateString('pt-BR');
-        }
-
-        // 4. Tradução dos dados da API para o Frontend
+        
         const noticiaFormatada = {
           id: n.id,
           titulo: n.titulo || "Título Indisponível",
           resumo: n.resumo_raw || "Resumo não disponível",
-          // Mapeia o conteúdo completo. Se o backend não tiver 'conteudo_raw', usa o resumo como fallback
           conteudo: n.conteudo_raw || n.texto || n.resumo_raw || "Conteúdo completo indisponível.",
           fonte: n.Portal || n.portal || n.veiculo || n.fonte || "Desconhecido",
-          data: dataFormatada,
-          estado: n.regiao ? String(n.regiao.nome) : "N/A",
+          data: n.data_publicacao ? new Date(n.data_publicacao).toLocaleDateString('pt-BR') : "Data não informada",
+          estado: n.regiao?.nome || "N/A",
           cidade: "N/A",
-          // Mapeia o link original para o botão no final da página
           link: n.fonte_url || "#", 
           imagem: n.imagem_url || "https://via.placeholder.com/300x150?text=Sem+Imagem",
           categoria: "Geral",
@@ -60,117 +51,63 @@ export default function Detalhes_Noticia() {
         setLoading(false);
       }
     }
-
     fetchNoticiaDetalhada();
   }, [id]);
 
-  // Telas de Carregamento e Erro
-  if (loading) {
-    return (
-      <div className="app">
-        <Sidebar />
-        <main className="content">
-          <div style={{ padding: '2rem' }}>
-            <h2>Carregando detalhes da notícia...</h2>
-          </div>
-        </main>
-      </div>
-    );
-  }
-
-  if (erro || !noticia) {
-    return (
-      <div className="app">
-        <Sidebar />
-        <main className="content">
-          <div style={{ padding: '2rem' }}>
-            <h2>Notícia não encontrada.</h2>
-            <p>O registro que você tentou acessar não existe no banco de dados.</p>
-            <button className="voltar-btn" onClick={() => navigate("/noticias")} style={{ marginTop: '1rem' }}>
-              ← Voltar para Notícias
-            </button>
-          </div>
-        </main>
-      </div>
-    );
-  }
+  if (loading) return <div className="app"><Sidebar /><main className="content"><div style={{padding:'2rem'}}><h2>Carregando...</h2></div></main></div>;
+  if (erro || !noticia) return (
+    <div className="app"><Sidebar /><main className="content"><div style={{padding:'2rem'}}>
+      <h2>Notícia não encontrada.</h2>
+      <button className="voltar-btn" onClick={() => navigate("/noticias")}>← Voltar</button>
+    </div></main></div>
+  );
 
   return (
     <div className="app">
       <Sidebar />
-
       <main className="content">
-        <header className="header">
-          <div>
-            <h2>Notícia</h2>
-            <p>Visualização detalhada da notícia coletada</p>
-          </div>
-
-          <div className="header-actions">
-            <button className="date-button">
-              <span>📅</span>
-              <span>01/05/2024 - 31/05/2024</span>
-            </button>
-
+        
+        <PageHeader title="Notícia" subtitle="Visualização detalhada da notícia coletada">
+            <button className="date-button">📅 <span>01/05/2024 - 31/05/2024</span></button>
             <span className="bell">🔔</span>
-
-            <div className="user-box">
-              <div className="avatar"></div>
-
-              <div>
-                <strong>Usuário</strong>
-                <p>Analista</p>
-              </div>
-            </div>
-          </div>
-        </header>
+        </PageHeader>
 
         {mostrarAviso && (
           <div className="overlay-aviso">
             <div className="modal-aviso">
               <div className="icone-aviso">⚠️</div>
-              <h2>Conteúdo Sensível</h2>
-              <p>
-                Esta notícia contém informações relacionadas a
-                <strong> feminicídio </strong>
-                e violência contra a mulher.
-              </p>
-              <p>
-                O conteúdo é apresentado para fins de
-                conscientização, pesquisa e monitoramento.
-              </p>
+              <h2>Aviso de conteúdo sensível</h2>
+              <p>Esta seção apresenta dados e informações detalhadas sobre casos de <strong>feminicídio e violência doméstica</strong>.</p>
+              
+              <label style={{ display: "center", alignItems: "center", gap: "8px", marginBottom: "20px", cursor: "pointer" }}>
+                <input 
+                  type="checkbox" 
+                  checked={naoMostrarNovamente}
+                  onChange={(e) => setNaoMostrarNovamente(e.target.checked)}
+                />
+                <span> Não mostrar este aviso novamente.</span>
+              </label>
+
               <div className="botoes-aviso">
-                <button
-                  className="btn-continuar"
-                  onClick={() => setMostrarAviso(false)}
-                >
-                  Continuar leitura
-                </button>
-                <button
-                  className="btn-voltar"
-                  onClick={() => navigate("/noticias")}
-                >
-                  Voltar
-                </button>
+                <button className="btn-continuar" onClick={() => {
+                  if (naoMostrarNovamente) {
+                    localStorage.setItem("veritas-aviso-sensivel", "true");
+                  }
+                  setMostrarAviso(false);
+                }}>Continuar para a página</button>
+                <button className="btn-voltar" onClick={() => navigate("/noticias")}>Voltar</button>
               </div>
             </div>
           </div>
         )}
 
-        <button
-          className="voltar-btn"
-          onClick={() => navigate("/noticias")}
-        >
-          ← Voltar para Notícias
-        </button>
+        <button className="voltar-btn" onClick={() => navigate("/noticias")}>← Voltar para Notícias</button>
 
         <div className="noticia-layout">
           <section className="noticia-card">
             <div className="noticia-top">
               <span className="categoria">{noticia.categoria}</span>
-              <span className="status verificado">
-                ✔ {noticia.status}
-              </span>
+              <span className="status verificado">✔ {noticia.status}</span>
             </div>
 
             <h1>{noticia.titulo}</h1>
@@ -182,8 +119,7 @@ export default function Detalhes_Noticia() {
             </div>
 
             <div className="imagem-placeholder">
-              <span>📰</span>
-              <p>Imagem da notícia</p>
+              <img src={noticia.imagem} alt={noticia.titulo} style={{width: '100%', borderRadius: '8px'}} />
             </div>
 
             <div className="bloco">
@@ -191,45 +127,16 @@ export default function Detalhes_Noticia() {
               <p>{noticia.resumo}</p>
             </div>
 
-            <a
-              href={noticia.link}
-              target="_blank"
-              rel="noreferrer"
-              className="fonte-btn"
-            >
-              Acessar notícia original
-            </a>
+            <a href={noticia.link} target="_blank" rel="noreferrer" className="fonte-btn">Acessar notícia original</a>
           </section>
 
           <aside className="info-card">
             <h3>Informações</h3>
-
-            <div className="info-item">
-              <strong>Categoria</strong>
-              <span>{noticia.categoria}</span>
-            </div>
-
-            <div className="info-item">
-              <strong>Status</strong>
-              <span className="status verificado">
-                ✔ {noticia.status}
-              </span>
-            </div>
-
-            <div className="info-item">
-              <strong>Fonte</strong>
-              <span>{noticia.fonte}</span>
-            </div>
-
-            <div className="info-item">
-              <strong>Data da coleta</strong>
-              <span>{noticia.data}</span>
-            </div>
-
-            <div className="info-item">
-              <strong>Local geocodificado</strong>
-              <span>{noticia.cidade} - {noticia.estado}</span>
-            </div>
+            <div className="info-item"><strong>Categoria</strong><span>{noticia.categoria}</span></div>
+            <div className="info-item"><strong>Status</strong><span>✔ {noticia.status}</span></div>
+            <div className="info-item"><strong>Fonte</strong><span>{noticia.fonte}</span></div>
+            <div className="info-item"><strong>Data</strong><span>{noticia.data}</span></div>
+            <div className="info-item"><strong>Local</strong><span>{noticia.estado}</span></div>
           </aside>
         </div>
       </main>

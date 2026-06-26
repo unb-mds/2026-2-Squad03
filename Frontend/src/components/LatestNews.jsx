@@ -1,42 +1,24 @@
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function LatestNews() {
-  const [info, setInfo] = useState(null); 
-  const [loading, setLoading] = useState(true);
+function LatestNews({ data }) {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    async function fetchDashboard() {
-      try {
-        setLoading(true);
-        const resposta = await fetch('https://two026-2-veritasia.onrender.com/dashboard');
-        if (!resposta.ok) throw new Error('Erro ao buscar dados');
-        const dadosDoBack = await resposta.json();
-        setInfo(dadosDoBack); 
-      } catch (err) {
-        console.error("Erro na requisição:", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchDashboard();
-  }, []); 
-
+  // Função utilitária para formatar a data
   const formatarData = (dataString) => {
     if (!dataString) return "";
     return new Date(dataString).toLocaleDateString('pt-BR');
   };
 
-  if (loading) return <div className="latest-news"><p>Carregando notícias...</p></div>;
-  if (!info || !info.latest_news) return null;
+  // Verificação de segurança: se não houver dados, exibe mensagem ou vazio
+  if (!data || data.length === 0) {
+    return <div className="latest-news"><p>Nenhuma notícia recente.</p></div>;
+  }
 
   return (
     <div className="latest-news">
-      {info.latest_news.map((item) => (
+      {data.map((item) => (
         <div className="news-item" key={item.id}>
           <div>
-            {/* O título agora é clicável e dispara a navegação */}
             <h4 
               onClick={() => navigate(`/noticias/${item.id}`)}
               style={{ cursor: "pointer", color: "#4338ca", textDecoration: "underline" }}
@@ -47,7 +29,10 @@ function LatestNews() {
               {item.Portal} • {item.regiao}
             </p>
           </div>
-          <span>{formatarData(item.data_publicacao)}</span>
+          <div className="news-right">
+            <span>{formatarData(item.data_publicacao)}</span>
+            <span className="news-arrow">→</span>
+          </div>
         </div>
       ))}
     </div>

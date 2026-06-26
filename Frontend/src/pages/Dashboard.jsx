@@ -8,6 +8,8 @@ import RegionChart from "../components/RegionChart";
 import LatestNews from "../components/LatestNews";
 import AuthPrompt from "../components/AuthPrompt";
 import BrazilMap from "../components/BrazilMap";
+import PageHeader from "../components/PageHeader";
+import { FaNewspaper, FaCalendarAlt, FaChartLine } from "react-icons/fa";
 
 function Dashboard() {
   const [showModal, setShowModal] = useState(() => {
@@ -34,7 +36,6 @@ function Dashboard() {
     fetchDashboard();
   }, []);
 
-  // Retorno visual enquanto carrega (evita erro de undefined)
   if (loading) {
     return (
       <div className="app" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -43,26 +44,29 @@ function Dashboard() {
     );
   }
 
-  // Segurança caso não haja dados
   if (!info) {
     return <div className="latest-news"><p>Dados não disponíveis.</p></div>;
   }
 
+  // Estatísticas preenchidas com dados da API e ícones importados
   const stats = [
     {
       title: "Total de Notícias",
       value: info?.estatisticas?.[0]?.total_atual?.toLocaleString() || "0",
       description: "Total acumulado na base",
+      icon: <FaNewspaper />,
     },
     {
       title: "Média por dia",
       value: info?.estatisticas?.[0]?.media_diaria?.toString() || "0",
       description: "Média da última semana",
+      icon: <FaCalendarAlt />,
     },
     {
       title: "Crescimento",
       value: `${info?.estatisticas?.[0]?.crescimento_percentual || 0}%`,
       description: "vs Semana anterior",
+      icon: <FaChartLine />,
     },
   ];
 
@@ -71,20 +75,20 @@ function Dashboard() {
       <Sidebar />
 
       <main className="content">
-        <header className="header">
-          <div>
-            <h2>Dashboard</h2>
-            <p>Visão geral do monitoramento de notícias</p>
-          </div>
-          <div className="header-actions">
-            <button className="date-button">📅 <span>Últimos 14 dias</span></button>
-            <span className="bell">🔔</span>
-            <div className="user-box">
-              <div className="avatar"></div>
-              <div><strong>Usuário</strong><p>Analista</p></div>
+        {/* Cabeçalho centralizado via PageHeader */}
+        <PageHeader title="Dashboard" subtitle="Visão geral do monitoramento de notícias">
+          <button className="date-button">
+            <span>📅</span> <span>Últimos 14 dias</span>
+          </button>
+          <span className="bell">🔔</span>
+          <div className="user-box">
+            <div className="avatar"></div>
+            <div>
+              <strong>Usuário</strong>
+              <p>Analista</p>
             </div>
           </div>
-        </header>
+        </PageHeader>
 
         {showModal && (
           <AuthPrompt onClose={() => {
@@ -95,21 +99,25 @@ function Dashboard() {
 
         <section className="cards">
           {stats.map((stat, index) => (
-            <StatCard key={index} title={stat.title} value={stat.value} description={stat.description} />
+            <StatCard
+              key={index}
+              title={stat.title}
+              value={stat.value}
+              description={stat.description}
+              icon={stat.icon}
+            />
           ))}
         </section>
 
         <section className="dashboard-grid">
           <div className="chart-box">
             <h3>Evolução temporal das publicações</h3>
-            {/* Passamos dados via props */}
             <NewsChart data={info.noticias_semana} />
           </div>
 
           <div className="map-box">
             <h3>Distribuição por estado</h3>
-            {/* Passamos dados via props */}
-            {/*BrazilMap Nao consegui fazer funcionar */}
+            <BrazilMap data={info.noticias_por_estado} />
           </div>
         </section>
 
