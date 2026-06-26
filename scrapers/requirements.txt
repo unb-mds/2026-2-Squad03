@@ -1,3 +1,4 @@
+tzdata
 scrapy
 playwright
 emoji
