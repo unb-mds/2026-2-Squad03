@@ -6,32 +6,23 @@ import {
   Polygon,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { noticias } from "../data/noticias";
+console.log(noticias);
+import { useNavigate } from "react-router-dom";
+
+const coordenadas = {
+  SP: [-23.5505, -46.6333],
+  RJ: [-22.9068, -43.1729],
+  MG: [-19.9167, -43.9345],
+  DF: [-15.7801, -47.9292],
+  BA: [-12.9714, -38.5014],
+  RS: [-30.0346, -51.2177],
+  CE: [-3.7319, -38.5267],
+};
 
 function LeafletMap() {
-  const noticias = [
-    {
-      id: 1,
-      titulo: "Operação contra fraude digital em São Paulo",
-      resumo: "Investigação apura esquema de disseminação de notícias falsas.",
-      link: "#/noticias",
-      posicao: [-23.5505, -46.6333],
-    },
-    {
-      id: 2,
-      titulo: "Nova campanha de conscientização no Rio",
-      resumo: "Projeto busca combater a desinformação em redes sociais.",
-      link: "#/noticias",
-      posicao: [-22.9068, -43.1729],
-    },
-    {
-      id: 3,
-      titulo: "Relatório aponta aumento de fake news",
-      resumo: "Levantamento mostra crescimento da desinformação no DF.",
-      link: "#/noticias",
-      posicao: [-15.7801, -47.9292],
-    },
-  ];
-
+  const navigate = useNavigate();
+  
   const regioesMonitoradas = [
     {
       nome: "Distrito Federal",
@@ -50,24 +41,36 @@ function LeafletMap() {
       zoom={4}
       style={{ height: "600px", width: "100%" }}
     >
+      
       <TileLayer
         attribution="&copy; OpenStreetMap contributors"
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
       {noticias.map((noticia) => (
-        <Marker key={noticia.id} position={noticia.posicao}>
-          <Popup>
-            <div>
-              <h4>{noticia.titulo}</h4>
+        <Marker 
+          key={noticia.id}
+          position={coordenadas[noticia.estado]}>
+        <Popup>
+          <div className="popup-card">
 
-              <p>{noticia.resumo}</p>
+            <img
+              src="https://placehold.co/320x180?text=Notícia"
+              alt={noticia.titulo}
+              className="popup-image"
+            />
 
-              <a href={noticia.link}>
-                Ver notícia completa
-              </a>
-            </div>
-          </Popup>
+          <h4>{noticia.titulo}</h4>
+
+          <button
+            className="popup-btn"
+            onClick={() => navigate(`/noticias/${noticia.id}`)}
+          >
+            Ler notícia →
+          </button>
+
+          </div>
+        </Popup>
         </Marker>
       ))}
 
