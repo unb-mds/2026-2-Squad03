@@ -40,9 +40,6 @@ jobs:
         run: python -m backend.llm.langChain_Controller
 
       - name: Salvar Banco De Dados
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: python -m backend.tratamentoDeDados.juntar_dados
 
       - name: LangChain executado, atualizando o repositório
