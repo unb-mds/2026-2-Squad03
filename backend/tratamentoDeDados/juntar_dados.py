@@ -15,8 +15,8 @@ from geoalchemy2 import Geometry
 #+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 # 1. COLOQUE SUAS CHAVES AQUI (Pegue no painel do Supabase: Project Settings -> API)
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+SUPABASE_URL = "https://bbpmgljnzuxbhqncquri.supabase.co"
+SUPABASE_KEY = "sb_secret_VZ7lddSu1NZlzUxGfvsPEQ_jl1ibTyo"
 
 # Inicializa o cliente
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
