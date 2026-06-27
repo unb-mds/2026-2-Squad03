@@ -15,8 +15,8 @@ from geoalchemy2 import Geometry
 #+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 # 1. COLOQUE SUAS CHAVES AQUI (Pegue no painel do Supabase: Project Settings -> API)
-SUPABASE_URL = "https://bbpmgljnzuxbhqncquri.supabase.co"
-SUPABASE_KEY = "sb_secret_VZ7lddSu1NZlzUxGfvsPEQ_jl1ibTyo"
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
 # Inicializa o cliente
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
@@ -34,6 +34,15 @@ def read_json_resultados():
         print('Arquivo não encontrado')
     except Exception as error:
         print('Erro na incialização')
+
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
+def apagar_news_json():
+    arquivoVazio = []
+    output_path = os.path.join("backend/llm/news-llm.json")
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(arquivoVazio, f, ensure_ascii=False, indent=4)
 
 #+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
@@ -88,5 +97,9 @@ def juntar_dados():
 
                 except Exception as e:
                     print(f"Erro na transação de salvamento: {e}")
+                    
+    apagar_news_json()
+    
 
 #+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+

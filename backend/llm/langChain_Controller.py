@@ -55,8 +55,6 @@ def main():
                 print(result)
                 save_result_to_json(result, noticia)
 
-    juntar_dados()
-
 if __name__ == "__main__":
     main()
     

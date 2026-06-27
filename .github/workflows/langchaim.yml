@@ -37,7 +37,13 @@ jobs:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           GOOGLE_API_KEY_1: ${{ secrets.GOOGLE_API_KEY_1 }}
           GOOGLE_API_KEY_2: ${{ secrets.GOOGLE_API_KEY_2 }}
-        run: python backend/llm/langChain_Controller.py
+        run: python -m backend.llm.langChain_Controller
+
+      - name: Salvar Banco De Dados
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: python -m backend.tratamentoDeDados.juntar_dados
 
       - name: LangChain executado, atualizando o repositório
         run: |
