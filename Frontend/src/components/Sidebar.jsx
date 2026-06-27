@@ -16,7 +16,9 @@ function Sidebar() {
 
           <Link to="/sobre">Sobre Nós</Link>
 
-          <Link to="/docs">Documentação</Link>
+          <a href="/2026-2-VeritasIA/docs/mkdocs/" target="_blank">
+            Documentação
+          </a>
         </nav>
       </nav>
     </aside>
