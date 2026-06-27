@@ -51,8 +51,8 @@ nav:
   - Participantes:
         - sobre-nos.md
 
-  - DashBoard:
-      - Produtividade: dashboard/dashboard.md
+  - Produtividade:
+      - Produtividade: produtividade/dashboard.md
 
 site_dir: site
 
