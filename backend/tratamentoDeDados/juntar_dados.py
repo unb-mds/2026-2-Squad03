@@ -47,6 +47,7 @@ def apagar_news_json():
 #+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 def juntar_dados():
+    print("Entrou no juntardados")
     dados_resultados, dados_llm = read_json_resultados()
     
     for noticia_resultado in dados_resultados:
@@ -100,7 +101,8 @@ def juntar_dados():
                     
     apagar_news_json()
 
-juntar_dados()
+if __name__ == "__main__":
+    juntar_dados()
 
 #+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
