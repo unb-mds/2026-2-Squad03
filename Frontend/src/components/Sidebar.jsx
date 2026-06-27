@@ -15,6 +15,8 @@ function Sidebar() {
           <Link to="/noticias">Notícias</Link>
 
           <Link to="/sobre">Sobre Nós</Link>
+
+          <Link to="/docs">Documentação</Link>
         </nav>
       </nav>
     </aside>
