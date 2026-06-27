@@ -9,12 +9,6 @@ def salvar_todos_resultados():
     try:
         # Ler resultados já existentes
         arquivo_final = "scrapers/resultados/resultados.json"
-        if os.path.exists(arquivo_final):
-            with open(arquivo_final, "r", encoding="utf-8") as f:
-                try:
-                    todas_noticias = json.load(f)
-                except:
-                    todas_noticias = []
         # Ler novos arquivos
         for arquivo_json in glob.glob("scrapers/resultados/*.json"):
             if arquivo_json.endswith("resultados.json"):
