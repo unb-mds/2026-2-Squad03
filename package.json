@@ -4,5 +4,6 @@
   },
   "dependencies": {
     "recharts": "^3.8.1"
-  }
+  },
+  "homepage": "https://unb-mds.github.io/2026-2-VeritasIA/"
 }
