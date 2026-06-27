@@ -30,7 +30,7 @@ jobs:
 
       - name: Instalar LangChain e dependências
         run: |
-          pip install -r backend/llm/requirements.txt
+          pip install -r requirements.txt
 
       - name: Executar LangChain
         env:
