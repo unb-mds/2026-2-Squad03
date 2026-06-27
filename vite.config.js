@@ -13,4 +13,6 @@ export default defineConfig({
       '@': '/Frontend/src',
     },
   },
+
 })
+
