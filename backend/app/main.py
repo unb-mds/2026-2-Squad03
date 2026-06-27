@@ -25,14 +25,16 @@ Instância principal do FastAPI.
 Responsável por orquestrar rotas, middlewares e configurações da API.
 """
 
-# Configuração de CORS para permitir requisições do frontend (local e em produção)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
+origins = [
         "https://unb-mds.github.io",
         "https://unb-mds.github.io/2026-2-VeritasIA", # Removi a barra final
         "http://localhost:5173" # Adicionei para testes locais
-    ],
+    ]
+
+# Configuração de CORS para permitir requisições do frontend (local e em produção)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
