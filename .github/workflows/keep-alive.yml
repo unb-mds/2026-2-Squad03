@@ -1,0 +1,15 @@
+name: Keep Alive
+
+on:
+  schedule:
+    # Roda a cada 10 minutos
+    - cron: '*/10 * * * *'
+  workflow_dispatch: # Permite rodar manualmente para testar
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping API
+        run: |
+          curl -I https://two026-2-veritasia.onrender.com/
