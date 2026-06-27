@@ -3,6 +3,11 @@ name: Deploy static content to Pages
 on:
   push:
     branches: ["main"]
+  workflow_dispatch: # Permite o acionamento manual.
+  workflow_run:
+    workflows: ["executor langchaim"]
+    types:
+      - completed
     
 permissions:
   contents: write
