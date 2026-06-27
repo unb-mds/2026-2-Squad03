@@ -1,19 +1,46 @@
+import { useState, useEffect } from "react";
+
 function TopVehicles() {
-  const vehicles = [
-    { name: "G1", value: 312, percent: "95%" },
-    { name: "UOL", value: 201, percent: "75%" },
-    { name: "Folha de S.Paulo", value: 178, percent: "60%" },
-  ];
+  const [info, setInfo] = useState(null); 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchDashboard() {
+      try {
+        setLoading(true);
+        // Lembre-se de ajustar a URL para a que está em produção (onrender)
+        const resposta = await fetch('https://two026-2-veritasia.onrender.com/dashboard');
+        if (!resposta.ok) throw new Error('Erro ao buscar dados');
+        const dadosDoBack = await resposta.json();
+        setInfo(dadosDoBack); 
+      } catch (err) {
+        console.error("Erro na requisição:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchDashboard();
+  }, []); 
+
+  // 1. Tratamento de carregamento e erro
+  if (loading) return <div>Carregando portais...</div>;
+  if (!info || !info.top_portais) return <div>Nenhum dado disponível.</div>;
 
   return (
     <div className="vehicle-list">
-      {vehicles.map((vehicle, index) => (
-        <div key={index}>
-          <span>{vehicle.name}</span>
-          <div className="bar">
-            <div style={{ width: vehicle.percent }}></div>
+      {info.top_portais.map((portal, index) => (
+        <div key={index} className="vehicle-item">
+          <span>{portal.name}</span>
+          
+          <div className="bar-container">
+            {/* 2. Adicionamos a unidade '%' ao valor percentual */}
+            <div 
+              className="bar" 
+              style={{ width: `${portal.percent}%` }} 
+            ></div>
           </div>
-          <strong>{vehicle.value}</strong>
+          
+          <strong>{portal.value}</strong>
         </div>
       ))}
     </div>

@@ -1,0 +1,379 @@
+﻿.sobre-page {
+  --accent: #6d28d9;
+  --accent-soft: #efe7fb;
+  --ink: #18101f;
+  --muted: #6b6478;
+  --surface-alt: #f7f4fc;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+.section-eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+
+.section-sub {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+
+.sobre-card {
+  background: white;
+  border-radius: 20px;
+  padding: 32px 36px;
+  border: 1px solid #ede9f5;
+}
+
+/* ── Hero ── */
+.sobre-hero {
+  background: var(--accent-soft);
+  border-radius: 24px;
+  padding: 56px 48px;
+}
+
+.section-eyebrow--onhero {
+  color: var(--accent);
+}
+
+.sobre-quote {
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 24px;
+  max-width: 600px;
+}
+
+.sobre-hero p {
+  font-size: 16px;
+  color: #3c3450;
+  line-height: 1.7;
+  max-width: 620px;
+  margin-bottom: 12px;
+}
+
+.sobre-hero p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Linhas de duas colunas ── */
+.sobre-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 20px;
+}
+
+/* ── Stack ── */
+.stack-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.stack-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stack-tag {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 5px 14px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.stack-tag--blue {
+  background: #e3edff;
+  color: #1d4ed8;
+}
+
+.stack-tag--violet {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.stack-tag--teal {
+  background: #dbf5ee;
+  color: #0f766e;
+}
+
+.stack-itens {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* ── Portais ── */
+.portal-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.portal-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: var(--surface-alt);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.portal-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+}
+
+/* ── Fluxo do sistema ── */
+.fluxo-list {
+  position: relative;
+  margin-top: 8px;
+}
+
+.fluxo-list::before {
+  content: "";
+  position: absolute;
+  left: 21px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent), #ece7f5);
+}
+
+.fluxo-item {
+  position: relative;
+  padding-left: 60px;
+  padding-bottom: 28px;
+}
+
+.fluxo-item:last-child {
+  padding-bottom: 0;
+}
+
+.fluxo-num {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.fluxo-title {
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 15px;
+  margin-bottom: 3px;
+}
+
+.fluxo-desc {
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+/* ── Funcionalidades / Roadmap ── */
+.feature-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: #3c3450;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.feature-check {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--accent);
+  margin-top: 5px;
+}
+
+.roadmap-card {
+  background: var(--surface-alt);
+  border: none;
+}
+
+.roadmap-item {
+  color: var(--muted);
+}
+
+.feature-circle {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  border: 2px solid #c9bce6;
+  margin-top: 4px;
+}
+
+/* ── Aviso ── */
+.aviso-box {
+  background: var(--surface-alt);
+  border-radius: 20px;
+  padding: 24px 32px;
+}
+
+.aviso-box .section-eyebrow {
+  margin-bottom: 8px;
+}
+
+.aviso-text {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 720px;
+}
+
+/* ── Responsivo ── */
+@media (max-width: 860px) {
+  .sobre-row {
+    grid-template-columns: 1fr;
+  }
+  .sobre-hero {
+    padding: 36px 28px;
+  }
+  .sobre-quote {
+    font-size: 30px;
+  }
+  .sobre-card {
+    padding: 24px 24px;
+  }
+}
+.team-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+
+gap:20px;
+
+margin-top:20px;
+
+}
+
+.team-card{
+
+background:#faf8fd;
+
+padding:25px;
+
+border-radius:18px;
+
+text-align:center;
+
+transition:.25s;
+
+border:1px solid #ece8f4;
+
+}
+
+.team-card:hover{
+
+transform:translateY(-6px);
+
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.team-avatar{
+
+width:72px;
+
+height:72px;
+
+border-radius:50%;
+
+background:#6d28d9;
+
+color:white;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:34px;
+
+margin:auto;
+
+margin-bottom:15px;
+
+}
+
+.team-card h4{
+
+margin-bottom:6px;
+
+}
+
+.team-card p{
+
+color:#666;
+
+margin-bottom:18px;
+
+}
+
+.team-links{
+
+display:flex;
+
+justify-content:center;
+
+gap:12px;
+
+}
+
+.team-links a{
+
+text-decoration:none;
+
+font-weight:600;
+
+color:#6d28d9;
+
+}

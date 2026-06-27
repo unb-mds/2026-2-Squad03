@@ -28,8 +28,7 @@ jobs:
 
       - name: Instalar Scrapy
         run: |
-          pip install scrapy
-          pip install playwright
+          pip install -r scrapers/requirements.txt
           playwright install --with-deps firefox
 
       - name: Executar script

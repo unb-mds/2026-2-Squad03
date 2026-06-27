@@ -1,30 +1,58 @@
+"""
+Módulo de configuração e conexão com o banco de dados.
+
+Este módulo gerencia a inicialização da conexão com o banco de dados usando SQLAlchemy.
+Ele carrega as variáveis de ambiente, configura a engine de conexão, define a base
+declarativa para os modelos e fornece um gerador para injeção de sessões do
+banco de dados nas rotas do FastAPI.
+"""
+
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 from dotenv import load_dotenv
 
-# Carrega as variáveis do arquivo .env
-load_dotenv()
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
-# Recupera a URL do banco. Se não encontrar no .env, usa uma local padrão
-DATABASE_URL = os.getenv(
-    "DATABASE_URL", 
-    "postgresql://postgres:postgres@localhost:5432/veritas_db"
-)
+# Carrega o arquivo .env
+load_dotenv(dotenv_path='.env', encoding='utf-8')
 
-# A Engine é o motor que gerencia a comunicação com o Postgres (seja local ou no Supabase)
+# Lê a URL do ambiente
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
+# Verifica se a URL foi carregada (ajuda a debugar)
+if not DATABASE_URL:
+    raise ValueError("A variável DATABASE_URL não foi encontrada. Verifique seu arquivo .env!")
+
 engine = create_engine(DATABASE_URL)
+"""Engine principal do SQLAlchemy conectada ao banco de dados."""
 
-# O SessionLocal é quem abre as portas para fazermos consultas e salvamentos
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+"""Fábrica de sessões configurada para interagir com o banco de dados de forma isolada."""
 
-# A Base que os nossos Models (models.py) usam para criar as tabelas
 Base = declarative_base()
+"""Classe base declarativa do SQLAlchemy para a definição dos modelos ORM."""
 
-# Função que o FastAPI usa para abrir e fechar a conexão nas rotas automaticamente
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
+
 def get_db():
+    """
+    Fornece uma sessão de banco de dados isolada por requisição.
+
+    Esta função atua como um gerador (generator) e foi desenhada para ser usada 
+    como uma dependência (Dependency Injection) no FastAPI. Ela garante que a
+    sessão seja aberta no momento em que a requisição chega e fechada com 
+    segurança após o término do processamento, evitando vazamento de conexões.
+
+    Yields:
+        Session: Uma instância de sessão do SQLAlchemy conectada ao banco.
+    """
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
+
+#+-------------------------------------------++-------------------------------------------++-------------------------------------------+

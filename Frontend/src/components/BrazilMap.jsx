@@ -1,64 +1,64 @@
+import { useState, useEffect, useMemo } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
+import { scaleLinear } from "d3-scale";
 
-const geoUrl =
-  "https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/brazil-states.geojson";
+const geoUrl = "https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/brazil-states.geojson";
 
-const stateData = {
-  SP: 320,
-  RJ: 210,
-  MG: 180,
-  BA: 160,
-  DF: 90,
-  RS: 140,
-};
+function BrazilMap({ data }) {
+  const [geoData, setGeoData] = useState(null);
 
-function getColor(value) {
-  if (value > 250) return "#312e81";
-  if (value > 180) return "#4338ca";
-  if (value > 120) return "#6366f1";
-  if (value > 80) return "#8b5cf6";
+  useEffect(() => {
+    fetch(geoUrl)
+      .then((res) => res.json())
+      .then((json) => setGeoData(json));
+  }, []);
 
-  return "#c4b5fd";
-}
+  const maxNoticias = useMemo(() => {
+    if (!data) return 0;
+    return Math.max(...Object.values(data), 1);
+  }, [data]);
 
-function BrazilMap() {
+  const colorScale = scaleLinear()
+    .domain([0, maxNoticias])
+    .range(["#d1d5db", "#4338ca"]);
+
+  if (!geoData) return <div>Carregando...</div>;
+
   return (
-    <div className="brazil-map">
-      <ComposableMap
-        projection="geoMercator"
-        projectionConfig={{
-          scale: 650,
-          center: [-54, -15],
-        }}
-      >
-        <Geographies geography={geoUrl}>
+    <div className="brazil-map-container">
+      <ComposableMap projection="geoMercator" projectionConfig={{ scale: 700, center: [-54, -15] }}>
+        <Geographies geography={geoData}>
           {({ geographies }) =>
             geographies.map((geo) => {
-              const uf = geo.properties.sigla;
-
-              const value = stateData[uf] || 20;
+              const mapNomeParaSigla = {
+                "Acre": "AC", "Alagoas": "AL", "Amapá": "AP", "Amazonas": "AM", "Bahia": "BA",
+                "Ceará": "CE", "Distrito Federal": "DF", "Espírito Santo": "ES", "Goiás": "GO",
+                "Maranhão": "MA", "Mato Grosso": "MT", "Mato Grosso do Sul": "MS", "Minas Gerais": "MG",
+                "Pará": "PA", "Paraíba": "PB", "Paraná": "PR", "Pernambuco": "PE", "Piauí": "PI",
+                "Rio de Janeiro": "RJ", "Rio Grande do Norte": "RN", "Rio Grande do Sul": "RS",
+                "Rondônia": "RO", "Roraima": "RR", "Santa Catarina": "SC", "São Paulo": "SP",
+                "Sergipe": "SE", "Tocantins": "TO"
+              };
+              
+              const uf = mapNomeParaSigla[geo.properties.name] || "";
+              const value = data ? (data[uf] || 0) : 0;
 
               return (
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  title={`${uf}: ${value} notícias`}
                   style={{
-                    default: {
-                      fill: getColor(value),
-                      stroke: "#ffffff",
-                      outline: "none",
+                    default: { 
+                      fill: value === 0 ? "#b7b6b6" : colorScale(value), 
+                      stroke: "#ffffff", 
+                      strokeWidth: 1 
                     },
-                    hover: {
-                      fill: "#111827",
+                    hover: { 
+                      fill: "#1e1b4b", 
                       stroke: "#ffffff",
-                      outline: "none",
-                    },
-                    pressed: {
-                      fill: "#1e1b4b",
-                      stroke: "#ffffff",
-                      outline: "none",
-                    },
+                      strokeWidth: 1.5,
+                      cursor: "pointer" 
+                    }
                   }}
                 />
               );
@@ -66,6 +66,14 @@ function BrazilMap() {
           }
         </Geographies>
       </ComposableMap>
+
+      <div className="map-legend-gradient">
+        <div className="legend-labels">
+          <span>Menos notícias</span>
+          <span>Mais notícias</span>
+        </div>
+        <div className="gradient-bar"></div>
+      </div>
     </div>
   );
 }

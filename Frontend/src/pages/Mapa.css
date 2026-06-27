@@ -1,0 +1,273 @@
+.map-page-container{
+
+    position:relative;
+    width:100%;
+}
+
+.map-legend{
+
+    margin-top:20px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:25px;
+
+    flex-wrap:wrap;
+
+}
+
+.map-legend h4{
+
+    margin:0;
+
+    font-size:17px;
+
+}
+
+.legend-items{
+
+    display:flex;
+
+    gap:25px;
+
+    flex-wrap:wrap;
+
+}
+
+.legend-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    font-size:14px;
+
+    font-weight:500;
+
+}
+
+.legend-dot{
+
+    width:14px;
+
+    height:14px;
+
+    border-radius:50%;
+
+}
+
+.red{
+
+    background:#d32f2f;
+
+}
+
+.orange{
+
+    background:#f57c00;
+
+}
+
+.blue{
+
+    background:#1976d2;
+
+}
+.popup-card{
+
+    width:220px;
+
+}
+
+.popup-image{
+
+    width:100%;
+
+    height:120px;
+
+    object-fit:cover;
+
+    border-radius:10px;
+
+    margin-bottom:12px;
+
+}
+
+.popup-card h4{
+
+    font-size:15px;
+
+    margin-bottom:14px;
+
+}
+
+.popup-btn{
+
+    width:100%;
+
+    padding:10px;
+
+    border:none;
+
+    background:#4f46e5;
+
+    color:white;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.popup-btn:hover{
+
+    background:#3730a3;
+
+}
+
+/* ================= MAPA ================= */
+
+.map-legend{
+
+    margin-top:25px;
+
+    background:white;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:18px;
+
+    padding:20px 24px;
+
+    box-shadow:0 4px 18px rgba(0,0,0,.06);
+
+}
+
+.legend-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:18px;
+
+}
+
+.legend-header h4{
+
+    margin:0;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    color:#111827;
+
+}
+
+.legend-icon{
+
+    font-size:22px;
+
+}
+
+.legend-items{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:18px;
+
+}
+
+.legend-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:10px 16px;
+
+    border-radius:12px;
+
+    background:#f8fafc;
+
+    transition:.2s;
+
+}
+
+.legend-item:hover{
+
+    background:#eef2ff;
+
+}
+
+.legend-dot{
+
+    width:14px;
+
+    height:14px;
+
+    border-radius:50%;
+
+    flex-shrink:0;
+
+}
+
+.red{
+
+    background:#dc2626;
+
+}
+
+.orange{
+
+    background:#ea580c;
+
+}
+
+.blue{
+
+    background:#2563eb;
+
+}
+
+.brazil-map-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.map-legend-gradient {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  font-size: 12px;
+  color: #666;
+}
+
+.legend-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.gradient-bar {
+  height: 10px;
+  width: 100%;
+  border-radius: 5px;
+  /* Estas cores devem ser as mesmas que você colocou no range() do d3-scale */
+  background: linear-gradient(to right, #e5e7eb, #818cf8, #4338ca);
+}

@@ -30,13 +30,13 @@ jobs:
 
       - name: Instalar LangChain e dependências
         run: |
-          pip install langchain
-          pip install python-dotenv
-          pip install langchain-google-genai
+          pip install -r backend/llm/requirements.txt
 
       - name: Executar LangChain
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_API_KEY_1: ${{ secrets.GOOGLE_API_KEY_1 }}
+          GOOGLE_API_KEY_2: ${{ secrets.GOOGLE_API_KEY_2 }}
         run: python backend/llm/langChain_Controller.py
 
       - name: LangChain executado, atualizando o repositório

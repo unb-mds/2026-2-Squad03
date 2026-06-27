@@ -1,0 +1,4 @@
+tzdata
+scrapy
+playwright
+emoji

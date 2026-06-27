@@ -1,0 +1,356 @@
+main.py
+
+
+# backend/app/main.py
+import os
+from sqlalchemy import text
+from backend.app.database import engine, Base
+# Garante que o SQLAlchemy carregue as classes antes de tentar criar as tabelas
+import backend.app.models
+
+from backend.app.database import engine, Base
+import backend.app.models as models
+
+#comando pra criar no supabase as tables 
+#Base.metadata.create_all(bind=engine)
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+# Apenas importe os arquivos de rotas que você vai usar
+from backend.app.adapters.api_adapter import auth_routes, noticias_routes , mapa_routes
+
+app = FastAPI(title="VeritasIA API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "https://two026-2-veritasia.onrender.com/"], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Registre os dois roteadores
+app.include_router(noticias_routes.router)
+app.include_router(mapa_routes.router)
+app.include_router(auth_routes.router)
+
+@app.get("/")
+def home():
+    def rodar_teste_infraestrutura():
+        print("\n" + "="*50)
+        print("🔄 [VeritasIA] Iniciando teste de conexão com o Supabase...")
+        print("="*50 + "\n")
+
+        # Mostra qual URL o motor (engine) configurado no database.py está usando
+        # O render_as_string(hide_password=True) protege sua senha de aparecer no terminal
+        url_configurada = engine.url.render_as_string(hide_password=True)
+        print(f"🔗 URL que o Python está tentando usar:\n👉 {url_configurada}\n")
+
+        try:
+            # Teste 1: Validação de Conexão e Ativação do PostGIS
+            print("📡 Passo 1: Testando canal de rede e autenticação...")
+            with engine.connect() as conexao:
+                # Executa uma query leve para testar a saúde do banco e ativa o PostGIS
+                conexao.execute(text("CREATE EXTENSION IF NOT EXISTS postgis;"))
+                conexao.commit()
+                print("✅ Sucesso! Conexão estabelecida e extensão PostGIS verificada.")
+
+            # Teste 2: Mapeamento ORM e Criação de Tabelas Reais na Nuvem
+            print("\n🔨 Passo 2: Sincronizando modelos com o banco de dados...")
+            print("🔄 Criando tabelas (usuarios, regioes_monitoradas, noticias)...")
+            
+            # O SQLAlchemy olha para o seu models.py e cria fisicamente as tabelas se não existirem
+            Base.metadata.create_all(bind=engine)
+            
+            print("🚀 Sucesso absoluto! Todas as tabelas foram geradas no Supabase.")
+            print("\n" + "="*50)
+            print("🎉 STATUS: Seu backend está PRONTO para salvar dados na nuvem!")
+            print("="*50 + "\n")
+
+        except Exception as e:
+            print("\n❌ OCORREU UM ERRO DURANTE O TESTE:")
+            print("-" * 50)
+            print(str(e))
+            print("-" * 50)
+            print("💡 Dica: Verifique se o host do Session Pooler e a senha estão batendo.")
+            print("="*50 + "\n")
+
+
+    rodar_teste_infraestrutura()
+    return {"message": "Bem-vindo a API do VeritasIA!"}
+
+*----------------------------------------------------------------------*-----------------------------+--------------------------------
+
+database.py
+
+import os
+from sqlalchemy import create_engine
+from sqlalchemy.orm import declarative_base, sessionmaker
+from dotenv import load_dotenv
+
+# Carrega o arquivo .env
+load_dotenv(dotenv_path='.env', encoding='utf-8')
+
+# Lê a URL do ambiente
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+# Verifica se a URL foi carregada (ajuda a debugar)
+if not DATABASE_URL:
+    raise ValueError("A variável DATABASE_URL não foi encontrada. Verifique seu arquivo .env!")
+
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+*----------------------------------------------------------------------*-----------------------------+--------------------------------
+
+auth_routes.py
+
+from fastapi import APIRouter, Depends, HTTPException, status
+from pydantic import BaseModel
+from sqlalchemy.orm import Session
+from backend.app.database import get_db
+
+router = APIRouter(
+    prefix="/auth",
+    tags=["Autenticação"]
+)
+
+# 📑 Criamos Schemas do Pydantic para a rota usar (em vez de usar a Entidade de Domínio Puro)
+class LoginRequest(BaseModel):
+    email: str
+    senha: str
+
+class AuthResponse(BaseModel):
+    id: int
+    nome: str
+    email: str
+    token: str  # Caso use JWT futuramente
+
+    class Config:
+        from_attributes = True # Permite ler objetos normais do Python
+
+# 🚀 A rota agora usa "response_model=AuthResponse" (Pydantic) e NÃO a entidade pura
+@router.post("/login", response_model=AuthResponse)
+def login(dados: LoginRequest, db: Session = Depends(get_db)):
+    # Sua lógica de autenticação aqui...
+    
+    # Exemplo de retorno simulado (que bate com o AuthResponse)
+    return {
+        "id": 1,
+        "nome": "Usuário Teste",
+        "email": dados.email,
+        "token": "token-falso-de-teste"
+    }
+
+*----------------------------------------------------------------------*-----------------------------+--------------------------------
+
+mapa_routes.py
+
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
+from typing import List
+from backend.app.database import get_db
+from backend.app.models import NoticiaModel as Noticia
+from backend.app.models import RegiaoModel as Regiao
+from backend.app.schemas.noticia import NoticiaCreate, NoticiaResponse
+import json
+from sqlalchemy.orm import Session
+from geoalchemy2.functions import ST_AsGeoJSON # Esta é a função principal
+from sqlalchemy import func
+
+router = APIRouter(
+    prefix="/mapa",
+    tags=["Mapas e Regiões"]
+)
+
+# 📱 Endpoint para o Front-end listar os locais que possuem alertas/notícias
+@router.get("/")
+def ler_noticias_mapa(db: Session = Depends(get_db)):
+    # Buscamos a Notícia e a Geometria (Região)
+    resultados = db.query(Noticia, Regiao.geom).join(Regiao).all()
+    
+    features = []
+    for noticia, geom in resultados:
+        features.append({
+            "type": "Feature",
+            "geometry": json.loads(db.scalar(ST_AsGeoJSON(geom))) if geom is not None else None,
+            "properties": {
+                "id": noticia.id,            # Incluímos o ID
+                "titulo": noticia.titulo,
+                "resumo": noticia.resumo_raw, # Incluímos o resumo
+                "veiculo": noticia.Portal,
+            }
+        
+        })
+        if features[-1]["geometry"] is None:
+            features.pop()  # Remove a feature se a geometria for nula
+            print(f"Geometria nula para a notícia: {noticia.titulo}")
+            
+    
+    return {"type": "FeatureCollection", "features": features}
+
+
+*----------------------------------------------------------------------*-----------------------------+--------------------------------
+
+noticias_routes.py
+
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
+from typing import List
+from backend.app.database import get_db
+from backend.app.models import NoticiaModel as Noticia
+from backend.app.schemas.noticia import NoticiaCreate, NoticiaResponse
+
+router = APIRouter(
+    prefix="/noticias",
+    tags=["Locais e Notícias"]
+)
+
+# 📱 Endpoint para o Front-end listar os locais que possuem alertas/notícias
+@router.get("/", response_model=List[NoticiaResponse])
+def listar_noticias_locais(skip: int = 0, limit: int = 50, db: Session = Depends(get_db)):
+    noticias = db.query(Noticia).offset(skip).limit(limit).all()
+    #print(noticias)
+    return noticias
+
+@router.get("/{id}", response_model=NoticiaResponse)
+def ler_noticia(id: int, db: Session = Depends(get_db)):
+    print(f"Buscando notícia com ID {id} no banco de dados...")
+    noticia = db.query(Noticia).filter(Noticia.id == id).first()
+    print(noticia, "Notícia encontrada no banco de dados")
+    if not noticia:
+        raise HTTPException(
+            status_code=404, 
+            detail="Notícia não encontrada"
+        )
+    
+    return noticia
+
+
+*----------------------------------------------------------------------*-----------------------------+--------------------------------
+
+db_adapter.py
+
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
+from typing import List
+from backend.app.database import get_db
+from backend.app.models import NoticiaModel as Noticia
+from backend.app.schemas.noticia import NoticiaCreate, NoticiaResponse
+
+router = APIRouter(
+    prefix="/noticias",
+    tags=["Locais e Notícias"]
+)
+
+# 📱 Endpoint para o Front-end listar os locais que possuem alertas/notícias
+@router.get("/", response_model=List[NoticiaResponse])
+def listar_noticias_locais(skip: int = 0, limit: int = 50, db: Session = Depends(get_db)):
+    noticias = db.query(Noticia).offset(skip).limit(limit).all()
+    #print(noticias)
+    return noticias
+
+@router.get("/{id}", response_model=NoticiaResponse)
+def ler_noticia(id: int, db: Session = Depends(get_db)):
+    print(f"Buscando notícia com ID {id} no banco de dados...")
+    noticia = db.query(Noticia).filter(Noticia.id == id).first()
+    print(noticia, "Notícia encontrada no banco de dados")
+    if not noticia:
+        raise HTTPException(
+            status_code=404, 
+            detail="Notícia não encontrada"
+        )
+    
+    return noticia
+
+*----------------------------------------------------------------------*-----------------------------+--------------------------------
+
+models.py
+
+from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
+from datetime import datetime
+from backend.app.database import Base
+from geoalchemy2 import Geometry
+
+class UsuarioModel(Base):
+    __tablename__ = "usuarios"
+
+    id = Column(Integer, primary_key=True, index=True)
+    nome = Column(String(150), nullable=True)
+    email = Column(String(150), unique=True, index=True, nullable=False)
+    senha = Column(String(255), nullable=False)
+
+
+class RegiaoModel(Base):
+    __tablename__ = "regioes_monitoradas"
+
+    id = Column(Integer, primary_key=True, index=True)
+    nome = Column(String(150), nullable=False)
+
+    geom = Column(Geometry('POINT', srid=4326), nullable=False)# Armazena a geometria como WKT (Well-Known Text)
+
+    # Relacionamento bidirecional: permite aceder às notícias desta região facilmente
+    noticias = relationship("NoticiaModel", back_populates="regiao", cascade="all, delete-orphan")
+
+
+class NoticiaModel(Base):
+    __tablename__ = "noticias"
+
+    id = Column(Integer, primary_key=True, index=True)
+    titulo = Column(String(300), nullable=False)
+    fonte_url = Column(String(500), unique=True, index=True, nullable=False)
+    conteudo = Column(String, nullable=True) # Mapeia para o tipo TEXT do Postgres
+    resumo_raw = Column(String, nullable=True) # Mapeia para o tipo TEXT do Postgres
+    resumo_blur = Column(String, nullable=True) # Mapeia para o tipo TEXT do Postgres
+    data_publicacao = Column(DateTime, default=datetime.utcnow)
+    Portal = Column(String, nullable=False)
+
+    # A nossa famosa Chave Estrangeira (Foreign Key)
+    regiao_id = Column(Integer, ForeignKey("regioes_monitoradas.id", ondelete="CASCADE"), nullable=False)
+    
+    # Aponta de volta para o modelo da Região
+    regiao = relationship("RegiaoModel", back_populates="noticias")
+
+*----------------------------------------------------------------------*-----------------------------+--------------------------------
+
+noticia.py
+
+from pydantic import BaseModel, ConfigDict, HttpUrl
+from datetime import datetime
+from typing import Optional
+
+# Dados que o Scraper PRECISA enviar ao cadastrar uma notícia
+class NoticiaCreate(BaseModel):
+    titulo: str
+    conteudo: str
+    resumo_raw: Optional[str] = None
+    resumo_blur: Optional[str] = None
+    fonte_url: str
+    data_publicacao: Optional[datetime] = None
+    localizacao_texto: Optional[str] = None  # Ex: "Brasília, DF"
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
+
+# Dados que a API vai RETORNAR (inclui o ID criado pelo banco)
+class NoticiaResponse(BaseModel):
+    id: int
+    titulo: str
+    fonte_url: str
+    conteudo: Optional[str] = None
+    resumo_raw: Optional[str] = None
+    resumo_blur: Optional[str] = None
+    data_publicacao: Optional[datetime] = None
+    regiao_id: int
+
+    # O from_attributes = True é a chave para o SQLAlchemy funcionar no Pydantic v2
+    model_config = ConfigDict(from_attributes=True)
+

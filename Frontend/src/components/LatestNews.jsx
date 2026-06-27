@@ -1,37 +1,38 @@
-function LatestNews() {
-  const news = [
-    {
-      title: "Caso de feminicídio é investigado pela polícia",
-      source: "G1",
-      state: "SP",
-      date: "12/05/2026",
-    },
-    {
-      title: "Mulher vítima de violência doméstica recebe medida protetiva",
-      source: "UOL",
-      state: "RJ",
-      date: "11/05/2026",
-    },
-    {
-      title: "Dados apontam aumento de denúncias no país",
-      source: "Folha",
-      state: "DF",
-      date: "10/05/2026",
-    },
-  ];
+import { useNavigate } from "react-router-dom";
+
+function LatestNews({ data }) {
+  const navigate = useNavigate();
+
+  // Função utilitária para formatar a data
+  const formatarData = (dataString) => {
+    if (!dataString) return "";
+    return new Date(dataString).toLocaleDateString('pt-BR');
+  };
+
+  // Verificação de segurança: se não houver dados, exibe mensagem ou vazio
+  if (!data || data.length === 0) {
+    return <div className="latest-news"><p>Nenhuma notícia recente.</p></div>;
+  }
 
   return (
     <div className="latest-news">
-      {news.map((item, index) => (
-        <div className="news-item" key={index}>
+      {data.map((item) => (
+        <div className="news-item" key={item.id}>
           <div>
-            <h4>{item.title}</h4>
+            <h4 
+              onClick={() => navigate(`/noticias/${item.id}`)}
+              style={{ cursor: "pointer", color: "#4338ca", textDecoration: "underline" }}
+            >
+              {item.titulo}
+            </h4>
             <p>
-              {item.source} • {item.state}
+              {item.Portal} • {item.regiao}
             </p>
           </div>
-
-          <span>{item.date}</span>
+          <div className="news-right">
+            <span>{formatarData(item.data_publicacao)}</span>
+            <span className="news-arrow">→</span>
+          </div>
         </div>
       ))}
     </div>
