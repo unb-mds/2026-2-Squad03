@@ -354,3 +354,7 @@ class NoticiaResponse(BaseModel):
     # O from_attributes = True é a chave para o SQLAlchemy funcionar no Pydantic v2
     model_config = ConfigDict(from_attributes=True)
 
+
+
+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
+
