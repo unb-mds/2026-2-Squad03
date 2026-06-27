@@ -42,9 +42,14 @@ nav:
       - Adapters: backend/FastAPI/adapters/adapter.md
       - Schemas: backend/FastAPI/schemas/schemas.md
       - Web Scraping: backend/scrapy/scrapy.md
-      - Automação: backend/scrapy/Automacao.md
-      - LangChain: backend/LangChain.md
-  - Participantes: sobre-nos.md
+      - Workflow Scrapy: backend/scrapy/Automacao.md
+      - LangChain: backend/langChain/LangChain.md
+      - Controlador: backend/langChain/LangChainControlador.md
+      - WorkFlow LangChain: backend/langChain/LangChainWorkFlow.md
+
+  - Participantes:
+        - sobre-nos.md
+
   - DashBoard:
       - Produtividade: dashboard/dashboard.md
 
