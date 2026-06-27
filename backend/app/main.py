@@ -28,7 +28,7 @@ Responsável por orquestrar rotas, middlewares e configurações da API.
 # Configuração de CORS para permitir requisições do frontend (local e em produção)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://two026-2-veritasia.onrender.com/"], 
+    allow_origins=["http://localhost:5173", "https://two026-2-veritasia.onrender.com/", "https://unb-mds.github.io/2026-2-VeritasIA/"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
