@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-29T02:12:48Z",
+  "generated_at": "2026-06-29T21:57:09Z",
   "repository": "unb-mds/2026-2-VeritasIA",
   "issues_per_week": [
     {
@@ -55,11 +55,11 @@
     },
     {
       "range": "21-50",
-      "count": 67
+      "count": 68
     },
     {
       "range": "51-100",
-      "count": 61
+      "count": 65
     },
     {
       "range": "101-200",
@@ -113,7 +113,7 @@
     {
       "day": 0,
       "hour": 21,
-      "count": 1
+      "count": 4
     },
     {
       "day": 0,
@@ -253,6 +253,11 @@
     {
       "day": 4,
       "hour": 1,
+      "count": 2
+    },
+    {
+      "day": 4,
+      "hour": 4,
       "count": 1
     },
     {
@@ -409,13 +414,13 @@
     {
       "username": "TheBagomes",
       "name": "Vitor Barreto Gomes",
-      "commits": 15,
+      "commits": 16,
       "avatar_url": "https://avatars.githubusercontent.com/u/154992563?v=4"
     },
     {
       "username": "unknown",
       "name": "unknown",
-      "commits": 5,
+      "commits": 9,
       "avatar_url": ""
     },
     {
@@ -426,6 +431,18 @@
     }
   ],
   "top_pr_authors": [
+    {
+      "username": "TheBagomes",
+      "name": "Vitor Barreto Gomes",
+      "prs_opened": 0,
+      "avatar_url": "https://avatars.githubusercontent.com/u/154992563?v=4"
+    },
+    {
+      "username": "unknown",
+      "name": "unknown",
+      "prs_opened": 0,
+      "avatar_url": ""
+    },
     {
       "username": "jadsonRleandro",
       "name": "Jadson Ricardo",
@@ -451,18 +468,6 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/215087737?v=4"
     },
     {
-      "username": "unknown",
-      "name": "unknown",
-      "prs_opened": 0,
-      "avatar_url": ""
-    },
-    {
-      "username": "TheBagomes",
-      "name": "Vitor Barreto Gomes",
-      "prs_opened": 0,
-      "avatar_url": "https://avatars.githubusercontent.com/u/154992563?v=4"
-    },
-    {
       "username": "christianrolim",
       "name": "Christian Silva Rolim",
       "prs_opened": 0,
@@ -479,20 +484,20 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/165057013?v=4"
     },
     {
-      "username": "jadsonRleandro",
-      "name": "Jadson Ricardo",
-      "opened": 1,
-      "closed": 10,
-      "total": 11,
-      "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
-    },
-    {
       "username": "TheBagomes",
       "name": "Vitor Barreto Gomes",
       "opened": 0,
       "closed": 11,
       "total": 11,
       "avatar_url": "https://avatars.githubusercontent.com/u/154992563?v=4"
+    },
+    {
+      "username": "jadsonRleandro",
+      "name": "Jadson Ricardo",
+      "opened": 1,
+      "closed": 10,
+      "total": 11,
+      "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
     },
     {
       "username": "danilofns",
