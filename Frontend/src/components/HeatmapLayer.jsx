@@ -14,9 +14,9 @@ function HeatmapLayer({ points }) {
     const validPoints = points.filter(p => p[0] != null && p[1] != null);
 
     const heatLayer = L.heatLayer(validPoints, {
-    radius: 50,      // Aumentar o raio faz os pontos se "fundirem" mais rápido
+    radius: 40,      // Aumentar o raio faz os pontos se "fundirem" mais rápido
     blur: 35,        // Aumentar o blur suaviza as manchas
-    maxZoom: 15,
+    maxZoom: 20,
     max: 0.5,        // Tente baixar de 1.0 para 0.5 ou 0.3 (isso torna o mapa muito mais "quente")
     minOpacity: 0.4, // Força os pontos a terem uma opacidade mínima
     gradient: { 

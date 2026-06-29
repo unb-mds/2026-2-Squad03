@@ -1,10 +1,16 @@
 """
 Adaptador de repositório para o banco de dados PostgreSQL.
 
-Este módulo implementa o Padrão de Repositório (Repository Pattern).
-Seu objetivo é isolar a lógica de acesso a dados (SQLAlchemy) das regras de 
-negócio (rotas/FastAPI). Ele fornece métodos simples e diretos para realizar
-operações de CRUD no banco de dados.
+Este módulo implementa o Padrão de Repositório (Repository Pattern), uma técnica 
+de arquitetura de software que separa a lógica de acesso a dados (SQLAlchemy) 
+das regras de negócio da aplicação (rotas/FastAPI).
+
+Informações Úteis:
+    - Desacoplamento: As rotas não precisam saber como o SQLAlchemy funciona; 
+      elas apenas invocam métodos do adaptador. Isso facilita a troca futura de 
+      tecnologia de persistência.
+    - Gerenciamento de Transações: O adaptador assume a responsabilidade de 
+      `commit`, garantindo que as operações sejam atômicas.
 """
 
 from sqlalchemy.orm import Session
@@ -14,52 +20,57 @@ from backend.app.models import UsuarioModel, RegiaoModel, NoticiaModel
 
 class PostgresRepositoryAdapter:
     """
-    Classe adaptadora para manipulação de dados no PostgreSQL.
+    Classe adaptadora (Repository) para manipulação de dados no PostgreSQL.
 
-    Encapsula as operações de banco de dados, recebendo uma sessão ativa 
-    e executando as transações necessárias usando os modelos do SQLAlchemy.
+    Encapsula as operações de CRUD (Create, Read, Update, Delete), abstraindo 
+    a complexidade do SQLAlchemy e expondo métodos de negócio intuitivos.
 
     Attributes:
-        db (Session): Sessão ativa do banco de dados injetada na inicialização.
+        db (Session): Sessão ativa do SQLAlchemy injetada para persistência.
     """
 
     def __init__(self, db: Session):
         """
-        Inicializa o adaptador com uma sessão do banco de dados.
+        Inicializa o adaptador com uma sessão de banco de dados ativa.
 
         Args:
-            db (Session): Instância de sessão do SQLAlchemy conectada ao banco.
+            db (Session): Instância de sessão conectada ao pool de conexões do Supabase.
         """
-        # O adaptador recebe a sessão ativa do banco de dados para trabalhar
         self.db = db
 
 #+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
     def salvar_usuario(self, user_data: dict) -> bool:
         """
-        Cria e salva um novo usuário no banco de dados.
+        Persiste um novo registro de usuário na tabela de usuários.
 
-        Recebe um dicionário com os dados do usuário, converte para o modelo 
-        ORM correspondente (`UsuarioModel`), adiciona à sessão e realiza o commit 
-        da transação.
+        Converte um dicionário de dados (DTO) para o modelo ORM (`UsuarioModel`), 
+        efetuando a inserção atômica no banco de dados.
 
         Args:
-            user_data (dict): Dicionário contendo os dados do usuário.
-                Espera-se as chaves 'nome', 'email' e 'senha'.
+            user_data (dict): Dicionário contendo as credenciais.
+                Chaves esperadas: 'nome', 'email', 'senha'.
 
         Returns:
-            bool: Retorna True após confirmar a transação (commit) com sucesso.
+            bool: Retorna `True` se a transação for commitada com sucesso.
+
+        Raises:
+            sqlalchemy.exc.SQLAlchemyError: Pode levantar exceções de integridade 
+                (ex: e-mail duplicado) se houver violação de constraints no banco.
         """
-        # 1. Transforma o dicionário vindo do FastAPI em um Objeto do banco
+        # 1. Mapeamento do dicionário para a entidade ORM
         novo_usuario = UsuarioModel(
             nome=user_data.get("nome"),
             email=user_data.get("email"),
             senha=user_data.get("senha")
         )
-        # 2. Avisa o SQLAlchemy que queremos inserir esse objeto
+        
+        # 2. Adição à fila de transações da sessão
         self.db.add(novo_usuario)
-        # 3. Confirma a transação no PostgreSQL (executa o INSERT)
+        
+        # 3. Execução física no PostgreSQL
         self.db.commit()
+        
         return True
 
 #+-------------------------------------------++-------------------------------------------++-------------------------------------------+
