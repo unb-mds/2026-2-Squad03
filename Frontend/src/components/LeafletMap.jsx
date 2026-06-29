@@ -1,32 +1,11 @@
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  Polygon,
-} from "react-leaflet";
-
-import "leaflet/dist/leaflet.css";
-
-import { noticias } from "../data/noticias";
-
+import { useState, useEffect, useMemo } from "react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useNavigate } from "react-router-dom";
-
 import L from "leaflet";
-
 import { renderToStaticMarkup } from "react-dom/server";
-
 import { FaMapMarkerAlt } from "react-icons/fa";
-
-const coordenadas = {
-  SP: [-23.5505, -46.6333],
-  RJ: [-22.9068, -43.1729],
-  MG: [-19.9167, -43.9345],
-  DF: [-15.7801, -47.9292],
-  BA: [-12.9714, -38.5014],
-  RS: [-30.0346, -51.2177],
-  CE: [-3.7319, -38.5267],
-};
+import HeatmapLayer from "./HeatmapLayer";
+import "leaflet/dist/leaflet.css";
 
 function criarIcone(cor) {
   return new L.DivIcon({
@@ -35,7 +14,7 @@ function criarIcone(cor) {
         size={36}
         color={cor}
         style={{
-          filter:"drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.35))",
+          filter: "drop-shadow(0px 4px 8px rgba(0,0,0,.35))",
         }}
       />
     ),
@@ -46,102 +25,96 @@ function criarIcone(cor) {
   });
 }
 
-const markerRed = criarIcone("#dc2626");
+const icons = {
+  feminicidio: criarIcone("#dc2626"),
+  violencia: criarIcone("#ea580c"),
+  outros: criarIcone("#2563eb"),
+};
 
-const markerOrange = criarIcone("#ea580c");
+function LeafletMap({ viewType }) {
+  const [geoJsonData, setGeoJsonData] = useState(null);
 
-const markerBlue = criarIcone("#2563eb");
-
-function getMarker(tipo) {
-
-  switch(tipo){
-
-    case "feminicidio":
-      return markerRed;
-
-    case "violencia":
-      return markerOrange;
-
-    default:
-      return markerBlue;
-
-  }
-
-}
-
-function LeafletMap() {
   const navigate = useNavigate();
-  
-  const regioesMonitoradas = [
-    {
-      nome: "Distrito Federal",
-      coordenadas: [
-        [-15.5, -48.2],
-        [-15.5, -47.6],
-        [-16.0, -47.6],
-        [-16.0, -48.2],
-      ],
-    },
-  ];
+
+  useEffect(() => {
+    fetch("https://two026-2-veritasia.onrender.com/mapa/")
+      .then((res) => res.json())
+      .then(setGeoJsonData)
+      .catch(console.error);
+  }, []);
+
+  const heatPoints = useMemo(() => {
+    if (!geoJsonData?.features) return [];
+
+    return geoJsonData.features
+      .filter((feature) => feature.geometry?.type === "Point")
+      .map((feature) => [
+        feature.geometry.coordinates[1],
+        feature.geometry.coordinates[0],
+        0.8,
+      ]);
+  }, [geoJsonData]);
+
+  if (!geoJsonData) {
+    return <div>Carregando mapa...</div>;
+  }
 
   return (
     <MapContainer
       center={[-15.7801, -47.9292]}
       zoom={4}
+      minZoom={4}
+      maxZoom={12}
       style={{ height: "600px", width: "100%" }}
     >
-      
       <TileLayer
         attribution="&copy; OpenStreetMap contributors"
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      {noticias.map((noticia) => (
-        <Marker 
-          key={noticia.id}
-          position={coordenadas[noticia.estado]}
-          icon={getMarker(noticia.tipo)}>
-        <Popup>
-          <div className="popup-card">
+      {viewType === "heat" && (
+        <HeatmapLayer
+          key="heatmap"
+          points={heatPoints}
+        />
+      )}
 
-            <img
-              src="https://placehold.co/320x180?text=Notícia"
-              alt={noticia.titulo}
-              className="popup-image"
-            />
+      {viewType === "markers" &&
+        geoJsonData.features.map((feature, index) => {
+          if (feature.geometry?.type !== "Point") return null;
 
-          <h4>{noticia.titulo}</h4>
+          const { id, titulo, tipo } = feature.properties;
 
-          <button
-            className="popup-btn"
-            onClick={() => navigate(`/noticias/${noticia.id}`)}
-          >
-            Ler notícia →
-          </button>
+          return (
+            <Marker
+              key={id || index}
+              position={[
+                feature.geometry.coordinates[1],
+                feature.geometry.coordinates[0],
+              ]}
+              icon={icons[tipo] || icons.outros}
+            >
+              <Popup>
+                <div className="popup-card">
+                  <img
+                    src="https://placehold.co/320x180?text=Notícia"
+                    alt={titulo}
+                    className="popup-image"
+                  />
 
-          </div>
-        </Popup>
-        </Marker>
-      ))}
+                  <h4>{titulo}</h4>
 
-      {regioesMonitoradas.map((regiao, index) => (
-        <Polygon
-          key={index}
-          positions={regiao.coordenadas}
-          pathOptions={{
-            color: "#4338ca",
-            fillColor: "#6366f1",
-            fillOpacity: 0.3,
-          }}
-        >
-          <Popup>
-            <div>
-              <strong>{regiao.nome}</strong>
-              <p>Região monitorada pelo sistema.</p>
-            </div>
-          </Popup>
-        </Polygon>
-      ))}
+                  <button
+                    className="popup-btn"
+                    onClick={() => navigate(`/noticias/${id}`)}
+                  >
+                    Ler notícia →
+                  </button>
+                </div>
+              </Popup>
+            </Marker>
+          );
+        })}
     </MapContainer>
   );
 }

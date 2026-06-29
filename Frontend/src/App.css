@@ -1054,11 +1054,14 @@ body {
 .brazil-map {
   width: 100%;
   height: 320px;
+  position: relative;
 }
 
 .brazil-map svg {
   width: 100%;
   height: 100%;
+  display: block;
+  
 }
 .map-page-container {
   width: 100%;
@@ -1075,3 +1078,4 @@ body {
   width: 100%;
   max-width: 1000px;
 }
+

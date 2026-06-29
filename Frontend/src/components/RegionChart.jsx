@@ -1,21 +1,39 @@
+import { useState, useEffect } from "react";
+
 function RegionChart() {
-  const regions = [
-    { name: "Sudeste", value: 420, percent: "90%" },
-    { name: "Nordeste", value: 310, percent: "70%" },
-    { name: "Sul", value: 210, percent: "50%" },
-    { name: "Centro-Oeste", value: 160, percent: "38%" },
-    { name: "Norte", value: 120, percent: "28%" },
-  ];
+  const [regions, setRegions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchRegions() {
+      try {
+        const response = await fetch('https://two026-2-veritasia.onrender.com/dashboard/');
+        const data = await response.json();
+        // Acessamos a chave 'top_regioes' que configuramos no backend
+        setRegions(data.top_regioes || []);
+      } catch (err) {
+        console.error("Erro ao buscar dados de regiões:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchRegions();
+  }, []);
+
+  if (loading) return <div className="region-list"><p>Carregando regiões...</p></div>;
 
   return (
     <div className="region-list">
       {regions.map((region, index) => (
-        <div key={index}>
-          <span>{region.name}</span>
-          <div className="bar">
-            <div style={{ width: region.percent }}></div>
+        <div key={index} className="region-item">
+          <div className="region-info">
+            <span>{region.name}</span>
+            <strong>{region.value}</strong>
           </div>
-          <strong>{region.value}</strong>
+          <div className="bar">
+            {/* O estilo width usa diretamente a string percent vinda do backend (ex: "45%") */}
+            <div className="bar-fill" style={{ width: region.percent }}></div>
+          </div>
         </div>
       ))}
     </div>

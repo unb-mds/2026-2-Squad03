@@ -242,3 +242,32 @@
     background:#2563eb;
 
 }
+
+.brazil-map-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.map-legend-gradient {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  font-size: 12px;
+  color: #666;
+}
+
+.legend-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.gradient-bar {
+  height: 10px;
+  width: 100%;
+  border-radius: 5px;
+  /* Estas cores devem ser as mesmas que você colocou no range() do d3-scale */
+  background: linear-gradient(to right, #e5e7eb, #818cf8, #4338ca);
+}
