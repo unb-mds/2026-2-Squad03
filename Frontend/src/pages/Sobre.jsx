@@ -37,17 +37,34 @@ const ROADMAP = [
   "Análise de sentimento",
   "Classificação automática de notícias",
   "API pública para consulta de dados",
+
 ];
 
 const EQUIPE = [
   {
     nome: "Vitor Barreto Gomes",
-    funcao: "Frontend",
-    github: "https://github.com/TheBagomes",
-
+    github: "TheBagomes",
   },
 
-  
+  {
+    nome: "Daniel",
+    github: "Daniel241025",
+  },
+
+  {
+    nome: "Danilo",
+    github: "danilofns",
+  },
+
+  {
+    nome: "Henrique",
+    github: "SchneiderCode1",
+  },
+
+  {
+    nome: "Jadson",
+    github: "jadsonRleandro",
+  },
 ];
 
 export default function Sobre() {
@@ -170,6 +187,43 @@ export default function Sobre() {
               </ul>
             </section>
           </div>
+          
+          <section className="sobre-card">
+  <span className="section-eyebrow">Equipe</span>
+
+  <h3 className="section-title">
+    Integrantes do VeritasIA
+  </h3>
+
+  <p className="section-sub">
+    Equipe responsável pelo desenvolvimento do projeto.
+  </p>
+
+  <div className="team-grid">
+    {EQUIPE.map((membro) => (
+      <div className="team-card" key={membro.nome}>
+        <img
+          src={`https://github.com/${membro.github}.png`}
+          alt={membro.nome}
+          className="team-avatar"
+        />
+
+        <h4>{membro.nome}</h4>
+
+        <p>{membro.funcao}</p>
+
+        <a
+          href={`https://github.com/${membro.github}`}
+          target="_blank"
+          rel="noreferrer"
+          className="github-link"
+        >
+          GitHub →
+        </a>
+      </div>
+    ))}
+  </div>
+</section>
 
           <section className="aviso-box">
             <div className="aviso-icon">⚖️</div>

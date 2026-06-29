@@ -23,9 +23,13 @@ O caso segue sendo investigado pelas autoridades.`,
     data: "12/05/2026",
     estado: "SP",
     cidade: "São Paulo",
+    posicao: [-23.5505, -46.6333],
+    local: "São Paulo - SP",
     status: "Verificado",
     link: "https://g1.globo.com/",
     conteudoSensivel: true,
+    tipo:"violencia"
+    
   },
 
   {
@@ -42,10 +46,13 @@ O caso segue sendo investigado pelas autoridades.`,
     data: "11/05/2026",
     estado: "MG",
     cidade: "Belo Horizonte",
+    posicao: [-19.9167, -43.9345],
+    local: "Belo Horizonte - MG",
     categoria: "Feminicídio",
     status: "Em análise",
     link: "https://uol.com.br",
     conteudoSensivel: true,
+    tipo:"violencia"
   },
 
   {
@@ -62,9 +69,12 @@ O caso segue sendo investigado pelas autoridades.`,
     data: "11/05/2026",
     estado: "RJ",
     cidade: "Rio de Janeiro",
+    posicao: [-22.9068, -43.1729],
+    local: "Rio de Janeiro - RJ",
     categoria: "Prisão",
     status: "Verificado",
     link: "https://metropoles.com",
     conteudoSensivel: false,
+    tipo:"outros"
   },
 ];

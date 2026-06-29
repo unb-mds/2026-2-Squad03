@@ -10,15 +10,15 @@ import DetalhesNoticia from "./pages/DetalhesNoticia";
 function App() {
   return (
     <HashRouter>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/noticias" element={<Noticias />} />
-        <Route path="/noticias/:id" element={<DetalhesNoticia />} />
-        <Route path="/sobre" element={<Sobre />} />
-        <Route path="/mapa" element={<Mapa />} />
-      </Routes>
+     <Routes>
+      <Route path="/" element={<Dashboard />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/noticias" element={<Noticias />} />
+      <Route path="/noticias/:id" element={<DetalhesNoticia />} />
+      <Route path="/sobre" element={<Sobre />} />
+      <Route path="/mapa" element={<Mapa />} />
+</Routes>
     </HashRouter>
   );
 }
