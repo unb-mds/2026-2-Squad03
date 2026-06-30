@@ -1,3 +1,78 @@
+/**
+ * ============================================================================
+ * Componente: DetalhesNoticia
+ * ----------------------------------------------------------------------------
+ * Responsável por exibir as informações completas de uma notícia
+ * selecionada pelo usuário.
+ *
+ * Funcionalidades:
+ * - Busca os detalhes da notícia através da API.
+ * - Exibe informações complementares da publicação.
+ * - Apresenta um aviso de conteúdo sensível antes da visualização.
+ * - Permite acessar a fonte original da notícia.
+ *
+ * Dependências:
+ * - React Router
+ * - Sidebar
+ * - PageHeader
+ * ============================================================================
+ */
+
+/**
+ * Obtém o identificador da notícia presente na URL.
+ *
+ * Exemplo:
+ * /noticias/15
+ 
+const { id } = useParams();*/
+
+/* Responsável pela navegação entre as páginas da aplicação.
+const navigate = useNavigate();*/
+
+/**
+ * Indica se o usuário deseja ocultar permanentemente
+ * o aviso de conteúdo sensível.
+ 
+const [naoMostrarNovamente, setNaoMostrarNovamente] = useState(false);
+
+ * Controla a exibição do aviso de conteúdo sensível.
+ *
+ * O valor inicial é recuperado do localStorage,
+ * preservando a preferência do usuário.
+
+const [mostrarAviso, setMostrarAviso] = useState(() => {*/
+
+/**
+ * Armazena os dados completos da notícia.
+
+const [noticia, setNoticia] = useState(null);
+
+ * Controla o estado de carregamento.
+
+const [loading, setLoading] = useState(true);
+
+ * Indica falha durante a obtenção da notícia.
+
+const [erro, setErro] = useState(false);*/
+
+/**
+ * Executado sempre que o identificador da notícia
+ * for alterado.
+ *
+ * Responsável por buscar os detalhes da notícia
+ * correspondente na API.
+ 
+useEffect(() => {*/
+
+/**fetchNoticiaDetalhada
+ * Busca os detalhes completos da notícia.
+ *
+ * Além da requisição, adapta os dados retornados
+ * pela API para o formato utilizado pelo frontend.
+ */
+
+
+
 import "../App.css";
 import "./DetalhesNoticia.css";
 import { useState, useEffect } from "react";

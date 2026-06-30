@@ -1,9 +1,48 @@
+/**
+ * ============================================================================
+ * Componente: Mapa
+ * ----------------------------------------------------------------------------
+ * Página responsável pela visualização geográfica das notícias monitoradas
+ * pelo sistema VeritasIA.
+ *
+ * Funcionalidades:
+ * - Exibe o mapa interativo da aplicação.
+ * - Permite alternar entre visualização por marcadores e mapa de calor.
+ * - Apresenta uma legenda com as categorias monitoradas.
+ *
+ * Componentes utilizados:
+ * - Sidebar
+ * - PageHeader
+ * - LeafletMap
+ *
+ * Dependências:
+ * - React
+ * - React Leaflet
+ * ============================================================================
+ */
+
 import { useState } from "react";
 import "../App.css";
 import "./Mapa.css";
 import Sidebar from "../components/Sidebar";
 import LeafletMap from "../components/LeafletMap";
 import PageHeader from "../components/PageHeader";
+
+/** UseState
+ * Controla o tipo de visualização do mapa.
+ *
+ * Valores possíveis:
+ * - "markers": exibe cada notícia como um marcador individual.
+ * - "heat": exibe um mapa de calor baseado na concentração das ocorrências.
+ */
+
+/* JSX antes do Seletor 
+  Seleciona o modo de visualização do mapa. */
+/* Antes do mapa:
+Componente responsável pela renderização do mapa interativo. */
+/* Antes da legenda
+  Legenda utilizada para identificar as categorias das notícias. */
+
 
 function Mapa() {
   const [viewType, setViewType] = useState("markers");

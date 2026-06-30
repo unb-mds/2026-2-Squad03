@@ -1,4 +1,20 @@
-﻿import Sidebar from "../components/Sidebar";
+﻿/**
+ * ============================================================================
+ * Componente: Sobre
+ * ----------------------------------------------------------------------------
+ * Página institucional do projeto VeritasIA.
+ *
+ * Apresenta:
+ * - Objetivos.
+ * - Tecnologias.
+ * - Arquitetura.
+ * - Fluxo de processamento.
+ * - Equipe.
+ * - Roadmap.
+ * ============================================================================
+ */
+
+import Sidebar from "../components/Sidebar";
 import "../App.css";
 import "./Sobre.css";
 

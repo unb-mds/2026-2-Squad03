@@ -1,3 +1,36 @@
+/**
+ * ============================================================================
+ * Componente: RegionChart
+ * ----------------------------------------------------------------------------
+ * Exibe a distribuição das notícias por região
+ * brasileira.
+ *
+ * Cada região apresenta:
+ * - quantidade absoluta;
+ * - barra proporcional.
+ * ============================================================================
+ */
+
+/**
+ * Armazena as estatísticas por região.
+ 
+const [regions, setRegions] = useState([]);
+
+/**
+ * Controla o estado de carregamento.
+ 
+const [loading, setLoading] = useState(true);*/
+
+/** UseEffect
+ * Busca as estatísticas regionais
+ * durante a inicialização do componente.
+ */
+
+/** fetchRegions
+ * Busca as estatísticas regionais
+ * durante a inicialização do componente.
+ */
+
 import { useState, useEffect } from "react";
 
 function RegionChart() {

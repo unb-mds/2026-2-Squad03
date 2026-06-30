@@ -1,3 +1,32 @@
+/**
+ * ============================================================================
+ * Componente: TopVehicles
+ * ----------------------------------------------------------------------------
+ * Exibe os principais portais de notícias monitorados
+ * pelo sistema.
+ *
+ * Para cada portal são apresentados:
+ * - quantidade de notícias;
+ * - percentual de participação;
+ * - barra proporcional.
+ * ============================================================================
+ */
+
+/**
+ * Armazena os dados retornados pela API.
+
+const [info, setInfo] = useState(null);*/
+
+/*
+* Controla o estado de carregamento.
+ 
+const [loading, setLoading] = useState(true);*/
+
+/** UseEffect
+ * Busca os dados estatísticos necessários
+ * para construção da lista de portais.
+ */
+
 import { useState, useEffect } from "react";
 
 function TopVehicles() {

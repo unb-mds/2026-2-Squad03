@@ -1,3 +1,47 @@
+/**
+ * ============================================================================
+ * Componente: BrazilMap
+ * ----------------------------------------------------------------------------
+ * Renderiza um mapa coroplético do Brasil utilizando react-simple-maps.
+ *
+ * Cada estado recebe uma coloração proporcional à quantidade
+ * de notícias monitoradas.
+ *
+ * Props:
+ * - data: objeto contendo a quantidade de notícias por UF.
+ * ============================================================================
+ */
+
+/** geoUrl
+ * Fonte do GeoJSON contendo os limites geográficos
+ * dos estados brasileiros.
+ */
+
+/**
+ * Armazena o arquivo GeoJSON utilizado para
+ * desenhar o mapa do Brasil.
+ 
+const [geoData, setGeoData] = useState(null); */
+
+/** UseEffect
+ * Carrega o arquivo GeoJSON durante
+ * a inicialização do componente.
+ */
+
+/**
+ * Calcula a maior quantidade de notícias registrada
+ * entre os estados.
+ *
+ * useMemo evita recalcular esse valor
+ * sempre que o componente for renderizado.
+ 
+const maxNoticias = useMemo(() => { */
+
+/** ColorScale
+ * Escala de cores utilizada para representar
+ * visualmente a intensidade das ocorrências.
+ */
+
 import { useState, useEffect, useMemo } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { scaleLinear } from "d3-scale";

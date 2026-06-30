@@ -1,3 +1,27 @@
+/**
+ * ============================================================================
+ * Componente: AuthPrompt
+ * ----------------------------------------------------------------------------
+ * Modal responsável por incentivar a autenticação do usuário.
+ *
+ * Funcionalidades:
+ * - Permite acessar a página de login.
+ * - Permite acessar a tela de cadastro.
+ * - Possibilita continuar utilizando o sistema sem autenticação.
+ *
+ * Props:
+ * - onClose: função responsável por fechar o modal.
+ * ============================================================================
+ */
+
+/* Overlay responsável por fechar o modal ao clicar fora dele. */
+
+/* Impede que cliques dentro do modal fechem a janela. */
+
+/* Fecha o modal mantendo o usuário na página atual. */
+
+/* Opções de autenticação disponíveis para o usuário. */
+
 import { Link } from "react-router-dom";
 
 function AuthPrompt({ onClose }) {

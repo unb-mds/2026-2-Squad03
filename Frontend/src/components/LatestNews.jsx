@@ -1,3 +1,31 @@
+/**
+ * ============================================================================
+ * Componente: LatestNews
+ * ----------------------------------------------------------------------------
+ * Exibe a lista das notícias mais recentes
+ * retornadas pelo backend.
+ *
+ * Funcionalidades:
+ * - Formata a data de publicação.
+ * - Permite navegar para a página de detalhes.
+ *
+ * Props:
+ * - data: lista de notícias recentes.
+ * ============================================================================
+ */
+
+//Navigate: Utilizado para navegar até a página de detalhes da notícia.
+
+/** FormatarData
+ * Converte a data recebida da API
+ * para o formato brasileiro.
+ *
+ * @param {string} dataString
+ * @returns {string}
+ */
+
+
+
 import { useNavigate } from "react-router-dom";
 
 function LatestNews({ data }) {
