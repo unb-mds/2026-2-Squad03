@@ -1,4 +1,85 @@
-import { useState, useEffect, useMemo } from "react";
+/**
+ * ============================================================================
+ * Componente: LeafletMap
+ * ----------------------------------------------------------------------------
+ * Responsável pela renderização do mapa interativo utilizando React Leaflet.
+ *
+ * Funcionalidades:
+ * - Busca os dados geográficos da API.
+ * - Renderiza marcadores personalizados.
+ * - Exibe mapa de calor.
+ * - Permite navegar para a página de detalhes da notícia.
+ *
+ * Dependências:
+ * - React Leaflet
+ * - Leaflet
+ * - React Router
+ * ============================================================================
+ */
+
+/**
+ * Cria um ícone personalizado para os marcadores do mapa.
+ *
+ * Utiliza um ícone React convertido em HTML através do
+ * renderToStaticMarkup para integração com o Leaflet.
+ *
+ * @param {string} cor Cor utilizada no marcador.
+ * @returns {L.DivIcon} Ícone personalizado do Leaflet.
+ */
+
+/**const icons = {
+ *
+ * Conjunto de ícones utilizados para representar
+ * visualmente cada categoria de notícia.
+ */
+
+/** const [geoJsonData, setGeoJsonData] = useState(null);
+ * Armazena os dados geográficos retornados pela API
+ * no formato GeoJSON.
+ */
+
+// const navigate = useNavigate();
+// Responsável pela navegação para a página de detalhes da notícia.
+
+/**useEffect(() => {
+ * Executado apenas durante a montagem do componente.
+ *
+ * Realiza a requisição dos dados geográficos utilizados
+ * pelo mapa e armazena o resultado no estado geoJsonData.
+ *
+ * O array de dependências vazio garante apenas
+ * uma chamada à API durante a inicialização.
+ */
+
+  /** const heatPoints = useMemo(() => {
+ * Gera os pontos utilizados pelo mapa de calor.
+ *
+ * useMemo é utilizado para evitar que essa transformação
+ * seja recalculada a cada renderização do componente.
+ *
+ * O cálculo será executado apenas quando geoJsonData
+ * sofrer alguma alteração.
+ */
+// LOADING
+// Enquanto os dados ainda não foram carregados,
+// exibe uma mensagem de carregamento.
+
+/*MAP CONTAINER
+ Configuração principal do mapa Leaflet. */
+
+/* TileLayer
+ Camada base utilizando mapas do OpenStreetMap.*/
+
+/*Heatmap
+Exibe o mapa de calor quando selecionado pelo usuário. */
+
+/*Marker
+ Renderiza um marcador para cada notícia georreferenciada. */
+
+/*Popup
+ Informações resumidas da notícia selecionada. */
+
+ import { useState, useEffect, useMemo } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useNavigate } from "react-router-dom";
 import L from "leaflet";

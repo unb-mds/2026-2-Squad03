@@ -1,3 +1,30 @@
+/**
+ * ============================================================================
+ * Componente: Login
+ * ----------------------------------------------------------------------------
+ * Página responsável pela autenticação dos usuários.
+ *
+ * Funcionalidades:
+ * - Login.
+ * - Cadastro.
+ * - Alternância entre os formulários.
+ *
+ * Observação:
+ * Nesta versão os formulários possuem apenas
+ * finalidade visual, aguardando integração
+ * com o backend de autenticação.
+ * ============================================================================
+ */
+
+/**
+ * Controla qual formulário é exibido.
+ *
+ * false -> Login
+ * true  -> Cadastro
+ 
+const [isRegister, setIsRegister] = useState(false);*/
+
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logoVeritas from "../assets/logo.png";

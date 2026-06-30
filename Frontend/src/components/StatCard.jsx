@@ -1,3 +1,21 @@
+/**
+ * ============================================================================
+ * Componente: StatCard
+ * ----------------------------------------------------------------------------
+ * Cartão reutilizável responsável por exibir
+ * indicadores estatísticos do Dashboard.
+ *
+ * Props:
+ * - title
+ * - value
+ * - description
+ * - icon
+ *
+ * Utilizado para apresentar métricas resumidas
+ * obtidas da API.
+ * ============================================================================
+ */
+
 function StatCard({ title, value, description, icon }) {
   return (
     <div className="card">

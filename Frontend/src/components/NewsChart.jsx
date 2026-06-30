@@ -1,3 +1,43 @@
+/**
+ * ============================================================================
+ * Componente: NewsChart
+ * ----------------------------------------------------------------------------
+ * Responsável por exibir a evolução temporal da quantidade de notícias
+ * monitoradas pelo sistema.
+ *
+ * Funcionalidades:
+ * - Obtém os dados estatísticos do Dashboard.
+ * - Renderiza um gráfico de linhas utilizando Recharts.
+ * - Exibe a quantidade de notícias publicadas por dia.
+ *
+ * Bibliotecas:
+ * - Recharts
+ * ============================================================================
+ */
+
+/** 
+ * Armazena os dados utilizados pelo gráfico.
+ 
+const [data, setData] = useState([]);
+
+ * Controla o estado de carregamento da requisição.
+ 
+const [loading, setLoading] = useState(true);*/
+
+/**
+ * Executado apenas durante a montagem do componente.
+ *
+ * Responsável por obter os dados necessários para
+ * construção do gráfico temporal.
+ 
+useEffect(() => { */
+
+/**
+ * Realiza a requisição das estatísticas utilizadas
+ * pelo gráfico de evolução das notícias.
+ 
+async function fetchData() { */
+
 import { useState, useEffect } from "react";
 import {
   LineChart,

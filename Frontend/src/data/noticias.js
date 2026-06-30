@@ -1,3 +1,28 @@
+/**
+ * ============================================================================
+ * Arquivo: noticias.js
+ * ----------------------------------------------------------------------------
+ * Base de dados utilizada durante o desenvolvimento
+ * da aplicação.
+ *
+ * Objetivo:
+ * - Simular notícias antes da integração completa
+ *   com o backend.
+ *
+ * Observação:
+ * Em ambiente de produção, os dados são obtidos
+ * através da API do VeritasIA.
+ * ============================================================================
+ */
+
+/**
+ * Lista de notícias simuladas.
+ *
+ * Cada objeto representa uma notícia contendo
+ * informações utilizadas pelas páginas de listagem,
+ * detalhes e mapa.
+ */
+
 export const noticias = [
   {
     id: 1,

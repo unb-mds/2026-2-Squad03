@@ -1,3 +1,60 @@
+/**
+ * ============================================================================
+ * Componente: Noticias
+ * ----------------------------------------------------------------------------
+ * Página responsável pela listagem das notícias monitoradas.
+ *
+ * Funcionalidades:
+ * - Consulta notícias na API.
+ * - Pesquisa por texto.
+ * - Filtra por estado.
+ * - Filtra por veículo.
+ * - Paginação.
+ * - Aviso de conteúdo sensível.
+ *
+ * Dependências:
+ * - React Router
+ * - Sidebar
+ * - PageHeader
+ * ============================================================================
+ */
+
+/** 
+ * Lista de notícias obtidas da API.
+
+const [noticiasAPI, setNoticiasAPI] = useState([]);
+
+ * Controla o carregamento da página.
+ 
+const [loading, setLoading] = useState(true);*/
+
+/** Filtros
+ * Texto utilizado na pesquisa.
+ 
+const [busca, setBusca] = useState("");
+
+ * Estado selecionado pelo usuário.
+
+const [filtroEstado, setFiltroEstado] = useState("");
+
+ * Veículo selecionado.
+
+const [filtroVeiculo, setFiltroVeiculo] = useState("");
+
+ * Reservado para futuros filtros por período.
+
+const [filtroPeriodo, setFiltroPeriodo] = useState("");*/
+
+/** Paginação
+ * Página atualmente exibida.
+
+const [pagina, setPagina] = useState(1);
+
+ * Quantidade máxima de notícias exibidas
+ * por página.
+
+const POR_PAGINA = 8;*/
+
 import { useState, useMemo, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import PageHeader from "../components/PageHeader";
