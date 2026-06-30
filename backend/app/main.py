@@ -54,7 +54,7 @@ app.add_middleware(
 # Registro de Rotas (Routers)
 app.include_router(noticias_routes.router)
 app.include_router(mapa_routes.router)
-app.include_router(auth_routes.router)
+#app.include_router(auth_routes.router)
 app.include_router(dashboard_routes.router)
 
 #+-------------------------------------------++-------------------------------------------++-------------------------------------------+
