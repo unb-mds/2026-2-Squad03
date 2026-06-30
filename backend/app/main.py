@@ -1,10 +1,18 @@
 """
 Ponto de entrada principal da API do VeritasIA.
 
-Este módulo inicializa a aplicação FastAPI, configura os middlewares de CORS 
-para permitir a comunicação com o frontend, registra os roteadores da aplicação 
-(notícias, mapa, autenticação e dashboard) e define a rota raiz que executa 
-um teste de conectividade e sincronização com o banco de dados.
+Este módulo é o coração do backend. Ele inicializa a aplicação ASGI utilizando o FastAPI, 
+orquestra a injeção de dependências, configura as políticas de segurança de rede (CORS) 
+e agrega todos os roteadores de domínio (adapters/rotas) da aplicação.
+
+Informações Úteis:
+    - Arquitetura: Funciona como o controlador principal no padrão MVC/Hexagonal, 
+      delegando a lógica de negócio para os roteadores específicos.
+    - Segurança (CORS): Atualmente configurado em modo permissivo (wildcard *), 
+      o que é excelente para desenvolvimento, mas deve ser restrito em produção.
+    - Infraestrutura: A rota raiz atua como um "Health Check" avançado, validando 
+      não apenas se o servidor web está no ar, mas se a infraestrutura de dados 
+      está íntegra e sincronizada.
 """
 
 import os
@@ -19,12 +27,13 @@ import backend.app.models as models
 # Importações das rotas
 from backend.app.adapters.api_adapter import auth_routes, noticias_routes, mapa_routes, dashboard_routes
 
+# Instância principal do FastAPI.
+# Responsável por gerenciar o ciclo de vida da aplicação web, roteamento e middlewares.
 app = FastAPI(title="VeritasIA API")
-"""
-Instância principal do FastAPI.
-Responsável por orquestrar rotas, middlewares e configurações da API.
-"""
 
+# Lista de origens seguras mapeadas.
+# Nota Técnica: Embora definida, esta lista atualmente está sendo ignorada (sobrescrita) 
+# pelo parâmetro allow_origins=["*"] na configuração do CORSMiddleware abaixo.
 origins = [
         "https://unb-mds.github.io",
         "https://unb-mds.github.io/2026-2-VeritasIA", # Removi a barra final
@@ -34,7 +43,7 @@ origins = [
 # Configuração de CORS para permitir requisições do frontend (local e em produção)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"], # TODO: Substituir por allow_origins=origins em ambiente de Produção
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -45,35 +54,40 @@ app.add_middleware(
 # Registro de Rotas (Routers)
 app.include_router(noticias_routes.router)
 app.include_router(mapa_routes.router)
-app.include_router(auth_routes.router)
+#app.include_router(auth_routes.router)
 app.include_router(dashboard_routes.router)
 
 #+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 @app.get("/")
-def home():
+def home() -> dict:
     """
-    Rota raiz da API do VeritasIA.
+    Rota raiz e Health Check avançado da API.
 
-    Ao ser acessada, esta rota executa um teste interno de infraestrutura 
-    para validar a conexão com o banco de dados (Supabase), ativar a extensão 
-    PostGIS (se necessário) e sincronizar os modelos ORM criando as tabelas 
-    faltantes.
+    Ao receber uma requisição GET na raiz (/), esta rota executa silenciosamente
+    uma rotina de validação de infraestrutura. Ela garante que o banco de dados
+    PostgreSQL está acessível, ativa recursos espaciais e sincroniza os modelos
+    declarativos do SQLAlchemy com as tabelas físicas do banco.
 
     Returns:
-        dict: Um dicionário de boas-vindas confirmando que a API está no ar.
+        dict: Um payload JSON simples confirmando a prontidão do servidor.
     """
     
-    def rodar_teste_infraestrutura():
+    def rodar_teste_infraestrutura() -> None:
         """
-        Função auxiliar interna que realiza a verificação de saúde do banco de dados.
+        Rotina interna de sincronização e validação de banco de dados.
         
-        Executa os seguintes passos:
-        1. Renderiza e exibe a URL de conexão (ocultando a senha por segurança).
-        2. Tenta conectar ao banco de dados usando a `engine` do SQLAlchemy.
-        3. Executa a criação da extensão PostGIS no PostgreSQL.
-        4. Sincroniza os modelos do sistema (`Base.metadata.create_all`).
-        5. Imprime logs no terminal detalhando o sucesso ou falha das operações.
+        Esta função é responsável por realizar o provisionamento automático
+        da infraestrutura de dados (Auto-Migration simplificada). É ideal para 
+        ambientes de desenvolvimento e provas de conceito (PoC).
+
+        Lógica de Execução:
+            1. Renderização Segura: Obtém a string de conexão ocultando a senha.
+            2. Ativação Espacial: Força a criação da extensão 'postgis'.
+            3. Sincronização ORM: Instruindo o SQLAlchemy a escanear e criar as tabelas.
+
+        Raises:
+            Exception: Captura e loga falhas de conexão, evitando crash do servidor.
         """
         print("\n" + "="*50)
         print("🔄 [VeritasIA] Iniciando teste de conexão com o Supabase...")

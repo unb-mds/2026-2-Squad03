@@ -3,7 +3,7 @@ name: Keep Alive
 on:
   schedule:
     # Roda a cada 10 minutos
-    - cron: '*/10 * * * *'
+    - cron: '*/5 * * * *'
   workflow_dispatch: # Permite rodar manualmente para testar
 
 jobs:

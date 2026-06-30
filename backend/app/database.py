@@ -1,10 +1,17 @@
 """
-Módulo de configuração e conexão com o banco de dados.
+Configuração da camada de persistência e conexão com o banco de dados.
 
-Este módulo gerencia a inicialização da conexão com o banco de dados usando SQLAlchemy.
-Ele carrega as variáveis de ambiente, configura a engine de conexão, define a base
-declarativa para os modelos e fornece um gerador para injeção de sessões do
-banco de dados nas rotas do FastAPI.
+Este módulo centraliza a lógica de conexão com o PostgreSQL/Supabase utilizando 
+o SQLAlchemy como ORM. Ele é responsável pelo ciclo de vida das conexões, 
+garantindo que cada requisição HTTP receba uma sessão isolada e que os 
+recursos sejam liberados após o uso.
+
+Informações Úteis:
+    - Injeção de Dependência: O método `get_db` é o padrão de mercado para 
+      FastAPI, garantindo que você nunca precise abrir ou fechar sessões 
+      manualmente dentro das rotas.
+    - Segurança: A URL de conexão é carregada via `.env`, garantindo que 
+      credenciais sensíveis não sejam versionadas no repositório.
 """
 
 import os
@@ -14,40 +21,39 @@ from dotenv import load_dotenv
 
 #+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
-# Carrega o arquivo .env
+# Carregamento das variáveis de ambiente a partir do arquivo .env.
 load_dotenv(dotenv_path='.env', encoding='utf-8')
 
-# Lê a URL do ambiente
+# URL de conexão ao banco de dados (ex: postgresql://user:password@host:port/db)
 DATABASE_URL = os.getenv("DATABASE_URL")
 
-#+-------------------------------------------++-------------------------------------------++-------------------------------------------+
-
-# Verifica se a URL foi carregada (ajuda a debugar)
 if not DATABASE_URL:
     raise ValueError("A variável DATABASE_URL não foi encontrada. Verifique seu arquivo .env!")
 
+# Engine principal do SQLAlchemy: o objeto que gerencia o pool de conexões.
 engine = create_engine(DATABASE_URL)
-"""Engine principal do SQLAlchemy conectada ao banco de dados."""
 
+# Fábrica de sessões: instância que produz novas sessões (Session) para interagir com o banco.
+# autocommit=False e autoflush=False garantem controle manual e seguro sobre as transações.
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-"""Fábrica de sessões configurada para interagir com o banco de dados de forma isolada."""
 
+# Classe base para os modelos ORM (tabelas).
 Base = declarative_base()
-"""Classe base declarativa do SQLAlchemy para a definição dos modelos ORM."""
 
 #+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 def get_db():
     """
-    Fornece uma sessão de banco de dados isolada por requisição.
+    Dependency Injection Generator: Fornece uma sessão de banco isolada por requisição.
 
-    Esta função atua como um gerador (generator) e foi desenhada para ser usada 
-    como uma dependência (Dependency Injection) no FastAPI. Ela garante que a
-    sessão seja aberta no momento em que a requisição chega e fechada com 
-    segurança após o término do processamento, evitando vazamento de conexões.
+    Esta função é o padrão recomendado pelo FastAPI para gerenciar o escopo de 
+    sessões do SQLAlchemy. Ela garante que uma conexão seja aberta ao iniciar a 
+    rota (`yield db`) e, independentemente de sucesso ou erro (graças ao `finally`), 
+    a conexão é estritamente fechada (`db.close()`), prevenindo o esgotamento do 
+    pool de conexões no Supabase.
 
     Yields:
-        Session: Uma instância de sessão do SQLAlchemy conectada ao banco.
+        Session: Uma instância de sessão configurada para a transação corrente.
     """
     db = SessionLocal()
     try:
