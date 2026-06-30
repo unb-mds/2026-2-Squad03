@@ -47,7 +47,9 @@ nav:
       - LangChain: backend/langChain/LangChain.md
       - Controlador: backend/langChain/LangChainControlador.md
       - WorkFlow LangChain: backend/langChain/LangChainWorkFlow.md
-
+  - Testes:
+      - Unitários: backend/tests/testes_api.md
+      - Integração: backend/tests/integration/testes_db.md
   - Participantes:
         - sobre-nos.md
 
