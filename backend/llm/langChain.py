@@ -94,8 +94,9 @@ def classifation_news_with_LLM(news):
 
             return response.model_dump()
         
-        except (ResourceExhausted, ChatGoogleGenerativeAIError) as e:
-            print(f"Chave {index} falhou: {e}")
+        except Exception as e:
+            print(f"Erro usando a chave {index}: {type(e)._name_}")
+            print(e)
             continue
         
     raise Exception("Todas as chaves de API falharam ou estão sem tokens.")
