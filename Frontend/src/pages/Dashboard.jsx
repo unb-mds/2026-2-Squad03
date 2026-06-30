@@ -1,25 +1,25 @@
 /**
  ============================================================================
-Componente: Dashboard
+ Componente: Dashboard
  
-Página principal do sistema VeritasIA.
+ Página principal do sistema VeritasIA.
 
-Responsabilidades:
-- Buscar os dados estatísticos da API.
-- Exibir indicadores gerais do monitoramento.
-- Renderizar gráficos, mapa e notícias recentes.
-- Exibir modal de autenticação na primeira visita.
+ Responsabilidades:
+ - Buscar os dados estatísticos da API.
+ - Exibir indicadores gerais do monitoramento.
+ - Renderizar gráficos, mapa e notícias recentes.
+ - Exibir modal de autenticação na primeira visita.
 
-Componentes utilizados:
-- Sidebar
-- PageHeader
-- StatCard
-- NewsChart
-- BrazilMap
-- RegionChart
-- TopVehicles
-- LatestNews
-- AuthPrompt
+ Componentes utilizados:
+ - Sidebar
+ - PageHeader
+ - StatCard
+ - NewsChart
+ - BrazilMap
+ - RegionChart
+ - TopVehicles
+ - LatestNews
+ - AuthPrompt
  ============================================================================
  */
 
@@ -38,71 +38,35 @@ import { FaNewspaper, FaCalendarAlt, FaChartLine } from "react-icons/fa";
 
 function Dashboard() {
   /**
- * Controla a exibição do modal de autenticação.
- *
- * O estado inicial é obtido do localStorage para evitar
- * que o modal seja exibido novamente após o usuário fechá-lo.
- */
-
-const [showModal, setShowModal] = useState(() => {
+   * Controla a exibição do modal de autenticação.
+   *
+   * O estado inicial é obtido do localStorage para evitar
+   * que o modal seja exibido novamente após o usuário fechá-lo.
+   */
+  const [showModal, setShowModal] = useState(() => {
     return localStorage.getItem("veritas-auth-modal") !== "closed";
   });
-
-/**
- * const [info, setInfo] = useState(null);
- * 
- * Armazena todas as informações retornadas pela API
- * necessárias para renderização do Dashboard.
-*/
-
-/**
- * const [loading, setLoading] = useState(true);
- * 
- * Indica se os dados ainda estão sendo carregados.
- * Enquanto verdadeiro, é exibida uma tela de carregamento.
- */
 
   const [info, setInfo] = useState(null);
   const [loading, setLoading] = useState(true);
 
   /**
-   * useEffect(() => {
- * Executado apenas uma vez durante a montagem do componente.
- *
- * Responsável por realizar a chamada à API do Dashboard,
- * armazenar os dados recebidos e controlar o estado de carregamento.
- * O array de dependências vazio garante que a requisição
- * seja realizada apenas na inicialização da página.
- */
-
-  /**
-   * async function fetchDashboard() {
-   * 
- * Realiza a requisição das informações estatísticas
- * utilizadas pelo Dashboard.
- * Em caso de sucesso:
- * - Atualiza o estado "info".
- * Em caso de erro:
- * - Registra o erro no console.
- * Independentemente do resultado,
- * o estado de carregamento é finalizado.
- */
-async function fetchDashboard() {
+   * useEffect executado apenas uma vez durante a montagem do componente.
+   *
+   * Responsável por realizar a chamada à API do Dashboard,
+   * armazenar os dados recebidos e controlar o estado de carregamento.
+   */
   useEffect(() => {
-  
     async function fetchDashboard() {
       try {
         setLoading(true);
-
         const resposta = await fetch(
           "https://two026-2-veritasia.onrender.com/dashboard/"
         );
 
-        if (!resposta.ok)
-          throw new Error("Erro ao buscar estatísticas");
+        if (!resposta.ok) throw new Error("Erro ao buscar estatísticas");
 
         const dados = await resposta.json();
-
         setInfo(dados);
       } catch (err) {
         console.error("Erro no Dashboard:", err);
@@ -138,49 +102,25 @@ async function fetchDashboard() {
     );
   }
 
-/**
- * Estrutura utilizada para alimentar os componentes StatCard.
- * Cada objeto representa um indicador exibido na parte
- * superior do Dashboard.
- */
-{/* Modal:
-  Modal apresentado apenas na primeira visita do usuário. */}
-
-{/* Cards
-   Indicadores principais do Dashboard */}  
-
-{/* Grafico 
-  Evolução temporal das notícias monitoradas */}
-
-{/* Mapa
-   Distribuição das notícias por estado brasileiro */} 
-
-{/* Região 
-  Distribuição por regiões do país */}
-
-{/* Ultimas noticias
-   Lista das notícias mais recentes disponibilizadas pela API */}
-   
+  /**
+   * Estrutura utilizada para alimentar os componentes StatCard.
+   */
   const stats = [
     {
       title: "Total de Notícias",
-      value:
-        info?.estatisticas?.[0]?.total_atual?.toLocaleString() || "0",
+      value: info?.estatisticas?.[0]?.total_atual?.toLocaleString() || "0",
       description: "Total acumulado na base",
       icon: <FaNewspaper />,
     },
     {
       title: "Média por dia",
-      value:
-        info?.estatisticas?.[0]?.media_diaria?.toString() || "0",
+      value: info?.estatisticas?.[0]?.media_diaria?.toString() || "0",
       description: "Média da última semana",
       icon: <FaCalendarAlt />,
     },
     {
       title: "Crescimento",
-      value: `${
-        info?.estatisticas?.[0]?.crescimento_percentual || 0
-      }%`,
+      value: `${info?.estatisticas?.[0]?.crescimento_percentual || 0}%`,
       description: "vs Semana anterior",
       icon: <FaChartLine />,
     },
@@ -204,7 +144,6 @@ async function fetchDashboard() {
 
           <div className="user-box">
             <div className="avatar"></div>
-
             <div>
               <strong>Usuário</strong>
               <p>Analista</p>
@@ -215,10 +154,7 @@ async function fetchDashboard() {
         {showModal && (
           <AuthPrompt
             onClose={() => {
-              localStorage.setItem(
-                "veritas-auth-modal",
-                "closed"
-              );
+              localStorage.setItem("veritas-auth-modal", "closed");
               setShowModal(false);
             }}
           />
@@ -256,7 +192,6 @@ async function fetchDashboard() {
 
           <div className="map-box">
             <h3>Notícias por região</h3>
-
             <div className="fake-map">
               <RegionChart data={info.top_regioes} />
             </div>
@@ -271,5 +206,5 @@ async function fetchDashboard() {
     </div>
   );
 }
-}
+
 export default Dashboard;

@@ -20,8 +20,6 @@ function Sidebar() {
   return (
     <aside className="sidebar">
       <img className="sidebar-logo" src={logoVeritas} alt="Logo Veritas IA" />
-
-      /* Menu principal de navegação da aplicação. */
       
         <nav className="menu">
           <Link to="/dashboard">Dashboard</Link>
