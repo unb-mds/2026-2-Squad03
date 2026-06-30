@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T08:08:20Z",
+  "generated_at": "2026-06-30T20:35:17Z",
   "repository": "unb-mds/2026-2-VeritasIA",
   "issues_per_week": [
     {
@@ -46,16 +46,21 @@
       "week": "2026-W26",
       "opened": 1,
       "closed": 9
+    },
+    {
+      "week": "2026-W27",
+      "opened": 1,
+      "closed": 0
     }
   ],
   "commit_message_histogram": [
     {
       "range": "0-20",
-      "count": 24
+      "count": 25
     },
     {
       "range": "21-50",
-      "count": 68
+      "count": 73
     },
     {
       "range": "51-100",
@@ -107,6 +112,11 @@
     },
     {
       "day": 0,
+      "hour": 18,
+      "count": 1
+    },
+    {
+      "day": 0,
       "hour": 19,
       "count": 7
     },
@@ -147,8 +157,13 @@
     },
     {
       "day": 1,
+      "hour": 19,
+      "count": 3
+    },
+    {
+      "day": 1,
       "hour": 20,
-      "count": 4
+      "count": 6
     },
     {
       "day": 1,
@@ -395,7 +410,7 @@
     {
       "username": "SchneiderCode1",
       "name": "Henrique Schneider Fernandes da Rosa",
-      "commits": 62,
+      "commits": 68,
       "avatar_url": "https://avatars.githubusercontent.com/u/165057013?v=4"
     },
     {
@@ -437,6 +452,12 @@
   ],
   "top_pr_authors": [
     {
+      "username": "SchneiderCode1",
+      "name": "Henrique Schneider Fernandes da Rosa",
+      "prs_opened": 0,
+      "avatar_url": "https://avatars.githubusercontent.com/u/165057013?v=4"
+    },
+    {
       "username": "TheBagomes",
       "name": "Vitor Barreto Gomes",
       "prs_opened": 0,
@@ -459,12 +480,6 @@
       "name": "Danilo Fernandes",
       "prs_opened": 0,
       "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
-    },
-    {
-      "username": "SchneiderCode1",
-      "name": "Henrique Schneider Fernandes da Rosa",
-      "prs_opened": 0,
-      "avatar_url": "https://avatars.githubusercontent.com/u/165057013?v=4"
     },
     {
       "username": "Daniel241025",
@@ -491,9 +506,9 @@
     {
       "username": "TheBagomes",
       "name": "Vitor Barreto Gomes",
-      "opened": 0,
+      "opened": 1,
       "closed": 11,
-      "total": 11,
+      "total": 12,
       "avatar_url": "https://avatars.githubusercontent.com/u/154992563?v=4"
     },
     {
