@@ -51,7 +51,7 @@
  * uma chamada à API durante a inicialização.
  */
 
-  /** const heatPoints = useMemo(() => {
+/** const heatPoints = useMemo(() => {
  * Gera os pontos utilizados pelo mapa de calor.
  *
  * useMemo é utilizado para evitar que essa transformação
@@ -79,7 +79,7 @@ Exibe o mapa de calor quando selecionado pelo usuário. */
 /*Popup
  Informações resumidas da notícia selecionada. */
 
- import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useNavigate } from "react-router-dom";
 import L from "leaflet";
@@ -97,7 +97,7 @@ function criarIcone(cor) {
         style={{
           filter: "drop-shadow(0px 4px 8px rgba(0,0,0,.35))",
         }}
-      />
+      />,
     ),
     className: "",
     iconSize: [34, 34],
@@ -146,7 +146,7 @@ function LeafletMap({ viewType }) {
       zoom={4}
       minZoom={4}
       maxZoom={12}
-      style={{ height: "600px", width: "100%" }}
+      style={{ height: "100%", width: "100%" }}
     >
       <TileLayer
         attribution="&copy; OpenStreetMap contributors"
@@ -154,10 +154,7 @@ function LeafletMap({ viewType }) {
       />
 
       {viewType === "heat" && (
-        <HeatmapLayer
-          key="heatmap"
-          points={heatPoints}
-        />
+        <HeatmapLayer key="heatmap" points={heatPoints} />
       )}
 
       {viewType === "markers" &&

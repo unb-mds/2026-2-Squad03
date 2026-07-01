@@ -128,11 +128,7 @@ export default function Noticias() {
         <PageHeader
           title="Notícias"
           subtitle="Monitoramento de notícias sobre feminicídio no Brasil"
-        >
-          <button className="date-button">
-            📅 <span>01/05/2024 - 31/05/2024</span>
-          </button>
-        </PageHeader>
+        />
 
         {mostrarAviso && (
           <div className="overlay-aviso">

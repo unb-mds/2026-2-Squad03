@@ -24,7 +24,6 @@
  
 const [isRegister, setIsRegister] = useState(false);*/
 
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logoVeritas from "../assets/logo.png";

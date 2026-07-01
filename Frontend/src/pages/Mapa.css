@@ -262,10 +262,77 @@
   text-align: center;
 }
 
-/* ================= HEADER DENTRO DO CARD ================= */
+/* ================= MAPA EM TELA CHEIA (FULL-BLEED) ================= */
 
-.map-header {
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #e5e7eb;
+/* Remove o padding padrão do .content apenas nesta página,
+   para o mapa poder ocupar a aba inteira, de ponta a ponta. */
+.map-content {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Container que ocupa toda a altura visível da aba de conteúdo. */
+.map-fullbleed {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+/* O próprio mapa Leaflet preenche 100% do container acima. */
+.map-fullbleed-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Painel flutuante do cabeçalho (título + seletor de visualização),
+   sobreposto ao mapa. Deixamos uma folga à esquerda para não cobrir
+   os controles de zoom padrão do Leaflet (canto superior esquerdo). */
+.map-floating-header {
+  position: absolute;
+  top: 16px;
+  left: 80px;
+  right: 16px;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  background: white;
+  border-radius: 14px;
+  padding: 14px 22px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+}
+
+.map-floating-header h2 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.map-floating-header p {
+  color: #6b7280;
+  margin: 2px 0 0;
+  font-size: 13px;
+}
+
+/* Painel flutuante da legenda, ancorado no canto inferior esquerdo. */
+.map-floating-legend {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  z-index: 1000;
+  max-width: calc(100% - 32px);
+}
+
+@media (max-width: 768px) {
+  .map-floating-header {
+    left: 16px;
+    top: 60px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
