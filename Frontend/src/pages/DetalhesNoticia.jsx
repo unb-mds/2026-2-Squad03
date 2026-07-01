@@ -18,61 +18,6 @@
  * ============================================================================
  */
 
-/**
- * Obtém o identificador da notícia presente na URL.
- *
- * Exemplo:
- * /noticias/15
- 
-const { id } = useParams();*/
-
-/* Responsável pela navegação entre as páginas da aplicação.
-const navigate = useNavigate();*/
-
-/**
- * Indica se o usuário deseja ocultar permanentemente
- * o aviso de conteúdo sensível.
- 
-const [naoMostrarNovamente, setNaoMostrarNovamente] = useState(false);
-
- * Controla a exibição do aviso de conteúdo sensível.
- *
- * O valor inicial é recuperado do localStorage,
- * preservando a preferência do usuário.
-
-const [mostrarAviso, setMostrarAviso] = useState(() => {*/
-
-/**
- * Armazena os dados completos da notícia.
-
-const [noticia, setNoticia] = useState(null);
-
- * Controla o estado de carregamento.
-
-const [loading, setLoading] = useState(true);
-
- * Indica falha durante a obtenção da notícia.
-
-const [erro, setErro] = useState(false);*/
-
-/**
- * Executado sempre que o identificador da notícia
- * for alterado.
- *
- * Responsável por buscar os detalhes da notícia
- * correspondente na API.
- 
-useEffect(() => {*/
-
-/**fetchNoticiaDetalhada
- * Busca os detalhes completos da notícia.
- *
- * Além da requisição, adapta os dados retornados
- * pela API para o formato utilizado pelo frontend.
- */
-
-
-
 import "../App.css";
 import "./DetalhesNoticia.css";
 import { useState, useEffect } from "react";
@@ -83,7 +28,7 @@ import PageHeader from "../components/PageHeader";
 export default function Detalhes_Noticia() {
   const navigate = useNavigate();
   const { id } = useParams();
-  
+
   // Estados para o aviso de conteúdo sensível
   const [naoMostrarNovamente, setNaoMostrarNovamente] = useState(false);
   const [mostrarAviso, setMostrarAviso] = useState(() => {
@@ -98,22 +43,32 @@ export default function Detalhes_Noticia() {
     async function fetchNoticiaDetalhada() {
       try {
         setLoading(true);
-        const resposta = await fetch(`https://two026-2-veritasia.onrender.com/noticias/${id}`);
+        const resposta = await fetch(
+          `https://two026-2-veritasia.onrender.com/noticias/${id}`,
+        );
         if (!resposta.ok) throw new Error("Notícia não encontrada");
-        
+
         const n = await resposta.json();
-        
+
         const noticiaFormatada = {
           id: n.id,
           titulo: n.titulo || "Título Indisponível",
           resumo: n.resumo_raw || "Resumo não disponível",
-          conteudo: n.conteudo_raw || n.texto || n.resumo_raw || "Conteúdo completo indisponível.",
+          conteudo:
+            n.conteudo_raw ||
+            n.texto ||
+            n.resumo_raw ||
+            "Conteúdo completo indisponível.",
           fonte: n.Portal || n.portal || n.veiculo || n.fonte || "Desconhecido",
-          data: n.data_publicacao ? new Date(n.data_publicacao).toLocaleDateString('pt-BR') : "Data não informada",
+          data: n.data_publicacao
+            ? new Date(n.data_publicacao).toLocaleDateString("pt-BR")
+            : "Data não informada",
           estado: n.regiao?.nome || "N/A",
           cidade: "N/A",
-          link: n.fonte_url || "#", 
-          imagem: n.imagem_url || "https://via.placeholder.com/300x150?text=Sem+Imagem",
+          link: n.fonte_url || "#",
+          imagem:
+            n.imagem_url ||
+            "https://via.placeholder.com/300x150?text=Sem+Imagem",
           categoria: "Geral",
           status: "Analisada",
         };
@@ -129,22 +84,46 @@ export default function Detalhes_Noticia() {
     fetchNoticiaDetalhada();
   }, [id]);
 
-  if (loading) return <div className="app"><Sidebar /><main className="content"><div style={{padding:'2rem'}}><h2>Carregando...</h2></div></main></div>;
-  if (erro || !noticia) return (
-    <div className="app"><Sidebar /><main className="content"><div style={{padding:'2rem'}}>
-      <h2>Notícia não encontrada.</h2>
-      <button className="voltar-btn" onClick={() => navigate("/noticias")}>← Voltar</button>
-    </div></main></div>
-  );
+  if (loading)
+    return (
+      <div className="app">
+        <Sidebar />
+        <main className="content">
+          <div style={{ padding: "2rem" }}>
+            <h2>Carregando...</h2>
+          </div>
+        </main>
+      </div>
+    );
+  if (erro || !noticia)
+    return (
+      <div className="app">
+        <Sidebar />
+        <main className="content">
+          <div style={{ padding: "2rem" }}>
+            <h2>Notícia não encontrada.</h2>
+            <button
+              className="voltar-btn"
+              onClick={() => navigate("/noticias")}
+            >
+              ← Voltar
+            </button>
+          </div>
+        </main>
+      </div>
+    );
 
   return (
     <div className="app">
       <Sidebar />
       <main className="content">
-        
-        <PageHeader title="Notícia" subtitle="Visualização detalhada da notícia coletada">
-            <button className="date-button">📅 <span>01/05/2024 - 31/05/2024</span></button>
-            <span className="bell">🔔</span>
+        <PageHeader
+          title="Notícia"
+          subtitle="Visualização detalhada da notícia coletada"
+        >
+          <button className="date-button">
+            📅 <span>01/05/2024 - 31/05/2024</span>
+          </button>
         </PageHeader>
 
         {mostrarAviso && (
@@ -152,11 +131,22 @@ export default function Detalhes_Noticia() {
             <div className="modal-aviso">
               <div className="icone-aviso">⚠️</div>
               <h2>Aviso de conteúdo sensível</h2>
-              <p>Esta seção apresenta dados e informações detalhadas sobre casos de <strong>feminicídio e violência doméstica</strong>.</p>
-              
-              <label style={{ display: "center", alignItems: "center", gap: "8px", marginBottom: "20px", cursor: "pointer" }}>
-                <input 
-                  type="checkbox" 
+              <p>
+                Esta seção apresenta dados e informações detalhadas sobre casos
+                de <strong>feminicídio e violência doméstica</strong>.
+              </p>
+
+              <label
+                style={{
+                  display: "center",
+                  alignItems: "center",
+                  gap: "8px",
+                  marginBottom: "20px",
+                  cursor: "pointer",
+                }}
+              >
+                <input
+                  type="checkbox"
                   checked={naoMostrarNovamente}
                   onChange={(e) => setNaoMostrarNovamente(e.target.checked)}
                 />
@@ -164,19 +154,31 @@ export default function Detalhes_Noticia() {
               </label>
 
               <div className="botoes-aviso">
-                <button className="btn-continuar" onClick={() => {
-                  if (naoMostrarNovamente) {
-                    localStorage.setItem("veritas-aviso-sensivel", "true");
-                  }
-                  setMostrarAviso(false);
-                }}>Continuar para a página</button>
-                <button className="btn-voltar" onClick={() => navigate("/noticias")}>Voltar</button>
+                <button
+                  className="btn-continuar"
+                  onClick={() => {
+                    if (naoMostrarNovamente) {
+                      localStorage.setItem("veritas-aviso-sensivel", "true");
+                    }
+                    setMostrarAviso(false);
+                  }}
+                >
+                  Continuar para a página
+                </button>
+                <button
+                  className="btn-voltar"
+                  onClick={() => navigate("/noticias")}
+                >
+                  Voltar
+                </button>
               </div>
             </div>
           </div>
         )}
 
-        <button className="voltar-btn" onClick={() => navigate("/noticias")}>← Voltar para Notícias</button>
+        <button className="voltar-btn" onClick={() => navigate("/noticias")}>
+          ← Voltar para Notícias
+        </button>
 
         <div className="noticia-layout">
           <section className="noticia-card">
@@ -190,11 +192,17 @@ export default function Detalhes_Noticia() {
             <div className="metadados">
               <span>📰 {noticia.fonte}</span>
               <span>📅 {noticia.data}</span>
-              <span>📍 {noticia.cidade} - {noticia.estado}</span>
+              <span>
+                📍 {noticia.cidade} - {noticia.estado}
+              </span>
             </div>
 
             <div className="imagem-placeholder">
-              <img src={noticia.imagem} alt={noticia.titulo} style={{width: '100%', borderRadius: '8px'}} />
+              <img
+                src={noticia.imagem}
+                alt={noticia.titulo}
+                style={{ width: "100%", borderRadius: "8px" }}
+              />
             </div>
 
             <div className="bloco">
@@ -202,16 +210,38 @@ export default function Detalhes_Noticia() {
               <p>{noticia.resumo}</p>
             </div>
 
-            <a href={noticia.link} target="_blank" rel="noreferrer" className="fonte-btn">Acessar notícia original</a>
+            <a
+              href={noticia.link}
+              target="_blank"
+              rel="noreferrer"
+              className="fonte-btn"
+            >
+              Acessar notícia original
+            </a>
           </section>
 
           <aside className="info-card">
             <h3>Informações</h3>
-            <div className="info-item"><strong>Categoria</strong><span>{noticia.categoria}</span></div>
-            <div className="info-item"><strong>Status</strong><span>✔ {noticia.status}</span></div>
-            <div className="info-item"><strong>Fonte</strong><span>{noticia.fonte}</span></div>
-            <div className="info-item"><strong>Data</strong><span>{noticia.data}</span></div>
-            <div className="info-item"><strong>Local</strong><span>{noticia.estado}</span></div>
+            <div className="info-item">
+              <strong>Categoria</strong>
+              <span>{noticia.categoria}</span>
+            </div>
+            <div className="info-item">
+              <strong>Status</strong>
+              <span>✔ {noticia.status}</span>
+            </div>
+            <div className="info-item">
+              <strong>Fonte</strong>
+              <span>{noticia.fonte}</span>
+            </div>
+            <div className="info-item">
+              <strong>Data</strong>
+              <span>{noticia.data}</span>
+            </div>
+            <div className="info-item">
+              <strong>Local</strong>
+              <span>{noticia.estado}</span>
+            </div>
           </aside>
         </div>
       </main>

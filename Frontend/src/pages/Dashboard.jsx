@@ -61,7 +61,7 @@ function Dashboard() {
       try {
         setLoading(true);
         const resposta = await fetch(
-          "https://two026-2-veritasia.onrender.com/dashboard/"
+          "https://two026-2-veritasia.onrender.com/dashboard/",
         );
 
         if (!resposta.ok) throw new Error("Erro ao buscar estatísticas");
@@ -139,16 +139,6 @@ function Dashboard() {
             <span>📅</span>
             <span>Últimos 14 dias</span>
           </button>
-
-          <span className="bell">🔔</span>
-
-          <div className="user-box">
-            <div className="avatar"></div>
-            <div>
-              <strong>Usuário</strong>
-              <p>Analista</p>
-            </div>
-          </div>
         </PageHeader>
 
         {showModal && (

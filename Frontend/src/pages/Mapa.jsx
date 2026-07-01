@@ -43,7 +43,6 @@ Componente responsável pela renderização do mapa interativo. */
 /* Antes da legenda
   Legenda utilizada para identificar as categorias das notícias. */
 
-
 function Mapa() {
   const [viewType, setViewType] = useState("markers");
 
@@ -58,27 +57,25 @@ function Mapa() {
         >
           <div className="view-selector">
             <button
-              className={`view-btn ${
-                viewType === "markers" ? "active" : ""
-              }`}
+              className={`view-btn ${viewType === "markers" ? "active" : ""}`}
               onClick={() => setViewType("markers")}
             >
-              📍 Marcadores
+              Marcadores
             </button>
 
             <button
-              className={`view-btn ${
-                viewType === "heat" ? "active" : ""
-              }`}
+              className={`view-btn ${viewType === "heat" ? "active" : ""}`}
               onClick={() => setViewType("heat")}
             >
-              🔥 Calor
+              Calor
             </button>
           </div>
         </PageHeader>
 
         <section className="full-box">
-          <h3>Distribuição das notícias pelo Brasil</h3>
+          <h3 className="map-section-title">
+            Distribuição das notícias pelo Brasil
+          </h3>
 
           <div className="map-page-container">
             <LeafletMap viewType={viewType} />
@@ -86,7 +83,6 @@ function Mapa() {
 
           <div className="map-legend">
             <div className="legend-header">
-              <span className="legend-icon">🗺️</span>
               <h4>Legenda do mapa</h4>
             </div>
 

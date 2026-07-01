@@ -27,13 +27,31 @@ const STACK = [
 const PORTAIS = ["G1", "Metrópoles", "R7", "CNN"];
 
 const FLUXO = [
-  { titulo: "Portais de notícias", desc: "Fontes públicas: G1, Metrópoles, R7 e CNN." },
-  { titulo: "Scrapy / Playwright", desc: "Robôs de coleta navegam e capturam o conteúdo." },
-  { titulo: "Coleta automatizada", desc: "Execução contínua, sem intervenção manual." },
-  { titulo: "Tratamento dos dados", desc: "Limpeza, padronização e filtragem por tema." },
-  { titulo: "Arquivos JSON", desc: "Dados estruturados, prontos para consumo." },
+  {
+    titulo: "Portais de notícias",
+    desc: "Fontes públicas: G1, Metrópoles, R7 e CNN.",
+  },
+  {
+    titulo: "Scrapy / Playwright",
+    desc: "Robôs de coleta navegam e capturam o conteúdo.",
+  },
+  {
+    titulo: "Coleta automatizada",
+    desc: "Execução contínua, sem intervenção manual.",
+  },
+  {
+    titulo: "Tratamento dos dados",
+    desc: "Limpeza, padronização e filtragem por tema.",
+  },
+  {
+    titulo: "Arquivos JSON",
+    desc: "Dados estruturados, prontos para consumo.",
+  },
   { titulo: "API FastAPI", desc: "Camada que organiza e expõe os dados." },
-  { titulo: "Frontend React", desc: "Visualização final — aqui, neste painel." },
+  {
+    titulo: "Frontend React",
+    desc: "Visualização final — aqui, neste painel.",
+  },
 ];
 
 const FUNCIONALIDADES = [
@@ -53,7 +71,6 @@ const ROADMAP = [
   "Análise de sentimento",
   "Classificação automática de notícias",
   "API pública para consulta de dados",
-
 ];
 
 const EQUIPE = [
@@ -92,16 +109,6 @@ export default function Sobre() {
           <div>
             <h2>Sobre</h2>
             <p>O projeto e os dados por trás do VeritasIA</p>
-          </div>
-          <div className="header-actions">
-            <span className="bell">🔔</span>
-            <div className="user-box">
-              <div className="avatar"></div>
-              <div>
-                <strong>Usuário</strong>
-                <p>Analista</p>
-              </div>
-            </div>
           </div>
         </header>
 
@@ -147,7 +154,9 @@ export default function Sobre() {
             <section className="sobre-card">
               <span className="section-eyebrow">Fontes</span>
               <h3 className="section-title">Portais monitorados</h3>
-              <p className="section-sub">Coleta contínua, sem intervenção manual.</p>
+              <p className="section-sub">
+                Coleta contínua, sem intervenção manual.
+              </p>
               <div className="portal-list">
                 {PORTAIS.map((p) => (
                   <span className="portal-chip" key={p}>
@@ -203,43 +212,41 @@ export default function Sobre() {
               </ul>
             </section>
           </div>
-          
+
           <section className="sobre-card">
-  <span className="section-eyebrow">Equipe</span>
+            <span className="section-eyebrow">Equipe</span>
 
-  <h3 className="section-title">
-    Integrantes do VeritasIA
-  </h3>
+            <h3 className="section-title">Integrantes do VeritasIA</h3>
 
-  <p className="section-sub">
-    Equipe responsável pelo desenvolvimento do projeto.
-  </p>
+            <p className="section-sub">
+              Equipe responsável pelo desenvolvimento do projeto.
+            </p>
 
-  <div className="team-grid">
-    {EQUIPE.map((membro) => (
-      <div className="team-card" key={membro.nome}>
-        <img
-          src={`https://github.com/${membro.github}.png`}
-          alt={membro.nome}
-          className="team-avatar"
-        />
+            <div className="team-grid">
+              {EQUIPE.map((membro) => (
+                <div className="team-card" key={membro.nome}>
+                  <img
+                    src={`https://github.com/${membro.github}.png`}
+                    alt={membro.nome}
+                    className="team-avatar"
+                  />
 
-        <h4>{membro.nome}</h4>
+                  <h4>{membro.nome}</h4>
 
-        <p>{membro.funcao}</p>
+                  <p>{membro.funcao}</p>
 
-        <a
-          href={`https://github.com/${membro.github}`}
-          target="_blank"
-          rel="noreferrer"
-          className="github-link"
-        >
-          GitHub →
-        </a>
-      </div>
-    ))}
-  </div>
-</section>
+                  <a
+                    href={`https://github.com/${membro.github}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="github-link"
+                  >
+                    GitHub →
+                  </a>
+                </div>
+              ))}
+            </div>
+          </section>
 
           <section className="aviso-box">
             <div className="aviso-icon">⚖️</div>
