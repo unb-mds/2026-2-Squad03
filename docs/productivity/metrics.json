@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-01T04:49:17Z",
+  "generated_at": "2026-07-01T04:54:14Z",
   "repository": "unb-mds/2026-2-VeritasIA",
   "issues_per_week": [
     {
@@ -34,12 +34,12 @@
     },
     {
       "week": "2026-W24",
-      "opened": 1,
+      "opened": 0,
       "closed": 7
     },
     {
       "week": "2026-W25",
-      "opened": 1,
+      "opened": 0,
       "closed": 9
     },
     {
@@ -49,8 +49,8 @@
     },
     {
       "week": "2026-W27",
-      "opened": 1,
-      "closed": 1
+      "opened": 0,
+      "closed": 4
     }
   ],
   "commit_message_histogram": [
@@ -64,11 +64,11 @@
     },
     {
       "range": "51-100",
-      "count": 77
+      "count": 78
     },
     {
       "range": "101-200",
-      "count": 47
+      "count": 48
     },
     {
       "range": "200+",
@@ -203,7 +203,7 @@
     {
       "day": 2,
       "hour": 4,
-      "count": 16
+      "count": 18
     },
     {
       "day": 2,
@@ -443,7 +443,7 @@
     {
       "username": "Daniel241025",
       "name": "Daniel Rodrigues Freitas",
-      "commits": 28,
+      "commits": 30,
       "avatar_url": "https://avatars.githubusercontent.com/u/215087737?v=4"
     },
     {
@@ -513,24 +513,24 @@
     {
       "username": "SchneiderCode1",
       "name": "Henrique Schneider Fernandes da Rosa",
-      "opened": 2,
-      "closed": 20,
+      "opened": 1,
+      "closed": 21,
       "total": 22,
       "avatar_url": "https://avatars.githubusercontent.com/u/165057013?v=4"
     },
     {
       "username": "TheBagomes",
       "name": "Vitor Barreto Gomes",
-      "opened": 1,
-      "closed": 11,
+      "opened": 0,
+      "closed": 12,
       "total": 12,
       "avatar_url": "https://avatars.githubusercontent.com/u/154992563?v=4"
     },
     {
       "username": "jadsonRleandro",
       "name": "Jadson Ricardo",
-      "opened": 1,
-      "closed": 10,
+      "opened": 0,
+      "closed": 11,
       "total": 11,
       "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
     },
