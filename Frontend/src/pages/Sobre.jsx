@@ -20,7 +20,7 @@ import "./Sobre.css";
 
 const STACK = [
   { grupo: "Frontend", icone: "🎨", itens: ["React"] },
-  { grupo: "Backend", icone: "⚙️", itens: ["Scrapy", "Playwright", "FastAPI"] },
+  { grupo: "Backend", icone: "⚙️", itens: ["Scrapy", " Playwright", " FastAPI"] },
   { grupo: "Banco de dados", icone: "🗄️", itens: ["PostgreSQL"] },
 ];
 
@@ -55,22 +55,19 @@ const FLUXO = [
 ];
 
 const FUNCIONALIDADES = [
+  "Visualização gráfica",
   "Coleta automatizada de notícias",
+  "Dashboard estatístico",
   "Filtragem por tema relacionado a feminicídio",
   "Consolidação de dados em JSON",
+  "Sistema de busca",
   "Monitoramento contínuo",
   "Estrutura modular para expansão futura",
   "Compatibilidade com análise de dados e Machine Learning",
 ];
 
 const ROADMAP = [
-  "Dashboard estatístico",
   "Análise temporal",
-  "Visualização gráfica",
-  "Sistema de busca",
-  "Análise de sentimento",
-  "Classificação automática de notícias",
-  "API pública para consulta de dados",
 ];
 
 const EQUIPE = [
@@ -80,22 +77,22 @@ const EQUIPE = [
   },
 
   {
-    nome: "Daniel",
+    nome: "Daniel Rodrigues Freitas",
     github: "Daniel241025",
   },
 
   {
-    nome: "Danilo",
+    nome: "Danilo Fernandes Souza",
     github: "danilofns",
   },
 
   {
-    nome: "Henrique",
+    nome: "Henrique Schneider Fernandes da Rosa",
     github: "SchneiderCode1",
   },
 
   {
-    nome: "Jadson",
+    nome: "Jadson Ricardo Leandro",
     github: "jadsonRleandro",
   },
 ];

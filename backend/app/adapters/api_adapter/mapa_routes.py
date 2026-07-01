@@ -77,6 +77,7 @@ def ler_noticias_mapa(db: Session = Depends(get_db)) -> Dict[str, Any]:
             "geometry": json.loads(db.scalar(ST_AsGeoJSON(geom))) if geom is not None else None,
             "properties": {
                 "id": noticia.id,            # Incluímos o ID para hiperlinks e roteamento
+                "data": noticia.data_publicacao,
                 "titulo": noticia.titulo,
                 "resumo": noticia.resumo_raw, # Incluímos o resumo gerado pela IA
                 "veiculo": noticia.Portal,
