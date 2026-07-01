@@ -100,8 +100,6 @@ def classifation_news_with_LLM(news):
             time.sleep(30)
             continue
         
-    raise Exception("Todas as chaves de API falharam ou estão sem tokens.")
-        
         except Exception as e:
             print(f"Erro usando a chave {index}: {type(e).__name__}")
             print(e)
