@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-01T02:19:40Z",
+  "generated_at": "2026-07-01T04:09:28Z",
   "repository": "unb-mds/2026-2-VeritasIA",
   "issues_per_week": [
     {
@@ -39,7 +39,7 @@
     },
     {
       "week": "2026-W25",
-      "opened": 2,
+      "opened": 1,
       "closed": 9
     },
     {
@@ -50,7 +50,7 @@
     {
       "week": "2026-W27",
       "opened": 1,
-      "closed": 0
+      "closed": 1
     }
   ],
   "commit_message_histogram": [
@@ -60,11 +60,11 @@
     },
     {
       "range": "21-50",
-      "count": 77
+      "count": 80
     },
     {
       "range": "51-100",
-      "count": 70
+      "count": 73
     },
     {
       "range": "101-200",
@@ -193,7 +193,17 @@
     {
       "day": 2,
       "hour": 2,
-      "count": 5
+      "count": 7
+    },
+    {
+      "day": 2,
+      "hour": 3,
+      "count": 2
+    },
+    {
+      "day": 2,
+      "hour": 4,
+      "count": 2
     },
     {
       "day": 2,
@@ -419,21 +429,21 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/165057013?v=4"
     },
     {
+      "username": "danilofns",
+      "name": "Danilo Fernandes",
+      "commits": 55,
+      "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
+    },
+    {
       "username": "jadsonRleandro",
       "name": "Jadson Ricardo",
       "commits": 52,
       "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
     },
     {
-      "username": "danilofns",
-      "name": "Danilo Fernandes",
-      "commits": 51,
-      "avatar_url": "https://avatars.githubusercontent.com/u/190551570?v=4"
-    },
-    {
       "username": "Daniel241025",
       "name": "Daniel Rodrigues Freitas",
-      "commits": 20,
+      "commits": 22,
       "avatar_url": "https://avatars.githubusercontent.com/u/215087737?v=4"
     },
     {
@@ -457,12 +467,6 @@
   ],
   "top_pr_authors": [
     {
-      "username": "SchneiderCode1",
-      "name": "Henrique Schneider Fernandes da Rosa",
-      "prs_opened": 0,
-      "avatar_url": "https://avatars.githubusercontent.com/u/165057013?v=4"
-    },
-    {
       "username": "danilofns",
       "name": "Danilo Fernandes",
       "prs_opened": 0,
@@ -473,6 +477,12 @@
       "name": "Daniel Rodrigues Freitas",
       "prs_opened": 0,
       "avatar_url": "https://avatars.githubusercontent.com/u/215087737?v=4"
+    },
+    {
+      "username": "SchneiderCode1",
+      "name": "Henrique Schneider Fernandes da Rosa",
+      "prs_opened": 0,
+      "avatar_url": "https://avatars.githubusercontent.com/u/165057013?v=4"
     },
     {
       "username": "jadsonRleandro",
@@ -503,8 +513,8 @@
     {
       "username": "SchneiderCode1",
       "name": "Henrique Schneider Fernandes da Rosa",
-      "opened": 3,
-      "closed": 19,
+      "opened": 2,
+      "closed": 20,
       "total": 22,
       "avatar_url": "https://avatars.githubusercontent.com/u/165057013?v=4"
     },

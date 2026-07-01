@@ -2,6 +2,7 @@
 
 VeritasIA está utilizando um workflow chamado ```execute-scrapy.yml``` para realizar a execução automatizado dos Scripts.
 
+---
 ## Como funciona:
 
 Esse workflow pode ser chamado de maneira manual ou esperando um ```Schedule``` que acontece diariamente às 23:55 no horário de Brasília.
@@ -9,6 +10,7 @@ Esse workflow pode ser chamado de maneira manual ou esperando um ```Schedule``` 
 A execução gera os mesmos resultados que foi explicado no ``` Scrapy```, no entanto, não sendo necessário a execução manual do mesmo.
 
 
+---
 ### Como Testar
 
 Vá na opção de Actions e execute o "executor scraper" selecionando a branch "Refactor/web scraping" como referencia.

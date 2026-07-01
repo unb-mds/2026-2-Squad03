@@ -31,11 +31,13 @@ nav:
       - Sprint 7: projeto/sprint7.md
       - Sprint 8: projeto/sprint8.md
       - Sprint 9: projeto/sprint9.md
-      - Sprint 10: projeto/sprint10.md
   - Frontend:
       - React: frontend/React.md
       - Prototipagem: frontend/Prototipagem.md
+<<<<<<< HEAD
       - Fluxo Do Frontend: frontend/Fluxo.md
+      - Qualidade de Codigo: frontend/qualidade.md
+>>>>>>> 395fac5218b1109540b039dac9361c8bb679335b
   - Backend:
       - FastAPI: backend/FastAPI/FastAPI.md
       - Main: backend/FastAPI/base/main.md
@@ -48,9 +50,12 @@ nav:
       - LangChain: backend/langChain/LangChain.md
       - Controlador: backend/langChain/LangChainControlador.md
       - WorkFlow LangChain: backend/langChain/LangChainWorkFlow.md
-  - Testes:
+  - Testes Back End:
       - Unitários: backend/tests/testes_api.md
       - Integração: backend/tests/integration/testes_db.md
+  - Testes Front End:
+      - Unitários: frontend/tests/testes_frontend.md
+      - Integração: frontend/tests/testes_integracao.md
   - Participantes:
       - sobre-nos.md
 

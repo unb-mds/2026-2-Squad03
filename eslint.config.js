@@ -3,9 +3,14 @@ import globals from "globals";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
+import markdown from "eslint-plugin-markdown";
 
 export default [
-  { ignores: ["dist"] },
+  { ignores: ["dist", "backend", ".venv", "node_modules", "docs"] },
+  
+  // Configuração recomendada para Markdown
+  ...markdown.configs.recommended,
+  
   {
     files: ["**/*.{js,jsx}"],
     languageOptions: {
@@ -30,10 +35,7 @@ export default [
       ...reactHooks.configs.recommended.rules,
       "react/jsx-no-target-blank": "off",
       "react/prop-types": "off",
-      "react-refresh/only-export-components": [
-        "warn",
-        { allowConstantExport: true },
-      ],
+      "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
     },
-  },
+  }
 ];

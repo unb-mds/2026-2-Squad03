@@ -1,9 +1,9 @@
 # Scrapy
 
 O Scrapy é um Framework de código aberto da linguagem Python, desenvolvido para realizar Scraping e Crawling em páginas Web.
-
 O Scrapy está sendo utilizado para realizar a coleta de notícias sobre Feminicídio. 
 
+---
 ## Funcionamento no VeritasIA
 
 Dentro do projeto existe quatro spiders, sendo eles:
@@ -34,6 +34,7 @@ python -m pip install Playwright
 playwright install --with-deps firefox
 ```
 
+---
 #### Como Executar: 
 
 Executar o spider:

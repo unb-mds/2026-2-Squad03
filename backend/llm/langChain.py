@@ -6,7 +6,7 @@ from langchain_core.output_parsers import StrOutputParser
 from google.api_core.exceptions import ResourceExhausted
 from langchain_google_genai.chat_models import ChatGoogleGenerativeAIError
 from backend.llm.news_Classification import NewsClassification
-
+import time
 #+-------------------------------------------++-------------------------------------------++-------------------------------------------+
 
 def classifation_news_with_LLM(news):
@@ -93,9 +93,15 @@ def classifation_news_with_LLM(news):
 
 
             return response.model_dump()
+
+
+        except ChatGoogleGenerativeAIError as e:
+            print(f"Erro usando a chave {index}: {type(e).__name__}")
+            time.sleep(30)
+            continue
         
         except Exception as e:
-            print(f"Erro usando a chave {index}: {type(e)._name_}")
+            print(f"Erro usando a chave {index}: {type(e).__name__}")
             print(e)
             continue
         

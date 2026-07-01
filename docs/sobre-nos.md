@@ -1,64 +1,52 @@
+<h2 align="center">Squad 03</h2>
 
-# Squad 03
+<h3>Funções</h3>
 
-## Funções
-- [Christian](https://github.com/christianrolim) (Scrum Master / Backend)
-- [Daniel](https://github.com/Daniel241025) (Frontend)
-- [Danilo](https://github.com/danilofns) (Prototipagem / Web Scraping)
-- [Henrique](https://github.com/SchneiderCode1) (Project Owner / Backend)
-- [Jadson](https://github.com/jadsonRleandro) (Prototipagem / Web Scraping)
-- [Vitor](https://github.com/TheBagomes) (Frontend)
+| Integrante | Responsabilidade |
+|------------|------------------|
+| [Daniel](https://github.com/Daniel241025) | Frontend / Prototipagem |
+| [Danilo](https://github.com/danilofns) | Web Scraping / LangChain |
+| [Henrique](https://github.com/SchneiderCode1) | Project Owner · Backend · FastAPI |
+| [Jadson](https://github.com/jadsonRleandro) | Web Scraping / LangChain |
+| [Vitor](https://github.com/TheBagomes) | Frontend / Prototipagem |
 
+<br>
 
-<div class="team-grid">
-
-<a href="https://github.com/christianrolim" class="team-member">
-  <img src="https://github.com/christianrolim.png" alt="Christian Silva">
-
-  <div class="name">
-    Christian Silva
-  </div>
+<table align="center">
+<tr>
+<td align="center" width="170">
+<a href="https://github.com/Daniel241025">
+<img src="https://github.com/Daniel241025.png" width="110" style="border-radius:50%;"><br>
+<b>Daniel Rodrigues</b>
 </a>
+</td>
 
-<a href="https://github.com/Daniel241025" class="team-member">
-  <img src="https://github.com/Daniel241025.png" alt="Daniel Rodrigues">
-
-  <div class="name">
-    Daniel Rodrigues
-  </div>
+<td align="center" width="170">
+<a href="https://github.com/danilofns">
+<img src="https://github.com/danilofns.png" width="110" style="border-radius:50%;"><br>
+<b>Danilo Fernandes</b>
 </a>
+</td>
 
-<a href="https://github.com/danilofns" class="team-member">
-  <img src="https://github.com/danilofns.png" alt="Danilo Fernandes">
-
-  <div class="name">
-    Danilo Fernandes
-  </div>
+<td align="center" width="170">
+<a href="https://github.com/SchneiderCode1">
+<img src="https://github.com/SchneiderCode1.png" width="110" style="border-radius:50%;"><br>
+<b>Henrique Schneider</b>
 </a>
+</td>
 
-<a href="https://github.com/SchneiderCode1" class="team-member">
-  <img src="https://github.com/SchneiderCode1.png" alt="Henrique Schneider">
-
-  <div class="name">
-    Henrique Schneider
-  </div>
+<td align="center" width="170">
+<a href="https://github.com/jadsonRleandro">
+<img src="https://github.com/jadsonRleandro.png" width="110" style="border-radius:50%;"><br>
+<b>Jadson Ricardo</b>
 </a>
+</td>
 
-<a href="https://github.com/jadsonRleandro" class="team-member">
-  <img src="https://github.com/jadsonRleandro.png" alt="Jadson Ricardo">
-
-  <div class="name">
-    Jadson Ricardo
-  </div>
+<td align="center" width="170">
+<a href="https://github.com/TheBagomes">
+<img src="https://github.com/TheBagomes.png" width="110" style="border-radius:50%;"><br>
+<b>Vitor Barreto</b>
 </a>
-
-
-<a href="https://github.com/TheBagomes" class="team-member">
-  <img src="https://github.com/TheBagomes.png" alt="Vitor Barreto">
-
-  <div class="name">
-    Vitor Barreto
-  </div>
-</a>
-
-</div>
+</td>
+</tr>
+</table>
