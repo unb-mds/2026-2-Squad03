@@ -163,6 +163,8 @@ def build_commit_aggregates(
         if author_login in {
             "github-actions[bot]",
             "RochaCarla",
+            "christianrolim",
+            "unknown"
         }:
             continue
         
