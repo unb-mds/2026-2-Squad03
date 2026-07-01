@@ -5,7 +5,7 @@ site_description: "Documentação oficial do VeritasIA"
 docs_dir: docs
 site_url: https://unb-mds.github.io/2026-2-VeritasIA/docs/
 
-theme: 
+theme:
   name: material
   logo: assets/texto.png
   favicon: assets/Logo.png
@@ -34,7 +34,10 @@ nav:
   - Frontend:
       - React: frontend/React.md
       - Prototipagem: frontend/Prototipagem.md
+<<<<<<< HEAD
+      - Fluxo Do Frontend: frontend/Fluxo.md
       - Qualidade de Codigo: frontend/qualidade.md
+>>>>>>> 395fac5218b1109540b039dac9361c8bb679335b
   - Backend:
       - FastAPI: backend/FastAPI/FastAPI.md
       - Main: backend/FastAPI/base/main.md
@@ -54,7 +57,7 @@ nav:
       - Unitários: frontend/tests/testes_frontend.md
       - Integração: frontend/tests/testes_integracao.md
   - Participantes:
-        - sobre-nos.md
+      - sobre-nos.md
 
   - Produtividade:
       - Produtividade: produtividade/dashboard.md

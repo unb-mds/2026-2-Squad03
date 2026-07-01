@@ -1,143 +1,176 @@
+# Frontend
+
+O frontend do **VeritasIA** foi desenvolvido utilizando **React** com **Vite**, proporcionando uma aplicação moderna, rápida e organizada. A interface foi construída de forma componentizada, facilitando a manutenção, reutilização de código e evolução do sistema.
+
+Além do React, o projeto utiliza diversas bibliotecas para atender às necessidades específicas da aplicação, como navegação entre páginas, visualização de mapas, gráficos estatísticos e estilização da interface.
+
+---
+
 # React
-é uma biblioteca mas na prática atua como framework quando utilizado com outras ferramentas, é uma biblioteca JavaScript criada pelo Meta (antigo Facebook) e também utilizado no Instagram, e em aplicativos como a Netflix para construir interfaces de usuário, principalmente para aplicações web. (É importante entender que o react é uma biblioteca pois assim temos em mente que podemos e em determinados momentos vamos precisar de outras bibliotecas que possam nos ajudar ao utilizar o react) 
 
-O React serve para criar telas interativas e tem a praticidade de mudar e fazer atualizações de forma mais prática pois utiliza do conceito de "Componentes": 
-Um componente é como um “bloco” da interface.
-Exemplo:
--botão
--menu
--card de produto
--barra de navegação
-Você monta a aplicação juntando esses blocos.
+O **React** é uma biblioteca JavaScript desenvolvida pela Meta (Facebook) para construção de interfaces de usuário baseadas em componentes.
 
-Podemos utilizar quando utilizamos os componentes por classes ou por função, a partir da versão 16.8 quando usamos com classes podemos ter acesso a  funcionalidades como hooks e estados. (as duas vão funcionar de forma igual para o usuário, então varia mais do gosto de cada desenvolvedor)
+No VeritasIA, o React foi escolhido por permitir o desenvolvimento de uma interface dinâmica, reutilizável e de fácil manutenção, além de possibilitar atualizações eficientes da tela sem necessidade de recarregar toda a aplicação.
 
-### Componetização
+Sua arquitetura baseada em componentes facilita a divisão da interface em pequenas partes independentes, tornando o desenvolvimento mais organizado.
 
-1. Componetização
+## Componentização
 
-Você divide a interface em partes reutilizáveis.
+A interface do sistema foi dividida em componentes reutilizáveis, como:
 
-2. Virtual DOM
+- Barra lateral de navegação;
+- Cabeçalho;
+- Cards de notícias;
+- Gráficos estatísticos;
+- Mapa interativo;
+- Filtros de pesquisa;
+- Listagem de notícias.
 
-React cria uma versão “virtual” da tela para atualizar só o que mudou → deixa tudo mais rápido.
+Essa abordagem reduz duplicação de código e facilita futuras modificações.
 
-3. JSX
+---
 
-É uma forma de escrever HTML dentro do JavaScript: 
+## Virtual DOM
 
-### O que é Virtual DOM?
-O Virtual DOM é uma cópia virtual da tela (DOM real).
+O React utiliza o **Virtual DOM**, uma representação virtual da interface.
 
-Como funciona:
-DOM real (normal)
+Quando alguma informação é alterada, o React compara o estado anterior com o novo estado e atualiza apenas os elementos modificados, aumentando significativamente o desempenho da aplicação.
 
-Sem React:
+Esse processo reduz renderizações desnecessárias e melhora a experiência do usuário.
 
-Qualquer mudança → atualiza a página inteira ou partes pesadas
-Isso é lento
-Com Virtual DOM (React)
+---
 
-React faz assim:
+## JSX
 
-- Cria uma cópia da interface na memória (Virtual DOM)
-- Quando algo muda:
-- compara o antes vs depois (diff)
-- Atualiza só o que mudou de verdade
-
-Exemplo simples:
-
-Imagina uma lista com 100 itens.
-
- Você muda só 1 item
-
-Sem React: pode reprocessar tudo 
-Com React: atualiza só aquele item 
-Dentro do React usamos **O Babel** que é um compilador de JavaScript.
-
-Pra que ele serve?
-
-Ele “traduz” código moderno para código que o navegador entende.
+O React utiliza **JSX (JavaScript XML)**, uma sintaxe que permite escrever estruturas semelhantes ao HTML dentro do JavaScript.
 
 Exemplo:
 
-Você escreve isso (JSX do React):
+```jsx
+function Botao() {
+  return <button>Pesquisar</button>;
+}
+```
 
-`const elemento = <h1>Olá</h1>;`
-
-O Babel transforma em algo assim:
-
-`const elemento = React.createElement("h1", null, "Olá");`
-
- Ou seja:
-
-Navegador não entende JSX
-Babel converte JSX em JavaScript puro
- 
-Fluxo simplificado:
-
-- Você escreve código React (JSX)
-- Babel traduz esse código
-- React usa o Virtual DOM
-- Só atualiza o necessário na tela_ 
-
-### Next.js
-
-_Framework moderno baseado em React, focado em performance, escalabilidade e melhor experiência de desenvolvimento.
+O JSX é convertido para JavaScript durante o processo de compilação realizado pelo Vite e pelo Babel.
 
 ---
 
-Sobre
-O Next.js é um framework desenvolvido pela Vercel, criado para suprir limitações do React puro, principalmente em SEO, renderização e estrutura de aplicações.
+# Vite
+
+O projeto utiliza **Vite** como ferramenta de desenvolvimento e build.
+
+O Vite oferece diversas vantagens em relação a ferramentas tradicionais:
+
+- Inicialização extremamente rápida;
+- Atualização instantânea durante o desenvolvimento (Hot Module Replacement);
+- Build otimizada para produção;
+- Configuração simples;
+- Excelente integração com React.
+
+Sua utilização reduz significativamente o tempo de desenvolvimento e melhora a produtividade da equipe.
 
 ---
 
-### Principais Features
+# React Router DOM
 
-- Framework baseado em React
-- Alta escalabilidade
-- Sistema de roteamento automático
-- Server-Side Rendering (SSR) com Node.js
-- Renderização híbrida (cliente + servidor)
-- Pré-renderização para melhor performance
-- Code Splitting automático
-- Roteamento do lado do cliente
-- Suporte a CSS, Sass e CSS-in-JS
-- Fast Refresh no desenvolvimento
-- API Routes (backend integrado)
-- Totalmente extensível
+Para gerenciar a navegação entre as páginas da aplicação foi utilizado o **React Router DOM**.
 
----
+Ele permite criar uma aplicação do tipo **SPA (Single Page Application)**, onde a navegação ocorre sem recarregar toda a página.
 
-### Arquitetura
-Construção isomórfica: combina renderização no cliente e no servidor ao mesmo tempo.
+As principais rotas da aplicação incluem:
+
+- Dashboard;
+- Mapa;
+- Notícias;
+- Sobre Nós;
+- Página de detalhes da notícia.
+
+Essa abordagem proporciona uma navegação mais fluida e melhora a experiência do usuário.
 
 ---
 
-### Casos de Sucesso
-Empresas que utilizam Next.js:
+# React Leaflet
 
-- Docker
-- Twitch
-- Nubank
-- Uber
-- Netflix
-- GitHub
-- 
+A funcionalidade de visualização geográfica foi implementada utilizando **React Leaflet**, biblioteca baseada no Leaflet para aplicações React.
 
----
+Ela permite:
 
-### Desvantagens
+- Exibir mapas interativos;
+- Posicionar marcadores;
+- Visualizar regiões do Brasil;
+- Implementar mapas de calor (Heatmap).
 
-- Algumas bibliotecas exigem configuração extra (ex: Redux, Styled Components)
-- Dependência do ambiente Node.js
-- Alto tráfego pode exigir mais carga de servidor
-- Necessita mais atenção na arquitetura
-
----
-### Conclusão
-O Next.js é uma evolução do React que resolve problemas reais de desenvolvimento moderno, oferecendo melhor performance, SEO e organização. Apesar de exigir mais cuidado técnico, é uma das melhores opções para aplicações web escaláveis.
+Essa biblioteca é responsável pela funcionalidade de análise espacial das notícias presentes no sistema.
 
 ---
 
-Pesquisa feita por Daniel Rodrigues e Vitor Barreto Gomes_
+# Recharts
+
+Para apresentar os indicadores estatísticos foi utilizada a biblioteca **Recharts**.
+
+Ela possibilita a criação de gráficos responsivos de forma simples, incluindo:
+
+- Evolução temporal das notícias;
+- Distribuição por estados;
+- Notícias por região;
+- Comparações estatísticas.
+
+Os gráficos são totalmente integrados aos componentes React, facilitando sua atualização conforme os dados são alterados.
+
+---
+
+# Tailwind CSS
+
+A estilização da aplicação foi desenvolvida utilizando **Tailwind CSS**.
+
+O framework fornece classes utilitárias que permitem construir interfaces modernas sem necessidade de escrever grandes arquivos CSS.
+
+Entre suas vantagens destacam-se:
+
+- Desenvolvimento mais rápido;
+- Padronização visual;
+- Responsividade;
+- Fácil manutenção;
+- Reutilização de estilos.
+
+---
+
+# Organização do Projeto
+
+O frontend segue uma estrutura organizada em módulos.
+
+```text
+src/
+│
+├── assets/
+├── components/
+├── pages/
+├── services/
+├── utils/
+├── App.jsx
+└── main.jsx
+```
+
+Essa organização facilita a separação das responsabilidades e torna o projeto mais escalável.
+
+---
+
+# Principais Tecnologias Utilizadas
+
+| Tecnologia       | Finalidade                          |
+| ---------------- | ----------------------------------- |
+| React            | Construção da interface             |
+| Vite             | Ambiente de desenvolvimento e build |
+| React Router DOM | Navegação entre páginas             |
+| React Leaflet    | Mapas interativos                   |
+| Recharts         | Gráficos estatísticos               |
+| Tailwind CSS     | Estilização da interface            |
+
+---
+
+# Conclusão
+
+A arquitetura do frontend foi construída utilizando tecnologias modernas do ecossistema React, proporcionando uma aplicação rápida, organizada e de fácil manutenção.
+
+A combinação entre React, Vite, React Router DOM, React Leaflet, Recharts e Tailwind CSS permite que o VeritasIA ofereça uma interface responsiva, intuitiva e eficiente para visualização e análise das notícias monitoradas.
