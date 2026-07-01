@@ -18,7 +18,7 @@ Informações Úteis:
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session, joinedload
-from typing import List
+from typing import List, Any, Dict
 from backend.app.database import get_db
 from backend.app.models import NoticiaModel as Noticia
 from backend.app.models import RegiaoModel as Regiao
@@ -38,7 +38,7 @@ router = APIRouter(
 
 # 📱 Endpoint para o Front-end listar os locais que possuem alertas/notícias
 @router.get("/", response_model=List[NoticiaResponse])
-def listar_noticias_locais(skip: int = 0, db: Session = Depends(get_db)) -> List[Noticia]:
+def listar_noticias_locais(db: Session = Depends(get_db)) -> Dict[str, Any]:
     """
     Lista as notícias cadastradas no banco de dados com suporte a paginação 
     e inclusão automática dos dados espaciais (Região).
@@ -66,7 +66,6 @@ def listar_noticias_locais(skip: int = 0, db: Session = Depends(get_db)) -> List
     noticias = (
         db.query(Noticia)
         .options(joinedload(Noticia.regiao)) 
-        .offset(skip)
         .all()
     )
     

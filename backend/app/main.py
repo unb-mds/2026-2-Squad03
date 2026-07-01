@@ -43,7 +43,7 @@ origins = [
 # Configuração de CORS para permitir requisições do frontend (local e em produção)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # TODO: Substituir por allow_origins=origins em ambiente de Produção
+    allow_origins=origins, # TODO: Substituir por allow_origins=origins em ambiente de Produção
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
