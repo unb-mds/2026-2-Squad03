@@ -26,7 +26,6 @@ import "../App.css";
 import "./Mapa.css";
 import Sidebar from "../components/Sidebar";
 import LeafletMap from "../components/LeafletMap";
-import PageHeader from "../components/PageHeader";
 
 /** UseState
  * Controla o tipo de visualização do mapa.
@@ -51,28 +50,32 @@ function Mapa() {
       <Sidebar />
 
       <main className="content">
-        <PageHeader
-          title="Mapa"
-          subtitle="Visualização geográfica das notícias"
-        >
-          <div className="view-selector">
-            <button
-              className={`view-btn ${viewType === "markers" ? "active" : ""}`}
-              onClick={() => setViewType("markers")}
-            >
-              Marcadores
-            </button>
-
-            <button
-              className={`view-btn ${viewType === "heat" ? "active" : ""}`}
-              onClick={() => setViewType("heat")}
-            >
-              Calor
-            </button>
-          </div>
-        </PageHeader>
-
         <section className="full-box">
+          <header className="header map-header">
+            <div>
+              <h2>Mapa</h2>
+              <p>Visualização geográfica das notícias</p>
+            </div>
+
+            <div className="header-actions">
+              <div className="view-selector">
+                <button
+                  className={`view-btn ${viewType === "markers" ? "active" : ""}`}
+                  onClick={() => setViewType("markers")}
+                >
+                  Marcadores
+                </button>
+
+                <button
+                  className={`view-btn ${viewType === "heat" ? "active" : ""}`}
+                  onClick={() => setViewType("heat")}
+                >
+                  Calor
+                </button>
+              </div>
+            </div>
+          </header>
+
           <h3 className="map-section-title">
             Distribuição das notícias pelo Brasil
           </h3>
