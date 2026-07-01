@@ -1,57 +1,64 @@
-/**
- * ============================================================================
- * Componente: Mapa
- * ----------------------------------------------------------------------------
- * Página responsável pela visualização geográfica das notícias monitoradas
- * pelo sistema VeritasIA.
- *
- * Funcionalidades:
- * - Exibe o mapa interativo ocupando toda a área da aba.
- * - Permite alternar entre visualização por marcadores e mapa de calor
- *   através de um painel flutuante sobre o mapa.
- * - Apresenta uma legenda flutuante com as categorias monitoradas.
- *
- * Componentes utilizados:
- * - Sidebar
- * - LeafletMap
- *
- * Dependências:
- * - React
- * - React Leaflet
- * ============================================================================
- */
-
-import { useState } from "react";
-import "../App.css";
-import "./Mapa.css";
+import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import LeafletMap from "../components/LeafletMap";
+import Calendario from "../components/Calendario";
+import "../App.css";
+import "./Mapa.css";
 
-/** UseState
- * Controla o tipo de visualização do mapa.
- *
- * Valores possíveis:
- * - "markers": exibe cada notícia como um marcador individual.
- * - "heat": exibe um mapa de calor baseado na concentração das ocorrências.
- */
-
-function Mapa() {
+export default function Mapa() {
   const [viewType, setViewType] = useState("markers");
 
+  const [geoJsonData, setGeoJsonData] = useState(null);
+  const [noticiasFiltradas, setNoticiasFiltradas] = useState([]);
+
+  useEffect(() => {
+    fetch("https://two026-2-veritasia.onrender.com/mapa/")
+      .then((res) => res.json())
+      .then((data) => {
+        setGeoJsonData(data);
+        setNoticiasFiltradas(data.features);
+      });
+  }, []);
+  
+
+function filtrarPorPeriodo(inicio, fim) {
+  if (!geoJsonData?.features) {
+    return;
+  }
+
+
+  const filtradas = geoJsonData.features.filter((n) => {
+    const data = new Date(n.properties.data);
+
+    return (
+      data >= new Date(inicio) &&
+      data <= new Date(fim)
+    );
+  });
+
+  setNoticiasFiltradas(filtradas);
+}
   return (
     <div className="app">
       <Sidebar />
 
       <main className="content map-content">
         <div className="map-fullbleed">
-          {/* Painel flutuante: título + seletor de visualização */}
+
+          {/* HEADER */}
           <div className="map-floating-header">
             <div>
               <h2>Mapa</h2>
               <p>Visualização geográfica das notícias</p>
             </div>
 
+            <div className="calendario-container">
+              <Calendario onPeriodoChange={filtrarPorPeriodo} />
+            </div>
+
+
             <div className="view-selector">
+
               <button
                 className={`view-btn ${viewType === "markers" ? "active" : ""}`}
                 onClick={() => setViewType("markers")}
@@ -68,39 +75,16 @@ function Mapa() {
             </div>
           </div>
 
-          {/* Mapa ocupando 100% da área da aba */}
+          {/* MAPA */}
           <div className="map-fullbleed-container">
-            <LeafletMap viewType={viewType} />
+            <LeafletMap
+              viewType={viewType}
+              noticias={noticiasFiltradas}
+            />
           </div>
 
-          {/* Painel flutuante: legenda
-          <div className="map-legend map-floating-legend">
-            <div className="legend-header">
-              <h4>Legenda do mapa</h4>
-            </div>
-
-            <div className="legend-items">
-              <div className="legend-item">
-                <span className="legend-dot red"></span>
-                <span>Feminicídio</span>
-              </div>
-
-              <div className="legend-item">
-                <span className="legend-dot orange"></span>
-                <span>Violência Doméstica</span>
-              </div>
-
-              <div className="legend-item">
-                <span className="legend-dot blue"></span>
-                <span>Outros</span>
-              </div>
-            </div>
-          </div>
-          */}
         </div>
       </main>
     </div>
   );
 }
-
-export default Mapa;

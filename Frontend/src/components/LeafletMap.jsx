@@ -55,7 +55,81 @@
  * Gera os pontos utilizados pelo mapa de calor.
  *
  * useMemo é utilizado para evitar que essa transformação
- * seja recalculada a cada renderização do componente.
+ * seja recalimport { useEffect, useRef } from "react";
+import flatpickr from "flatpickr";
+import { Portuguese } from "flatpickr/dist/l10n/pt";
+import "flatpickr/dist/flatpickr.min.css";
+import "./Calendario.css";
+
+export default function Calendario() {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    const calendario = flatpickr(inputRef.current, {
+      locale: Portuguese,
+      mode: "range",
+      dateFormat: "d-m-Y",
+      monthSelectorType: "static",
+
+      onChange(selectedDates) {
+        if (selectedDates.length === 2) {
+          const dataInicial = transformarData(selectedDates[0]);
+          const dataFinal = transformarData(selectedDates[1]);
+
+          modificarmapa(dataInicial, dataFinal);
+        }
+      },
+    });
+
+    return () => calendario.destroy();
+  }, []);
+
+  function modificarmapa(dataInicial, dataFinal) {
+    const listaDeNoticias = [
+      { data: "2026-01-10" },
+      { data: "2026-06-17" },
+      { data: "2026-06-18" },
+      { data: "2026-06-20" },
+    ];
+
+    const novalista = listaDeNoticias.filter((noticia) =>
+      estaNoIntervalo(noticia.data, dataInicial, dataFinal)
+    );
+
+    atualizarmapa(novalista);
+  }
+
+  function transformarData(data) {
+    const ano = data.getFullYear();
+    const mes = String(data.getMonth() + 1).padStart(2, "0");
+    const dia = String(data.getDate()).padStart(2, "0");
+
+    return ${ano}-${mes}-${dia};
+  }
+
+  function estaNoIntervalo(data, inicio, fim) {
+    const dataVerificar = new Date(data);
+    const dataInicio = new Date(inicio);
+    const dataFim = new Date(fim);
+
+    return dataVerificar >= dataInicio && dataVerificar <= dataFim;
+  }
+
+  function atualizarmapa(novalista) {
+    console.log(novalista);
+  }
+
+  return (
+    <div>
+      <input
+        ref={inputRef}
+        id="periodo"
+        placeholder="Período"
+        readOnly
+      />
+    </div>
+  );
+}culada a cada renderização do componente.
  *
  * O cálculo será executado apenas quando geoJsonData
  * sofrer alguma alteração.
@@ -78,8 +152,7 @@ Exibe o mapa de calor quando selecionado pelo usuário. */
 
 /*Popup
  Informações resumidas da notícia selecionada. */
-
-import { useState, useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useNavigate } from "react-router-dom";
 import L from "leaflet";
@@ -94,10 +167,8 @@ function criarIcone(cor) {
       <FaMapMarkerAlt
         size={36}
         color={cor}
-        style={{
-          filter: "drop-shadow(0px 4px 8px rgba(0,0,0,.35))",
-        }}
-      />,
+        style={{ filter: "drop-shadow(0px 4px 8px rgba(0,0,0,.35))" }}
+      />
     ),
     className: "",
     iconSize: [34, 34],
@@ -112,33 +183,20 @@ const icons = {
   outros: criarIcone("#2563eb"),
 };
 
-function LeafletMap({ viewType }) {
-  const [geoJsonData, setGeoJsonData] = useState(null);
-
+export default function LeafletMap({ viewType, noticias }) {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch("https://two026-2-veritasia.onrender.com/mapa/")
-      .then((res) => res.json())
-      .then(setGeoJsonData)
-      .catch(console.error);
-  }, []);
-
   const heatPoints = useMemo(() => {
-    if (!geoJsonData?.features) return [];
+    if (!noticias) return [];
 
-    return geoJsonData.features
-      .filter((feature) => feature.geometry?.type === "Point")
-      .map((feature) => [
-        feature.geometry.coordinates[1],
-        feature.geometry.coordinates[0],
+    return noticias
+      .filter((n) => n.geometry?.type === "Point")
+      .map((n) => [
+        n.geometry.coordinates[1],
+        n.geometry.coordinates[0],
         0.8,
       ]);
-  }, [geoJsonData]);
-
-  if (!geoJsonData) {
-    return <div>Carregando mapa...</div>;
-  }
+  }, [noticias]);
 
   return (
     <MapContainer
@@ -158,17 +216,17 @@ function LeafletMap({ viewType }) {
       )}
 
       {viewType === "markers" &&
-        geoJsonData.features.map((feature, index) => {
-          if (feature.geometry?.type !== "Point") return null;
+        noticias?.map((n, index) => {
+          if (n.geometry?.type !== "Point") return null;
 
-          const { id, titulo, tipo } = feature.properties;
+          const { id, titulo, tipo } = n.properties;
 
           return (
             <Marker
               key={id || index}
               position={[
-                feature.geometry.coordinates[1],
-                feature.geometry.coordinates[0],
+                n.geometry.coordinates[1],
+                n.geometry.coordinates[0],
               ]}
               icon={icons[tipo] || icons.outros}
             >
@@ -196,5 +254,3 @@ function LeafletMap({ viewType }) {
     </MapContainer>
   );
 }
-
-export default LeafletMap;

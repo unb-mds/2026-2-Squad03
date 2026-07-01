@@ -336,3 +336,58 @@
     align-items: flex-start;
   }
 }
+
+#periodo {
+    width: 250px;
+    height: 40px;
+    text-align: center;
+
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+
+    border: 1px solid #dbe1ea;
+    border-radius: 20px;
+
+    background: white;
+    color: #374151;
+
+    outline: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+}
+
+#periodo:focus {
+    background: #0b4db3;
+    border-color: #0b4db3;
+    color: white;
+}
+
+.flatpickr-weekday {
+    font-weight: bold;
+}
+
+.flatpickr-current-month {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months,
+.flatpickr-current-month input.cur-year {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+}
+
+.flatpickr-current-month .numInputWrapper {
+    display: none;
+}
+
+.flatpickr-current-month::after {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.calendario-container{
+  align-self: center;
+}
