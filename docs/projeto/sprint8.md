@@ -2,42 +2,51 @@
 
 ## Período
 
-14/05/2026 (Data da Reunião 8)
+25/06/2026
 
 ---
 
 ## Objetivo da sprint
 
-Consolidação da infraestrutura de banco de dados e planejamento do roteiro técnico para a apresentação da Release 1.
+Finalalização das principais funções
 
 ---
 
 ## Issues relacionadas
 
-1. Elaboração do roteiro de apresentação para a Release 1 #25
-1. Configuração do Supabase e ativação da extensão PostGIS #22
-1. Definição de evidências de viabilidade e métricas de sucesso #28
-
+- frontend: documentar componentes, páginas e lógica da aplicação, integração, refinamento da interface e documentação técnica #73
+- Issue: Configuração de Deploy Automatizado (GitHub Pages) #66
+- Implementar navegação e visualização detalhada de notícias #63
+- Docs/mkdocs. Issue #46 e #61#62
+- [Documentação] LLM e seu Workflow #61
+- Compleção Parcial das Issues 51, 53, 55#60
+- Conclusão da Issue - Mapa Interativo #59
+- Estrutura Inicial da Página de Mapa #58
+- [Feature] Pipeline Unificado: Scraper ➔ LLM ➔ Supabase (Envio Direto) #57
+- 📖 [DOC] Reestruturação da Documentação do Projeto no MkDocs #46
+- 🎯 [EPIC] Prototipagem e Implementação das Telas do Front-end (Vue 3) #51
+- 🕷️ [FEAT] Scraper: Alinhamento de Atributos Coletados com o Schema do Banco de Dados #52
+- 🧪 [TEST] Backend: Testes de Integração (Front-Back / Back-Front) e Envio para o Banco de Dados #53 #53
+- 🤖 [FEAT] Módulo LLM: Script de Resumo Automatizado de Notícias (Modos Raw e Blurred) #55
+- 🗄️ [CHORE] Banco de Dados: Atualização de Modelos para Armazenamento de Resumos (LLM) #56
 ---
 
 ## Atividades realizadas
 
-- Mapeamento do Desafio: Definição da narrativa da apresentação, focando na unificação de notícias dispersas sobre feminicídio para prover dados precisos e centralizados.
-- Estruturação Tecnológica: Decisão pelo uso do PostgreSQL (via Supabase) com suporte a dados geoespaciais e FastAPI pela facilidade de integração assíncrona com IA.
-- Validação de Implementação: Verificação dos endpoints iniciais e da estrutura de tabelas (Usuários, Notícias e Regiões) para garantir que o pipeline de dados esteja funcional para a demonstração.
-- Planejamento de Apresentação: Divisão das falas em 5 minutos cobrindo: Abertura, Desafio, Implementação e Evidências.
+- Finalização das telas Dashboard, Mapa, sobre nos e documentação
+- alinhamento da llm com o banco de dados
+- finalização do fastapi
 
 ---
 
 ## Entregas da sprint
 
-- Roteiro da Release 1: Documento estruturado contendo a estratégia de apresentação do Squad 03.
-- Ambiente de Banco de Dados: Instância no Supabase pronta para persistência dos dados coletados pelo scraper.
+- maior parte das issues completas
+- finalização quase completa para segunda realease
 
 ---
 
 ## Evidências
 
-- Transcrição da Reunião 8: Registro das decisões sobre o checklist da professora e viabilidade do escopo.
-- Diagramas de Dados: Definição preliminar dos modelos de dados para o monitoramento geográfico.
-- Repositório Atualizado: Inclusão de configurações de infraestrutura e dependências do PostGIS.
+- issus fechadas
+- pull requests realizados
