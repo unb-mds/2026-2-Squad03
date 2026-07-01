@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-01T04:42:33Z",
+  "generated_at": "2026-07-01T04:49:17Z",
   "repository": "unb-mds/2026-2-VeritasIA",
   "issues_per_week": [
     {
@@ -60,11 +60,11 @@
     },
     {
       "range": "21-50",
-      "count": 85
+      "count": 86
     },
     {
       "range": "51-100",
-      "count": 76
+      "count": 77
     },
     {
       "range": "101-200",
@@ -203,7 +203,7 @@
     {
       "day": 2,
       "hour": 4,
-      "count": 14
+      "count": 16
     },
     {
       "day": 2,
@@ -443,7 +443,7 @@
     {
       "username": "Daniel241025",
       "name": "Daniel Rodrigues Freitas",
-      "commits": 26,
+      "commits": 28,
       "avatar_url": "https://avatars.githubusercontent.com/u/215087737?v=4"
     },
     {
@@ -467,16 +467,16 @@
   ],
   "top_pr_authors": [
     {
-      "username": "jadsonRleandro",
-      "name": "Jadson Ricardo",
-      "prs_opened": 0,
-      "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
-    },
-    {
       "username": "Daniel241025",
       "name": "Daniel Rodrigues Freitas",
       "prs_opened": 0,
       "avatar_url": "https://avatars.githubusercontent.com/u/215087737?v=4"
+    },
+    {
+      "username": "jadsonRleandro",
+      "name": "Jadson Ricardo",
+      "prs_opened": 0,
+      "avatar_url": "https://avatars.githubusercontent.com/u/160337733?v=4"
     },
     {
       "username": "SchneiderCode1",
